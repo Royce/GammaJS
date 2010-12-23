@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load macros %}
+
+{% block preHead %}
+    <link type="text/css" rel="stylesheet" href="/support/jspec/lib/jspec.css" />
+{% endblock %}
+
+{% block extraHead %}
+	<script type="text/javascript" src="/support/jspec/lib/jspec.js"></script>
+    <script type="text/javascript" src="/support/jspec/lib/jspec.xhr.js"></script>
+    <script type="text/javascript" src="/support/jspec/lib/jspec.timers.js"></script>
+    <script type="text/javascript" src="/support/jspec/lib/jspec.jquery.js"></script>
+    <script type="text/javascript" src="/support/sylvester.js"></script>
+    <script type="text/javascript" src="/scripts/gma/spec/spec.helper.js"></script>
+{% endblock %}
+
+{% macro opts %}
+    {{ block.super }}
+    require.deps = ['gma/base']
+    require.callback = function callback(gma) {
+        require.ready(function() {
+            var deps = [];
+            {% for path in paths %}
+                jingoName = "{{path}}".substr(1, "{{path}}".search("_spec"));
+                gma.test("/scripts/{{path}}", jingoName + "_spec");
+                deps.push(jingoName + "_spec")
+            {% endfor %}
+        
+            require(deps,
+                function startTests() {
+                        JSpec
+                        .run({verbose: true, failuresOnly: true, fixturePath: '/scripts/gma/spec' })
+                        .report();
+                }
+            );
+        });
+    };
+{% endmacro %}
+
+{% block testRequireOpts %}
+    {% usemacro opts %}
+{% endblock %}
+
+{% block requireOpts %}
+    {% usemacro opts %}
+{% endblock %}
+
+{% block content %}
+	<div id="jspec-top"><h2 id="jspec-title">JSpec</h2></div>
+	<div id="jspec"></div>
+	<div id="jspec-bottom"></div>
+    <div id="gamma"></div>
+    
+{% endblock %}

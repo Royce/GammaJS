@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>{% block title %}gma > {{title}}{%endblock%}</title>
+{%block head%}
+    {% block preHead %}{% endblock %}
+    {% block baseCss %}
+	<link rel="stylesheet" type="text/css"        href="/wglemedia/css/base.css" media="all"/>
+	{% endblock %}
+	
+    {% block extraCss %}
+        {% for f in css %}
+            <link rel="stylesheet" type="text/css" href="{{f}}"/>
+        {% endfor %}
+    {% endblock %}
+
+    {% if useStatic %}
+        
+        {% if testing %}
+            <script type="text/javascript">
+            {% block testRequireOpts %}
+                var require = {
+                    baseUrl: "/{% if gettingCoverage %}instrumented{% else %}scripts{% endif %}/",
+                    waitSeconds: 15,
+                    context: "gma"
+                };        
+            {% endblock %}
+            </script>
+            
+            {% block testRequire %}
+                <script type="text/javascript" src="/support/require/requireplugins-jquery-1.4.2.js"></script>
+            {%endblock%}
+        {% endif %}
+        
+        <script type="text/javascript" src="/support/compiled/gma-min.js"></script>
+    {% else %}
+	    {% block libraries %}
+	        <script type="text/javascript" src="/support/underscore.js"></script>
+	        <script type="text/javascript" src="/support/sylvester.js"></script>
+	    {% endblock %}
+	
+	    {% block mainLibrary %}
+            <script type = "text/javascript" src = "/support/glge/glge_math.js"></script> 
+            <script type = "text/javascript" src = "/support/glge/glge.js"></script> 
+            <script type = "text/javascript" src = "/support/glge/glge_input.js"></script> 
+            <script type = "text/javascript" src = "/support/glge/glge_collada.js"></script> 
+	    {% endblock %}
+	
+        {% if not compiled %}
+            <script type="text/javascript">
+            {% block requireOpts %}
+                var require = {
+                    baseUrl: "/{% if gettingCoverage %}instrumented{% else %}scripts{% endif %}/",
+                    waitSeconds: 15,
+                    context: "gma"
+                };        
+            {% endblock %}
+            </script>
+            
+            {% block require %}
+                <script type="text/javascript" src="/support/require/requireplugins-jquery-1.4.2.js"></script>
+            {%endblock%}
+        {% else %}
+        
+            <script type="text/javascript" src="/support/jquery-1.4.2.js"></script>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+{%block extraHead %}{% endblock %}
+</head>
+
+<body {% block bodyOpts %}{%endblock%} 
+	id="{% block sectionid %}base{% endblock %}" class="{% block bClass %}default{% endblock %}">
+	
+<div id="fullwrapper">
+	<div id="header">
+	    {% block header %} {% endblock %}
+	</div>
+	
+	{% block middle %}
+	<div id="content">
+
+        {% block content %}
+            {% if errors %}
+                <div id="error">
+                {% for error in errors %} 
+                    <p style="padding-left:30px;text-align:left">{{error}}</p>
+                {% endfor %}
+                </div>
+                <div class="clearing"></div>
+                
+            {% else %}
+                {% if message %}
+                    <p style="padding-left:30px;text-align:left">{{message}}</p>
+                {% endif %}
+                
+                {% block extraContent %}{% endblock %}
+                {% block canvas %}
+                <div id="gamma">Oh dear, doesn't work :(</div>
+                {% endblock %}
+            	{%block extraScripts %}{% endblock %}
+                
+            {% endif %}
+        {% endblock %}
+    
+    </div>
+    
+    {% endblock %}
+	
+    <div id="top_navigation">
+        {% block navigation %}
+        <ul>
+            {% if title %}
+            <li class='title'>
+                <p>{{title}}</p>
+            </li>
+            {% endif %}
+            {% if not gettingCoverage %}
+            <li>
+                <a href="/{% if useStatic %}?usestatic{% endif %}">Index</a>
+            </li>
+            <li>
+                <a href="/test/all{% if useStatic %}?usestatic{% endif %}">All Tests</a>
+            </li>
+            <li>
+                <a href="/jscoverage{% if coverage %}?url={{coverage}}{% endif %}">Coverage</a>
+            </li>
+            <li>
+                <a href="/docs/index.html">Docs</a>
+            </li>
+            {% if not isCoverage %}
+            <li>
+                {% if useStatic %}
+                <a href="{{request.path}}">Use Dynamic</a>
+                {% else %}
+                <a href="?usestatic">Use Static</a>
+                {% endif %}
+            </li>
+            {% endif %}
+            {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
+	
+	<div id="footer">
+	    {% block footer %} {% endblock %}
+	</div>
+
+</div>
+</body>
+</html>

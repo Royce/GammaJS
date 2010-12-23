@@ -1,0 +1,11 @@
+syntax:glob
+*.pyc
+*~
+.DS_Store
+web/info
+web/results
+info
+messages.log
+APIgen/src/docs/*
+APIgen/src/temp/*
+built/*

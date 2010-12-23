@@ -1,0 +1,15 @@
+*.pyc
+*~
+.DS_Store
+*.graffle
+docs/_build/*
+built/*
+app-build.js
+support/web/info
+support/web/results
+support/info
+support/messages.log
+support/APIgen/src/docs/*
+support/APIgen/src/temp/*
+support/built/*
+

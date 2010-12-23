@@ -1,0 +1,17 @@
+Author : Stephen Moore <delfick755@gmail.com>
+
+CWF
+===
+
+This is a layer that sits on top of django and aims to make life a bit easier. It aims to provide the following functionality
+
+    * Create menu structure and urlconf at the same time
+    * Make the menustructure inside your templates using this information
+    * Use classes to hold your views, which allows some nice abstraction and other features
+
+You'll also notice the storage folder which provides functionality that is unrelated to the Gamma project. Whilst it does work, I dislike it and plan to rewrite it in the future.
+
+Current Status
+==============
+
+The version found here is quite old and I have rewritten cwf, however until I release it to the wild (which will happen eventually), I'll continue to use the old version for this project.

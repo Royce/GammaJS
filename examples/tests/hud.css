@@ -1,0 +1,79 @@
+#gamma {
+  position: relative;
+  border: 20px solid white;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+#top_hud,
+#bottom_hud {
+  height:2em;
+  position:absolute;
+  left:0em;
+  width:100%;
+  background-color:black;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#top_hud {
+  top:0em;
+}
+#bottom_hud {
+  bottom:0em;
+}
+#bottom_hud dl, #top_hud dl {
+  margin: 0.3em;
+}
+#bottom_hud dl.left, #top_hud dl.left {
+  float: left;
+}
+#bottom_hud dl.right, #top_hud dl.right {
+  float: right;
+}
+#bottom_hud dt, #top_hud dt,
+#bottom_hud dd, #top_hud dd {
+  display: inline-block;
+  line-height: 1.4em;
+  margin: 0;
+}
+#bottom_hud dt, #top_hud dt {
+	padding-right: 0.5em;
+}
+#bottom_hud dd, #top_hud dd {
+  text-align: right;
+}
+dl.left dd {
+  padding-right: 1em;
+}
+dl.right dt {
+  padding-left: 1em;
+}
+/* Wheeeee! */
+#hud_stars span {
+  position: absolute;
+  text-indent: -1000px;
+  left: -1000px;
+  font-size: 1px;
+  display:none;
+}
+#hud_stars {
+  display: block;
+  background: transparent url(star.png) no-repeat top left scroll;
+  height: 18px;
+  width: 18px;
+  min-width: 18px;
+  position: relative;
+}
+
+#message {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 50px;
+	bottom: 50px;
+	background-color:black;
+	color: #99c;
+	background-color: rgba(0, 0, 0, 0.7);
+	text-align: center;
+	padding: 9em;
+	font-size: 2em;
+}

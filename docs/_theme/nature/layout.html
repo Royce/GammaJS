@@ -1,0 +1,42 @@
+{% extends "basic/layout.html" %}
+{%- block header %}
+    <div id="header">
+        <div class="inner">
+            <p id="site_title">
+                <a href="/">GammaJS: A WebGL platformer game engine</a>
+            </p>
+            <ul class="menu">
+            {%- for name, link, selected in toplinks %}
+                <li><a href="{{link}}" {%- if selected %}class="selected"{% endif %}>{{name}}</a></li>
+            {% endfor %}
+                <li>
+                    {%- include "searchbox.html" %}
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{%- block document %}
+    <div class="documentwrapper">
+    {%- if display_toc %}
+      <div class="bodywrapper">
+    {%- endif %}
+        <div class="body">
+          {% block body %} {% endblock %}
+        </div>
+    {%- if display_toc %}
+      </div>
+    {%- endif %}
+    <div class="sphinxsidebar">
+        {%- if display_toc %}
+          <h3><a href="{{ pathto(master_doc) }}">{{ _('Table Of Contents') }}</a></h3>
+          {{ toc }}
+        {%- endif %}
+    </div>
+    </div>
+{%- endblock %}
+
+{%- block relbar1 %}{% endblock %}
+{%- block relbar2 %}{% endblock %}
+{%- block relbaritems %}{% endblock %}
+

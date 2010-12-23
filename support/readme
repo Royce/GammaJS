@@ -1,0 +1,53 @@
+Support Repository
+==================
+
+This is the support folder for the Gamma project. It holds within it the following:
+
+ * APIGen (see the readme in the APIGen folder)
+ * Support libraries (the lib folder)
+ * A development server for finding/executing code/tests (see readme in the web folder)
+ * Some scripts for conveience at the top level
+ 
+Requirements 
+============
+
+APIGen and the dev server
+-------------------------
+
+The first requirement is python :)
+
+On windows :
+ * http://www.python.org/ftp/python/2.6/python-2.6.msi
+ * http://pypi.python.org/packages/2.6/s/setuptools/setuptools-0.6c11.win32-py2.6.exe#md5=1509752c3c2e64b5d0f9589aafe053dc
+ 
+ * Then right click 'My Computer' -> properties -> Advanced -> Environment Variables -> System Variables -> choose "Path" and press "edit" -> add ";C:/Python26" without the quotes
+
+On Ubuntu (similar for other linux distros)
+ * sudo apt-get install python, python-setuptools
+
+Then inside a terminal/cmd prompt
+ * easy_install django werkzeug paste
+
+Code Coverage
+-------------
+
+To get statement coverage from the tests, you also require jscoverage to be installed. As far as I can tell, this only works on linux and macs. You can download jscoverage from here http://siliconforks.com/jscoverage/download.html
+
+Once jscoverage is installed, you can start it by executing the "coverage.sh" script found at the top level of this repo.
+
+Environment Variables
+=====================
+
+All our scripts and the dev server assume that there exists some particular environment variables that say where particular things are.
+
+To set them on linux or mac, add lines like the following to your ~/.bashrc or ~/.bash_profile
+    export VARIABLE=VALUE
+    
+To set them on windows, you go to the same place as above when you edited the PATH variable after installing python
+
+GMA = path to the main repository
+GMA_SRC = path to the source code
+GMA_MEDIA = path to a folder where you will keep any media files (i.e. images, collada, etc)
+GMA_SUPPORT = path to a this repository
+
+If you want to be able to build the Gamma code into a single javascript file you'll also need REQUIRE, which points to a copy of the requirejs optimization tool (http://requirejs.org/docs/release/0.14.2/requirejs-0.14.2.zip)

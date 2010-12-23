@@ -1,0 +1,25 @@
+#gamma {
+    position: relative;
+    border: 20px solid white;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+#header {
+    display : none;
+}
+
+#message {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 50px;
+    bottom: 50px;
+    background-color:black;
+    color: #99c;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    padding: 9em;
+    font-size: 2em;
+}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block extraScripts %}
+    {% for path in paths %}
+        <script type="text/javascript" src="{{path}}"></script>
+    {% endfor %}
+{% endblock %}

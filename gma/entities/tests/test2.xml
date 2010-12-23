@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<glge>
+	<camera id="maincamera" loc_z="500" loc_x="0" loc_y="0"/>
+</glge>
+

@@ -1,0 +1,66 @@
+{%extends "base.html"%}
+{% load macros %}
+{% load sort %}
+
+{% macro path p %}
+<a href="{{p.compile}}"><span>build</span></a> <a href="{{p.compiled}}"><span>built</span></a> <a href="{{p.path}}{% if useStatic %}?usestatic{% endif %}" title="{{p.title}}">{{p.last}}</a>
+{% endmacro %}
+
+{% macro test p %}
+<a href="{{p.coverage}}"><span>coverage</span></a> <a href="{{p.path}}{% if useStatic %}?usestatic{% endif %}" title="{{p.title}}" >{{p.last}}</a>
+{% endmacro %}
+
+{% macro tree p type %}
+    {% for name, lst in p.items %}
+        <li>
+            <p><strong>{{name}}</strong>
+            {% if lst|length_is:"1" %}
+                : {% usemacro type lst|first %}</p>
+            {% else %}
+                </p>{% usemacro processList lst type %}
+            {% endif %}
+       </li>
+    {% endfor %}
+{% endmacro %}
+
+{% macro process lst type %}
+    {% for p in lst|sorted %}
+        {% if p.items %}
+            {% usemacro tree p type %}
+        {% else %}
+            <li>{% usemacro type p %}</li>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro processList lst type %}
+    <ul>
+        {% usemacro process lst type %}
+    </ul>
+{% endmacro %}
+
+{% macro column lst name %}
+    <div class="column"/>
+        <h1>{{name}}</h1>
+        {% usemacro processList lst "path" %}
+    </div>
+{% endmacro %}
+
+{% block content %}
+<div id="column">
+    
+    <div class="column"/>    
+    
+        <h1>Tests</h1>
+        <ul>
+            <li><a href="/jscoverage?url=/coverage/all"><span>coverage</span></a> <a href="test/all{% if useStatic %}?usestatic{% endif %}" title="All tests">All Tests</a></li>
+        {% usemacro process tests "test" %}
+        </ul>
+    </div>   
+    
+    {% usemacro column tutorials "Tutorials" %}
+    {% usemacro column examples "Examples" %}
+    
+</div>
+<div class="clearing">&nbsp;</div>
+{% endblock %}

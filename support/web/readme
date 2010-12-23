@@ -1,0 +1,99 @@
+Author : Stephen Moore <delfick755@gmail.com>
+
+Development Server
+==================
+
+This holds the development server we use to make our lives a bit nicer. It uses the django framework alongside with "cwf" which is a layer on top of django that I have created over the past couple of years.
+
+Note about cwf, the version being used here is old and has since been rewritten, however until I release that to the wild, which I will do eventually, this server will continue to use the old version.
+
+What it does
+============
+
+The server holds several functions
+
+    * Find and provide links to executing our examples and tests
+    * Create boilerplate code for running our examples and tests
+    * Provide buttons that allows us to switch between using dynamic loading and a single static static file.
+    * Allow us to use JSCoverage with our tests
+    * Build a single, minified file that holds all of Gamma's code
+
+Current State
+=============
+
+Currently the development server works and it does what it should and doesn't seem to have any noticeable performance issues. However a lack of time and the necessity to focus on other things related to our project has meant that I do consider it to be a bit hacky. (moreso /web/main/views.py than anything else)
+
+Starting the server
+===================
+
+To start the server, just run /web/server.py or "run.sh" at the top level. It will then be found at http://localhost:8000.
+
+Url Scheme
+==========
+
+Dynamic
+-------
+
+These urls are created inside /web/main/urls.py and use the views found in /web/main/views.py
+
+    * / --> The index displays links to our examples and tests
+    
+    * /jscoverage --> The JSCoverage interface
+    
+    * /test
+        * /all --> Executes all our tests
+        * /*   --> Execute a specific test
+        * Our tests use JSpec, which creates a report for us
+        
+    * /coverage
+        * Provides the same features as /test, except uses an instrumented version of the Gamma codebase. This is used by jscoverage and requires "coverage.sh" at the top level of the support repo to be executed first
+        
+    * /rev --> Says what revision number Gamma is at
+        * We were going to integrate this into the program we use for psp, but never got around to doing that
+        
+    * /view/* --> Setups an example page and executes the javascript whose path is given in the url
+    
+    * /compile/* --> Creates a compiled version of the Gamma Code combined with the specified path and then uses it
+    
+    * /compiled/* --> Uses the compiled version of the specified path, or makes a compiled version if it doesn't exist
+    
+Static
+------
+
+These urls are created inside /web/urls.py. It is highly recommended that if this server is used for anything other than a local server, that these urls be supplied by something else. For example, lighttpd.
+
+    * /wglemedia -- Serves /web/media
+    
+    * /support -- Serves /lib
+    
+    * /scripts -- Serves everything under the $GMA folder
+    
+    * /spikes -- Serves everything under the SPIKEDIR as set inside /web/settings.py
+    
+    * /docs -- Serves $GMA/docs/_build/html
+    
+    * /results -- Serves compiled versions of our examples
+    
+    * /examples -- Serves the EXAMPLEDIR as set inside /web/settings.py
+    
+    * /built and /build -- Serves the BUILTDIR as set inside /web/settings.py (how it is served becomes different)
+    
+    * /gmamedia -- Serves the $GMA_MEDIA folder
+    
+    * /instrumented -- Proxies the jscoverage-server after it has been started with "coverage.sh"
+    
+Middleware
+==========
+
+We use some Middleware found in /web/main/builder.py/Build.
+
+This will simply look to see if you have access the javascript using /built or /build. It will then determine whether it needs to build the javascript first before sending back the built version of the javascript.
+
+Template Loaders
+================
+
+To make our examples as customizable as possible we made it possible to use the django templates from within the examples to customize the html that is served.
+
+This is done using a template loader that will see if the javascript being served is an example, and expand the list of directories to get templates from to include the directory the example came from.
+
+This is found in /web/main/templates.py/load_template_source
