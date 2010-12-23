@@ -42,7 +42,7 @@ This page will show you how to use the minified version of Gamma. If you need th
         </body> 
         </html> 
 
-* `Download gamma <http://lodle.dyndns.org:8/code/gma-min.js>`_ and place the gma-min.js file in the same directory as the HTML file you just created.
+* `Download gamma <https://github.com/downloads/Royce/GammaJS/gma-min.js>`_ and place the gma-min.js file in the same directory as the HTML file you just created.
 
 
 *
