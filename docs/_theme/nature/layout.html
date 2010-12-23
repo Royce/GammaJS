@@ -42,3 +42,28 @@
 {%- block relbar2 %}{% endblock %}
 {%- block relbaritems %}{% endblock %}
 
+{%- block footer %}
+    <div class="footer">
+    {%- if show_copyright %}
+      <p>
+          {%- if hasdoc('copyright') %}
+            {% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
+          {%- else %}
+            {% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}
+          {%- endif %}
+          GammaJS is released under the
+          <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>.
+      </p>
+    {%- endif %}
+    {%- if last_updated or show_sphinx %}
+      <p>
+          {%- if last_updated %}
+            {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+          {%- endif %}
+          {%- if show_sphinx %}
+            {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> {{ sphinx_version }}.{% endtrans %}
+          {%- endif %}
+      </p>
+    {%- endif %}
+    </div>
+{%- endblock %}
