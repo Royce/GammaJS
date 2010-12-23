@@ -20,7 +20,7 @@ def createAPI(app):
         if not os.path.exists(path):
             os.makedirs(path)
     
-    information = genApi(os.environ['GMA_SRC']), outDir=outdir, tempDir=tempdir, templateDirs=templatedirs)
+    information = genApi(os.environ['GMA_SRC'], outDir=outdir, tempDir=tempdir, templateDirs=templatedirs)
     
     app.jsapi = information
     rsync = "rsync %s %s -r --delete -c" % (outdir, resultdir)
