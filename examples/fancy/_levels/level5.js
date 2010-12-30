@@ -1,6 +1,6 @@
 /*global require */
-require.def('examples/fancy/_levels/level5', 
-    [], 
+require.def('_levels/level5', 
+    ['_levels/common'], 
      {      
                 
         entities : [                

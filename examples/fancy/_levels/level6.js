@@ -1,6 +1,6 @@
 /*global require */
-require.def('examples/fancy/_levels/level6', 
-    ['examples/fancy/_levels/common'], 
+require.def('_levels/level6', 
+    ['_levels/common'], 
      function(cmn) { return {
                 
         entities : [                

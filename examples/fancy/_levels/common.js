@@ -1,5 +1,5 @@
 /*global require */
-require.def('examples/fancy/_levels/common', 
+require.def('_levels/common', 
     [], 
     {
         width : 100,

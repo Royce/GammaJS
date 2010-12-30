@@ -1,5 +1,5 @@
 /*global require */
-require.def('examples/fancy/_levels/template', 
+require.def('_levels/template', 
     [], 
     {
         entities : [

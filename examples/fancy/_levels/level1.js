@@ -1,6 +1,6 @@
 /*global require */
-require.def('examples/fancy/_levels/level1', 
-    ['examples/fancy/_levels/common'], 
+require.def('_levels/level1', 
+    ['_levels/common'], 
     function(cmn) {
         return function(manager) {
             return {

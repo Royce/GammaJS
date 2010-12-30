@@ -18,23 +18,13 @@
 
     {% if useStatic %}
         
-        {% if testing %}
-            <script type="text/javascript">
-            {% block testRequireOpts %}
-                var require = {
-                    baseUrl: "/{% if gettingCoverage %}instrumented{% else %}scripts{% endif %}/",
-                    waitSeconds: 15,
-                    context: "gma"
-                };        
-            {% endblock %}
-            </script>
-            
-            {% block testRequire %}
-                <script type="text/javascript" src="/support/require/requireplugins-jquery-1.4.2.js"></script>
-            {%endblock%}
-        {% endif %}
-        
         <script type="text/javascript" src="/support/compiled/gma-min.js"></script>
+        
+        <script type="text/javascript">
+        {% block staticRequireOpts %}      
+        {% endblock %}
+        </script>
+        
     {% else %}
 	    {% block libraries %}
 	        <script type="text/javascript" src="/support/underscore.js"></script>

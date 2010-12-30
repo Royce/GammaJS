@@ -1,5 +1,5 @@
 /*global require */
-require.def('examples/fancy/_levels/templates', 
+require.def('_levels/templates', 
     ['gma/base'], 
     function (gma) { 
         return {

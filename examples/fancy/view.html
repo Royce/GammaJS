@@ -2,6 +2,14 @@
 
 {% block bodyOpts %}style="background:black"{%endblock%}
 
+{% block staticRequireOpts %}
+    require({
+        baseUrl: "/{% if gettingCoverage %}instrumented{% else %}scripts{% endif %}/",
+        paths : {'_levels' : '/scripts/examples/fancy/_levels'},
+        waitSeconds: 15,
+    });  
+{% endblock %}
+
 {% block canvas %}
 <div id="gamma"></div>
 {% endblock %}

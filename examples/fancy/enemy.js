@@ -1,5 +1,11 @@
 /*global require, GLGE */
-require([
+var numLevels = 7;
+levelIncludes = []
+for (var i=1; i <= 7; i++) {
+    levelIncludes.push('_levels/level' + i)
+}
+
+require(_.flatten([[
         'gma/base',
         'gma/manager',
         'gma/entities/character',
@@ -10,17 +16,9 @@ require([
         'gma/utils/parser',
         'gma/entities/door', 
         
-        'examples/fancy/_levels/types',
-        'examples/fancy/_levels/templates',
-        
-        'examples/fancy/_levels/level1',
-        'examples/fancy/_levels/level2',
-        'examples/fancy/_levels/level3',
-        'examples/fancy/_levels/level4',
-        'examples/fancy/_levels/level5',
-        'examples/fancy/_levels/level6',
-        'examples/fancy/_levels/level7'
-    ],
+        '_levels/types',
+        '_levels/templates',
+    ], levelIncludes]),
     
     function(gma) {
         var manager = gma.manager({showLoading:false});
@@ -47,8 +45,8 @@ require([
         ###
         ########################*/
         
-        var templates = require('examples/fancy/_levels/templates');
-        var types = require('examples/fancy/_levels/types');
+        var templates = require('_levels/templates');
+        var types = require('_levels/types');
         
         manager.addCustomDefinitions({
             templates : templates,
@@ -61,17 +59,16 @@ require([
         ###
         ########################*/
         
-        var cmn = require('examples/fancy/_levels/common');        
+        var cmn = require('_levels/common');        
         var spawn = {
             main : [5, 10]
         };
         var extraLevels = [];
         var portals = [];
-        var numLevels = 7;
         var i = 0;
         while (i < numLevels) {
             var lvl = i + 1;
-            var next = require('examples/fancy/_levels/level' + lvl);
+            var next = require('_levels/level' + lvl);
             if (_.isFunction(next)) {
                 next = next(manager);
             }

@@ -3,6 +3,7 @@
 .DS_Store
 *.graffle
 docs/_build/*
+docs/_temp/*
 built/*
 app-build.js
 support/web/info
