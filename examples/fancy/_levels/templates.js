@@ -1,6 +1,6 @@
 /*global require */
 require.def('_levels/templates', 
-    ['gma/base'], 
+    ['gma/base', 'gma/utils/render'], 
     function (gma) { 
         return {
                       
