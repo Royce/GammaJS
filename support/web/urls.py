@@ -1,10 +1,13 @@
 from django.conf.urls.defaults import *
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.conf import settings
 
 import httplib
 
-def proxy(request, domain, port, debugOnly=False, add="", path=""):
+def validInstrumented(url):
+    return url.endswith('.js') and url.startswith('/gma')
+    
+def proxy(request, domain, port, debugOnly=False, add="", path="", validator=None):
     if path:
         querystring = path
     else:
@@ -13,15 +16,17 @@ def proxy(request, domain, port, debugOnly=False, add="", path=""):
     if add:
         querystring = "%s%s" % (add, querystring)
         
-    t = httplib.HTTPConnection(domain, port)
-    t.request("GET", querystring)
-    s = t.getresponse()
+    if not validator or validator(querystring):
+        t = httplib.HTTPConnection(domain, port)
+        t.request("GET", querystring)
+        s = t.getresponse()
+            
+        response = HttpResponse(s.read(), status=s.status)
+        for key, value in s.getheaders():
+            response[key] = value
         
-    response = HttpResponse(s.read(), status=s.status)
-    for key, value in s.getheaders():
-        response[key] = value
-    
-    return response
+        return response
+    raise Http404
 
 urlpatterns = patterns('',
     (r'^wglemedia/(?P<path>.*)$', 'django.views.static.serve',
@@ -52,7 +57,7 @@ urlpatterns = patterns('',
         {'document_root': settings.GMA_MEDIA}),
     
     (r'^instrumented/(?P<path>.*)$', proxy, 
-        {'domain' : '0.0.0.0', 'port' : 8081, 'add' : '/'}
+        {'domain' : '0.0.0.0', 'port' : 8081, 'add' : '/', 'validator':validInstrumented}
     ),
     
     (r'^', include('main.urls')),
