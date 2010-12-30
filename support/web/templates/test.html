@@ -16,21 +16,24 @@
 
 {% macro opts %}
     {{ block.super }}
-    require.deps = ['gma/base']
-    require.callback = function callback(gma) {
+    var callback = function callback(gma) {
         require.ready(function() {
             var deps = [];
+            var requireName;
             {% for path in paths %}
-                jingoName = "{{path}}".substr(1, "{{path}}".search("_spec"));
-                gma.test("/scripts/{{path}}", jingoName + "_spec");
-                deps.push(jingoName + "_spec")
+                requireName = "{{path}}".substr(1, "{{path}}".search("_spec")) + "_spec";
+                gma.test("/scripts/{{path}}", requireName);
+                if (require.s.contexts._.completeLoad) {
+                    require.s.contexts._.completeLoad(requireName)
+                }
+                deps.push(requireName);
             {% endfor %}
         
             require(deps,
                 function startTests() {
-                        JSpec
-                        .run({verbose: true, failuresOnly: true, fixturePath: '/scripts/gma/spec' })
-                        .report();
+                    JSpec
+                    .run({verbose: true, failuresOnly: true, fixturePath: '/scripts/gma/spec' })
+                    .report();
                 }
             );
         });
@@ -39,10 +42,14 @@
 
 {% block staticRequireOpts %}
     {% usemacro opts %}
+    require({baseUrl : "/{% if gettingCoverage %}instrumented{% else %}scripts{% endif %}/"});
+    require(['gma/base'], callback);
 {% endblock %}
 
 {% block requireOpts %}
     {% usemacro opts %}
+    require.deps = ['gma/base']
+    require.callback = callback;
 {% endblock %}
 
 {% block content %}

@@ -3,8 +3,8 @@
 <head>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>{% block title %}gma > {{title}}{%endblock%}</title>
-{%block head%}
+	<title>{% block title %}gma > {{title}}{% endblock %}</title>
+{% block head %}
     {% block preHead %}{% endblock %}
     {% block baseCss %}
 	<link rel="stylesheet" type="text/css"        href="/wglemedia/css/base.css" media="all"/>
@@ -21,7 +21,7 @@
         <script type="text/javascript" src="/support/compiled/gma-min.js"></script>
         
         <script type="text/javascript">
-        {% block staticRequireOpts %}      
+        {% block staticRequireOpts %}
         {% endblock %}
         </script>
         
@@ -43,15 +43,14 @@
             {% block requireOpts %}
                 var require = {
                     baseUrl: "/{% if gettingCoverage %}instrumented{% else %}scripts{% endif %}/",
-                    waitSeconds: 15,
-                    context: "gma"
+                    waitSeconds: 15
                 };        
             {% endblock %}
             </script>
             
             {% block require %}
                 <script type="text/javascript" src="/support/require/requireplugins-jquery-1.4.2.js"></script>
-            {%endblock%}
+            {% endblock %}
         {% else %}
         
             <script type="text/javascript" src="/support/jquery-1.4.2.js"></script>
@@ -60,10 +59,10 @@
 
 {% endblock %}
 
-{%block extraHead %}{% endblock %}
+{% block extraHead %}{% endblock %}
 </head>
 
-<body {% block bodyOpts %}{%endblock%} 
+<body {% block bodyOpts %}{% endblock %} 
 	id="{% block sectionid %}base{% endblock %}" class="{% block bClass %}default{% endblock %}">
 	
 <div id="fullwrapper">
@@ -92,7 +91,7 @@
                 {% block canvas %}
                 <div id="gamma">Oh dear, doesn't work :(</div>
                 {% endblock %}
-            	{%block extraScripts %}{% endblock %}
+            	{% block extraScripts %}{% endblock %}
                 
             {% endif %}
         {% endblock %}
