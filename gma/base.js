@@ -35,10 +35,10 @@ require.def('gma/base',
          * @param location {String} Location of the test to run
          * @param jingoName {String} Name to use in the jingo.declare block that is created around the test
         */
-        self.test = function(location, jingoName) {
+        self.test = function(location, requireName) {
             var raw = JSpec.load(location);
-            if (jingoName) {
-                raw = raw.replace("require(", 'require.def("' + jingoName + '", ');
+            if (requireName) {
+                raw = raw.replace("require(", 'require.def("' + requireName + '", ');
             }
 
             self.insertScript(JSpec.preprocess(raw));
