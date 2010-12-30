@@ -1,6 +1,6 @@
 {% extends  "view.html" %}
 
-{% block bodyOpts %}style="background:black"{%endblock%}
+{% block bodyOpts %}style="background:black"{% endblock %}
 
 {% block staticRequireOpts %}
     require({
@@ -8,6 +8,11 @@
         paths : {'_levels' : '/scripts/examples/fancy/_levels'},
         waitSeconds: 15,
     });  
+{% endblock %}
+
+{% block requireOpts %}
+    {{block.super}}
+    require.paths = {'_levels' : '/scripts/examples/fancy/_levels'};
 {% endblock %}
 
 {% block canvas %}
