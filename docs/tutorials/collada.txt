@@ -3,7 +3,7 @@ Using Collada
 
 `Collada <https://collada.org>`_ is open standard xml schema to define a model. Most 3D modelling applications support exporting models in this format (a .dae file).
 
-For this tutorial we will use `a gorilla model <http://lodle.dyndns.org:8/code/collada/gorilla.dae>`_ to represent the character. Download the `gorilla model <http://lodle.dyndns.org:8/code/collada/gorilla.dae>`_ and the `gorilla's texture file <http://lodle.dyndns.org:8/code/collada/skin.jpg>`_ and put them in the same directory.
+For this tutorial we will use `a gorilla model <https://github.com/Royce/GammaJS/raw/master/media/collada/gorilla/gorilla.dae>`_ to represent the character. Download the `gorilla model <https://github.com/Royce/GammaJS/raw/master/media/collada/gorilla/gorilla.dae>`_ and the `gorilla's texture file <https://github.com/Royce/GammaJS/raw/master/media/collada/gorilla/skin.jpg>`_ and put them in the same directory.
 
 Create a collada template
 -------------------------
@@ -45,7 +45,7 @@ Unfortunately the gorilla is facing the wrong direction and not centered correct
 .. note::
     Loading the Collada file requires that your game's JavaScript file and the collada model are both fetched via http and from the same server. Accessing your game via the local filesystem (without a server) will not work.
     
-    If the url in thr browser starts with "file:///" then you're accessing your game straight from the local filesystem. You will need to serve you files from a web server like `Apache <http://httpd.apache.org/>`_, `Lighttpd <http://www.lighttpd.net/>`_ or `IIS <http://www.iis.net/>`_
+    If the url in the browser starts with "file:///" then you're accessing your game straight from the local filesystem. You will need to serve you files from a web server like `Apache <http://httpd.apache.org/>`_, `Lighttpd <http://www.lighttpd.net/>`_ or `IIS <http://www.iis.net/>`_
 
 Assign the template to the character
 ------------------------------------
