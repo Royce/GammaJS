@@ -26,7 +26,7 @@ Currently the development server works and it does what it should and doesn't se
 Starting the server
 ===================
 
-To start the server, just run /web/server.py or "run.sh" at the top level. It will then be found at http://localhost:8000.
+To start the server, just run /web/server.py or "run.sh" from the support folder. It will then be found at http://localhost:8000.
 
 Url Scheme
 ==========
