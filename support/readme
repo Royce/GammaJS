@@ -6,7 +6,7 @@ This is the support folder for the Gamma project. It holds within it the followi
  * APIGen (see the readme in the APIGen folder)
  * Support libraries (the lib folder)
  * A development server for finding/executing code/tests (see readme in the web folder)
- * Some scripts for conveience at the top level
+ * Some scripts for convenience at the top level
  
 Requirements 
 ============
@@ -48,6 +48,6 @@ To set them on windows, you go to the same place as above when you edited the PA
 GMA = path to the main repository
 GMA_SRC = path to the source code
 GMA_MEDIA = path to a folder where you will keep any media files (i.e. images, collada, etc)
-GMA_SUPPORT = path to a this repository
+GMA_SUPPORT = path to a this folder
 
-If you want to be able to build the Gamma code into a single javascript file you'll also need REQUIRE, which points to a copy of the requirejs optimization tool (http://requirejs.org/docs/release/0.14.2/requirejs-0.14.2.zip)
+If you want to be able to build the Gamma code into a single javascript file you'll also need an environment variable called "REQUIRE", which points to a copy of the requirejs optimization tool (http://requirejs.org/docs/release/0.14.2/requirejs-0.14.2.zip)

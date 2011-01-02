@@ -14,7 +14,7 @@ To apply a texture to an entity you must first define a template. As when creati
         }
     });
 
-.. note:: For this to work, you will need a file called ``bricks.jpg`` in the same folder as your HTML. You can either make your own, or just `download ours <http://lodle.dyndns.org:8/code/textures/bricks.jpg>`_.
+.. note:: For this to work, you will need a file called ``bricks.jpg`` in the same folder as your HTML. You can either make your own, or just `download ours <https://github.com/Royce/GammaJS/raw/master/media/textures/bricks.jpg>`_.
 
 The texture will loop once for every unit of height and width. For our brick texture, however, we want the bricks to be larger. This is achieved by decreasing the amount the texture is looped for every unit using the ``repeatX`` and ``repeatY`` attributes.
 

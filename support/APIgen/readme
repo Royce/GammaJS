@@ -3,7 +3,7 @@ Author : Stephen Moore <delfick755@gmail.com>
 APIGen
 ======
 
-ApiGen is a tool based of YUIDoc (http://developer.yahoo.com/yui/yuidoc/) that is used to look at JavaScript code and create API documentation.
+ApiGen is a tool based off YUIDoc (http://developer.yahoo.com/yui/yuidoc/) that is used to look at JavaScript code and create API documentation.
 
 It does this by looking for particular expressive comments (using a style similar to JavaDoc) to discover how the application is structured. This is done instead of getting the data straight from the code so that the programmer may not be tied to any particular way of writing their code, which in JavaScript, can vary quite significantly.
 
