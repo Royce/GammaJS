@@ -53,7 +53,7 @@ require([
                 jumpingJack: ['jumpingEnemy', {
                     width    : 1,
                     height   : 2,
-                    template : 'greencube',
+                    template : 'greencube'
                     
                 }]
             }

@@ -9,7 +9,7 @@ require.def('_levels/level6',
             {left:14, bottom:18, width:1, height:4, template:'brickcube'},
             {left:18, bottom:23, width:6, height:2, template:'brickcube'},
             {left:38, bottom:27, width:23, height: 2, template:'whitecube'},
-            {left:14,bottom:35, width:5, height:4, type: 'collectable', getRotation:cmn.rotateContinously() },
+            {left:14,bottom:35, width:5, height:4, type: 'collectable', getRotation:cmn.rotateContinously() }
             
         ],
         

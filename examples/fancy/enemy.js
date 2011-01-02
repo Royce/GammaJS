@@ -1,24 +1,25 @@
-/*global require, GLGE */
+/*global require, GLGE, _ */
+var deps = [
+    'gma/base',
+    'gma/manager',
+    'gma/entities/character',
+    'gma/entities/enemy',
+    'gma/entities/collectable',
+    'gma/utils/render',
+    'gma/events',
+    'gma/utils/parser',
+    'gma/entities/door', 
+    
+    '_levels/types',
+    '_levels/templates'
+];
+
 var numLevels = 7;
-levelIncludes = []
 for (var i=1; i <= 7; i++) {
-    levelIncludes.push('_levels/level' + i)
+    deps.push('_levels/level' + i);
 }
 
-require(_.flatten([[
-        'gma/base',
-        'gma/manager',
-        'gma/entities/character',
-        'gma/entities/enemy',
-        'gma/entities/collectable',
-        'gma/utils/render',
-        'gma/events',
-        'gma/utils/parser',
-        'gma/entities/door', 
-        
-        '_levels/types',
-        '_levels/templates',
-    ], levelIncludes]),
+require(deps,
     
     function(gma) {
         var manager = gma.manager({showLoading:false});
@@ -183,8 +184,8 @@ require(_.flatten([[
         while (i <= numLevels) {
             gma.keyHandler.register(48 + i, (function(lvl) { 
                 return function() {
-                    manager.loadLevel(lvl)
-                }
+                    manager.loadLevel(lvl);
+                };
             })(i));
             i += 1;
         }

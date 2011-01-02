@@ -136,7 +136,7 @@ require([
                     {left:35, width:20, bottom:15, height:7},
                     {left:60, width:20, bottom:26, height:5},
                     {left:42, width:10, bottom:40, height:5},
-                    {left:60, width:5, bottom:55, height:5},
+                    {left:60, width:5, bottom:55, height:5}
                 ]}
                 
             ]
@@ -201,7 +201,7 @@ require([
         gma.instructions(manager.hud,
             "Press 'b' to toggle how the character is rendered.",
             72
-        )
+        );
         
         var boundingToggle = function() {
             return function(e) {
