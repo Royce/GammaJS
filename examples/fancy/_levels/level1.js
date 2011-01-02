@@ -44,7 +44,7 @@ require.def('_levels/level1',
                 entities : [
                     {type: 'patroller', bottom:0, left:33},
                     {type: 'platformer', bottom:25, left:35, tags:['reincarnate']},
-                    {type: 'jumper', bottom:43, left:45},
+                    {type: 'jumper', bottom:45, left:45},
                     {type: 'collectable', bottom:0, left:8, getRotation:cmn.rotateContinously()},
                     {type: 'door', bottom:0, left:50, level:0, spawnId:'island1', template:"greencube"},
                     

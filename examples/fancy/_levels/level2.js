@@ -49,7 +49,7 @@ require.def('_levels/level2',
                 entities : [
                     {type: 'patroller', bottom:0, left:2, limitLeft:0, limitRight:25},
                     {type: 'platformer', bottom:25, left:35, tags:['reincarnate']},
-                    {type: 'jumper', bottom:43, left:45},
+                    {type: 'jumper', bottom:45, left:45},
                     {type: 'collectable', bottom:5, left:8, getRotation : cmn.rotateContinously()},
                     {type: 'collectable', bottom:15, left:15, getRotation : cmn.rotateContinously()},
                     {type: 'collectable', bottom:85, left:20, getRotation : cmn.rotateContinously()},
