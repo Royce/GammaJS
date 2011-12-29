@@ -1,0 +1,433 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gma.enemy &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="gma" href="../gma.html" />
+    <link rel="next" title="gma.platformEnemy" href="platformEnemy.html" />
+    <link rel="prev" title="gma.door" href="door.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="platformEnemy.html" title="gma.platformEnemy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="door.html" title="gma.door"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" accesskey="U">gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="std:api-gma.enemy"></span><div class="section" id="s-gma-enemy">
+<span id="s-std:api-enemy"></span><span id="gma-enemy"></span><span id="std:api-enemy"></span><h1>gma.enemy<a class="headerlink" href="#gma-enemy" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<p>Provides a base enemy object</p>
+<table class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Package</td>
+<td>gma/entities/enemy</td>
+</tr>
+<tr><td>Inheritance chain</td>
+<td><a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a> &gt;&gt; <a class="reference internal" href="moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a></td>
+</tr>
+<tr><td>Descendants</td>
+<td><a class="reference internal" href="platformEnemy.html#std:api-gma.platformEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.platformEnemy</span></tt></a>, <a class="reference internal" href="jumpingEnemy.html#std:api-gma.jumpingEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.jumpingEnemy</span></tt></a>, <a class="reference internal" href="patrolEnemy.html#std:api-gma.patrolEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.patrolEnemy</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="section" id="s-tags">
+<span id="tags"></span><h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<p><em>shape</em>, <em>moveable</em>, <em>enemy</em></p>
+</div>
+<div class="section" id="s-properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-inherited-from-api-gma-moveable admonition ">
+<p class="first admonition-title">Inherited from <a class="reference internal" href="moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a></p>
+<p class="last"><a class="reference internal" href="moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a>, <a class="reference internal" href="moveable.html#std:prop-gma.moveable.yState"><tt class="xref std std-prop docutils literal"><span class="pre">yState</span></tt></a>, <a class="reference internal" href="moveable.html#std:prop-gma.moveable.lastXState"><tt class="xref std std-prop docutils literal"><span class="pre">lastXState</span></tt></a>, <a class="reference internal" href="moveable.html#std:prop-gma.moveable.jumpVelocity"><tt class="xref std std-prop docutils literal"><span class="pre">jumpVelocity</span></tt></a>, <a class="reference internal" href="moveable.html#std:prop-gma.moveable.velocity"><tt class="xref std std-prop docutils literal"><span class="pre">velocity</span></tt></a></p>
+</div>
+<div class="admonition-inherited-from-api-gma-shapes-rectangle admonition ">
+<p class="first admonition-title">Inherited from <a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a></p>
+<p class="last"><a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.right"><tt class="xref std std-prop docutils literal"><span class="pre">right</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.centre"><tt class="xref std std-prop docutils literal"><span class="pre">centre</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.solid"><tt class="xref std std-prop docutils literal"><span class="pre">solid</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.top"><tt class="xref std std-prop docutils literal"><span class="pre">top</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.bottom"><tt class="xref std std-prop docutils literal"><span class="pre">bottom</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.edges"><tt class="xref std std-prop docutils literal"><span class="pre">edges</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.height"><tt class="xref std std-prop docutils literal"><span class="pre">height</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.width"><tt class="xref std std-prop docutils literal"><span class="pre">width</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.depth"><tt class="xref std std-prop docutils literal"><span class="pre">depth</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.points"><tt class="xref std std-prop docutils literal"><span class="pre">points</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.alive"><tt class="xref std std-prop docutils literal"><span class="pre">alive</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.yOffset"><tt class="xref std std-prop docutils literal"><span class="pre">yOffset</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.y"><tt class="xref std std-prop docutils literal"><span class="pre">y</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.x"><tt class="xref std std-prop docutils literal"><span class="pre">x</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.tags"><tt class="xref std std-prop docutils literal"><span class="pre">tags</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.z"><tt class="xref std std-prop docutils literal"><span class="pre">z</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.type"><tt class="xref std std-prop docutils literal"><span class="pre">type</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.xOffset"><tt class="xref std std-prop docutils literal"><span class="pre">xOffset</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:prop-gma.shapes.rectangle.left"><tt class="xref std std-prop docutils literal"><span class="pre">left</span></tt></a></p>
+</div>
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-inherited-from-api-gma-moveable admonition ">
+<p class="first admonition-title">Inherited from <a class="reference internal" href="moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a></p>
+<p class="last"><a class="reference internal" href="moveable.html#std:metho-gma.moveable.findGround"><tt class="xref std std-metho docutils literal"><span class="pre">findGround</span></tt></a>, <a class="reference internal" href="moveable.html#std:metho-gma.moveable.updatePositions"><tt class="xref std std-metho docutils literal"><span class="pre">updatePositions</span></tt></a>, <a class="reference internal" href="moveable.html#std:metho-gma.moveable.kill"><tt class="xref std std-metho docutils literal"><span class="pre">kill</span></tt></a>, <a class="reference internal" href="moveable.html#std:metho-gma.moveable.getRotation"><tt class="xref std std-metho docutils literal"><span class="pre">getRotation</span></tt></a>, <a class="reference internal" href="moveable.html#std:metho-gma.moveable.animate"><tt class="xref std std-metho docutils literal"><span class="pre">animate</span></tt></a></p>
+</div>
+<div class="admonition-inherited-from-api-gma-shapes-rectangle admonition ">
+<p class="first admonition-title">Inherited from <a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a></p>
+<p class="last"><a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.setBottomLeft"><tt class="xref std std-metho docutils literal"><span class="pre">setBottomLeft</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.collided__deathtouch"><tt class="xref std std-metho docutils literal"><span class="pre">collided__deathtouch</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.setCentre"><tt class="xref std std-metho docutils literal"><span class="pre">setCentre</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.yOf"><tt class="xref std std-metho docutils literal"><span class="pre">yOf</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.setPointsAndEdges"><tt class="xref std std-metho docutils literal"><span class="pre">setPointsAndEdges</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.xOf"><tt class="xref std std-metho docutils literal"><span class="pre">xOf</span></tt></a>, <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.toString"><tt class="xref std std-metho docutils literal"><span class="pre">toString</span></tt></a></p>
+</div>
+<dl class="docutils" id="std:metho-gma.enemy.getMovement">
+<span id="gma-enemy-getmovement"></span><span id="index-0"></span><dt><strong>getMovement</strong> (moveAmount) -&gt; Amount to move as [x, y]</dt>
+<dd><div class="first line-block">
+<div class="line">Enemy getMovement will first call determineState before doing super.getMovement</div>
+<div class="line">The enemy is the same as the character, except it</div>
+<div class="line">determines it&#8217;s own next state, rather than the player</div>
+</div>
+<p><strong>Overrides</strong> <a class="reference internal" href="moveable.html#std:metho-gma.moveable.getMovement"><tt class="xref std std-metho docutils literal"><span class="pre">gma.moveable.getMovement</span></tt></a></p>
+<table class="last docutils">
+<colgroup>
+<col width="20%" />
+<col width="14%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>moveAmount</td>
+<td>Number</td>
+<td>The amount the character should move</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.determineState">
+<span id="gma-enemy-determinestate"></span><span id="index-1"></span><dt><strong>determineState</strong> (moveAmount, manager)</dt>
+<dd><div class="first line-block">
+<div class="line">Determine the state of the enemy for the next movement</div>
+<div class="line">- Calls behaviour__jumping if it has jumping tag</div>
+<div class="line">- Calls behaviour__patrolling if it has patrolling tag</div>
+<div class="line">- Calls behaviour__platformer if it has platformer tag</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="26%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>moveAmount</td>
+<td>Number</td>
+<td>amount to move; based on delta from twitch</td>
+</tr>
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.collided">
+<span id="gma-enemy-collided"></span><span id="index-2"></span><dt><strong>collided</strong> (where, focus, focusSide, focusVector)</dt>
+<dd><div class="first line-block">
+<div class="line">Enemy looks for rebound and weakhead tags as well as what super.collided looks for</div>
+<div class="line">It will also look for deathtouch, if enemy is still alive after all other checks</div>
+</div>
+<p><strong>Overrides</strong> <a class="reference internal" href="shapes.rectangle.html#std:metho-gma.shapes.rectangle.collided"><tt class="xref std std-metho docutils literal"><span class="pre">gma.shapes.rectangle.collided</span></tt></a></p>
+<table class="last docutils">
+<colgroup>
+<col width="16%" />
+<col width="25%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>where</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of this object that was collided with</td>
+</tr>
+<tr><td>focus</td>
+<td>object</td>
+<td>Thing we collided with</td>
+</tr>
+<tr><td>focusSide</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of the focus object that was collided with</td>
+</tr>
+<tr><td>focusVector</td>
+<td>[x,y]</td>
+<td>Amount focus is trying to move</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.behaviour__jumping">
+<span id="gma-enemy-behaviour-jumping"></span><span id="index-3"></span><dt><strong>behaviour__jumping</strong> (moveAmount, manager)</dt>
+<dd><p class="first">Makes enemy jump when touching ground</p>
+<table class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="26%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>moveAmount</td>
+<td>Number</td>
+<td>amount to move; based on delta from twitch</td>
+</tr>
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.behaviour__platformer">
+<span id="gma-enemy-behaviour-platformer"></span><span id="index-4"></span><dt><strong>behaviour__platformer</strong> (moveAmount, manager)</dt>
+<dd><p class="first">Makes enemy turn around when reaching the edge of the platform it is currently on</p>
+<table class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="26%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>moveAmount</td>
+<td>Number</td>
+<td>amount to move; based on delta from twitch</td>
+</tr>
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.behaviour__patrolling">
+<span id="gma-enemy-behaviour-patrolling"></span><span id="index-5"></span><dt><strong>behaviour__patrolling</strong> (moveAmount, manager)</dt>
+<dd><div class="first line-block">
+<div class="line">Makes enemy patrol a range</div>
+<div class="line">Requires self.limitLeft and/or self.limitRight properties</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="26%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>moveAmount</td>
+<td>Number</td>
+<td>amount to move; based on delta from twitch</td>
+</tr>
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.collided__rebound">
+<span id="gma-enemy-collided-rebound"></span><span id="index-6"></span><dt><strong>collided__rebound</strong> (where, focus, focusSide, focusVector)</dt>
+<dd><p class="first">Makes enemy turn around if it hits something</p>
+<table class="last docutils">
+<colgroup>
+<col width="16%" />
+<col width="25%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>where</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of this object that was collided with</td>
+</tr>
+<tr><td>focus</td>
+<td>object</td>
+<td>Thing we collided with</td>
+</tr>
+<tr><td>focusSide</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of the focus object that was collided with</td>
+</tr>
+<tr><td>focusVector</td>
+<td>[x,y]</td>
+<td>Amount focus is trying to move</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.enemy.collided__weakhead">
+<span id="gma-enemy-collided-weakhead"></span><span id="index-7"></span><dt><strong>collided__weakhead</strong> (where, focus, focusSide, focusVector)</dt>
+<dd><p class="first">Makes enemy die when character hit it&#8217;s top</p>
+<table class="last docutils">
+<colgroup>
+<col width="16%" />
+<col width="25%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>where</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of this object that was collided with</td>
+</tr>
+<tr><td>focus</td>
+<td>object</td>
+<td>Thing we collided with</td>
+</tr>
+<tr><td>focusSide</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of the focus object that was collided with</td>
+</tr>
+<tr><td>focusVector</td>
+<td>[x,y]</td>
+<td>Amount focus is trying to move</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="door.html"
+                        title="previous chapter">gma.door</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="platformEnemy.html"
+                        title="next chapter">gma.platformEnemy</a></p>
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gma.enemy</a><ul>
+<li><a class="reference internal" href="#tags">Tags</a></li>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="platformEnemy.html" title="gma.platformEnemy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="door.html" title="gma.door"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" >gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

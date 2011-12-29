@@ -1,0 +1,238 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Make the character move &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Making your first game" href="../intro/tutorials.html" />
+    <link rel="next" title="Adding some enemies" href="enemies.html" />
+    <link rel="prev" title="Add a character" href="character.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="enemies.html" title="Adding some enemies"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="character.html" title="Add a character"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" accesskey="U">Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-make-the-character-move">
+<span id="make-the-character-move"></span><h1>Make the character move<a class="headerlink" href="#make-the-character-move" title="Permalink to this headline">¶</a></h1>
+<p>To make the character move, we have to tell Gamma to change the horizontal and/or vertical state of the character when a particular key is pressed. For this tutorial, we&#8217;ll make it so:</p>
+<ul class="simple">
+<li>pressing left arrow makes the character go left</li>
+<li>pressing right arrow makes the character go right</li>
+<li>pressing spacebar makes the character jump</li>
+</ul>
+<div class="section" id="s-keycodes">
+<span id="keycodes"></span><h2>KeyCodes<a class="headerlink" href="#keycodes" title="Permalink to this headline">¶</a></h2>
+<p>First we need to know the corresponding number for these buttons. If we look this <a class="reference internal" href="../topics/keyHandling.html#keycodes"><em>list of keycodes</em></a> we can see that the left arrow is 37, right arrow is 39, and spacebar is 32.</p>
+</div>
+<div class="section" id="s-functions-to-move-the-character">
+<span id="functions-to-move-the-character"></span><h2>Functions to move the character<a class="headerlink" href="#functions-to-move-the-character" title="Permalink to this headline">¶</a></h2>
+<p>Next we need to know which functions must be called to <cite>change the state</cite> of the character. After telling the character that it is moving right, the game loop then causes the character to be moved at a constant rate.</p>
+<p>We will call <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.move"><tt class="xref std std-metho docutils literal"><span class="pre">move</span></tt></a> and <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.jump"><tt class="xref std std-metho docutils literal"><span class="pre">jump</span></tt></a> to change the state of the character. To go left, we need to call <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.move"><tt class="xref std std-metho docutils literal"><span class="pre">move</span></tt></a> with <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-LEFT"><tt class="xref std std-constant docutils literal"><span class="pre">LEFT</span></tt></a> as an argument. Going right is the same, except using <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-RIGHT"><tt class="xref std std-constant docutils literal"><span class="pre">RIGHT</span></tt></a> as the argument. Jumping just requires calling <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.jump"><tt class="xref std std-metho docutils literal"><span class="pre">jump</span></tt></a>. Both of these functions (<a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.move"><tt class="xref std std-metho docutils literal"><span class="pre">move</span></tt></a> and <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.jump"><tt class="xref std std-metho docutils literal"><span class="pre">jump</span></tt></a>) also require the key press event object as an argument.</p>
+<p>We use <a class="reference internal" href="../api/docs/gma/keyHandler.html#std:metho-gma.keyHandler.register"><tt class="xref std std-metho docutils literal"><span class="pre">register</span></tt></a> to register a function to a particular key press. This function will be called with the keyboard event, which is used to differentiate between pressing and releasing a key.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keyEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">,</span> <span class="nx">keyEvent</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keyEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">,</span> <span class="nx">keyEvent</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Key binding is provided by <a class="reference internal" href="../api/docs/gma/keyHandler.html#std:api-gma.keyHandler"><tt class="xref std std-api docutils literal"><span class="pre">gma.keyHandler</span></tt></a>, so <tt class="docutils literal"><span class="pre">gma/events</span></tt> is required in the dependency list.</p>
+<div class="section" id="s-currying">
+<span id="currying"></span><h3>Currying<a class="headerlink" href="#currying" title="Permalink to this headline">¶</a></h3>
+<p>This example can be simplified by using currying. Currying a function with arguments returns a function that calls the original function with the arguments provided. For example, the following function (<tt class="docutils literal"><span class="pre">f1</span></tt> and <tt class="docutils literal"><span class="pre">f2</span></tt>) are equivalent; to create <tt class="docutils literal"><span class="pre">f2</span></tt>, the move function is <cite>curried</cite> with the first of it's argument (<cite>direction</cite>) to create a function with the keyboard event as the only argument:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">f1</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keyEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">,</span> <span class="nx">keyEvent</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">f2</span> <span class="o">=</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Therefore the keybinding example can be simplified to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">);</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">);</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-end-result">
+<span id="end-result"></span><h2>End result<a class="headerlink" href="#end-result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">([</span>
+    <span class="s1">&#39;gma/base&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/manager&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/entities/character&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/events&#39;</span>
+<span class="p">],</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">({</span>
+            <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nx">height</span> <span class="o">:</span> <span class="mi">500</span>
+        <span class="p">});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span><span class="p">({</span>
+            <span class="nx">left</span>     <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">bottom</span>   <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">width</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">height</span>   <span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">3</span>
+        <span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">spawn</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">main</span> <span class="o">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">36</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">};</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">myLevel</span><span class="p">);</span>
+
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">));</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">));</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">);</span>
+
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-what-s-next">
+<span id="what-s-next"></span><h2>What's next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>In the next section we will <a class="reference internal" href="enemies.html"><em>create some enemies</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="character.html"
+                        title="previous chapter">Add a character</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="enemies.html"
+                        title="next chapter">Adding some enemies</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Make the character move</a><ul>
+<li><a class="reference internal" href="#keycodes">KeyCodes</a></li>
+<li><a class="reference internal" href="#functions-to-move-the-character">Functions to move the character</a><ul>
+<li><a class="reference internal" href="#currying">Currying</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#end-result">End result</a></li>
+<li><a class="reference internal" href="#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="enemies.html" title="Adding some enemies"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="character.html" title="Add a character"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" >Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

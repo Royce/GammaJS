@@ -1,0 +1,274 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Level Parser &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Advanced Topics" href="index.html" />
+    <link rel="next" title="Render Helpers and Templates" href="templates.html" />
+    <link rel="prev" title="Defining collision behaviour" href="collisionFunctions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="templates.html" title="Render Helpers and Templates"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="collisionFunctions.html" title="Defining collision behaviour"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-level-parser">
+<span id="s-levelparsers"></span><span id="level-parser"></span><span id="levelparsers"></span><h1>Level Parser<a class="headerlink" href="#level-parser" title="Permalink to this headline">¶</a></h1>
+<p>If you need to extend or modify the level parser &#8211; or are, perhaps, simply curious &#8211; this section describes how the level parser works.</p>
+<p>When a Gamma <a class="reference internal" href="../api/docs/gma/manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">manager</span></tt></a> loads a level, it parses the level specifications with it&#8217;s <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.levelParser"><tt class="xref std std-prop docutils literal"><span class="pre">levelParser</span></tt></a> object. The <a class="reference internal" href="../api/docs/gma/levelParser.html#std:api-gma.levelParser"><tt class="xref std std-api docutils literal"><span class="pre">gma.levelParser</span></tt></a> is designed to <strong>create gamma objects from the level specification object</strong>. By default the level parser object will be an instance of <a class="reference internal" href="../api/docs/gma/levelParser.html#std:api-gma.levelParser"><tt class="xref std std-api docutils literal"><span class="pre">gma.levelParser</span></tt></a>.</p>
+<p>Level parsing begins with the <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.processLevel"><tt class="xref std std-metho docutils literal"><span class="pre">processLevel(level)</span></tt></a> method which does the following:</p>
+<ul class="simple">
+<li>Check to see if the level has been previously processed<ul>
+<li>If it has, then return the level, parsing the level stops here</li>
+</ul>
+</li>
+<li>Set any defaults on the level using <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.preProcess"><tt class="xref std std-metho docutils literal"><span class="pre">preProcess</span></tt></a></li>
+<li>Process the level</li>
+</ul>
+<div class="section" id="s-determining-if-a-level-is-already-processed">
+<span id="determining-if-a-level-is-already-processed"></span><h2>Determining if a level is already processed<a class="headerlink" href="#determining-if-a-level-is-already-processed" title="Permalink to this headline">¶</a></h2>
+<p>The level parser will consider a level as already processed if it has a property on it called <tt class="docutils literal"><span class="pre">processed</span></tt>, which is set to <tt class="docutils literal"><span class="pre">true</span></tt>.</p>
+<p>The levelParser will ensure this property is set to <tt class="docutils literal"><span class="pre">true</span></tt> on the level once it has been processed.</p>
+</div>
+<div class="section" id="s-pre-processing-the-level">
+<span id="pre-processing-the-level"></span><h2>Pre-Processing the level<a class="headerlink" href="#pre-processing-the-level" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.preProcess"><tt class="xref std std-metho docutils literal"><span class="pre">preProcess</span></tt></a> function serves two purposes :</p>
+<div class="section" id="s-expand-replicate-with">
+<span id="expand-replicate-with"></span><h3>Expand Replicate With<a class="headerlink" href="#expand-replicate-with" title="Permalink to this headline">¶</a></h3>
+<p>Firstly, the <a class="reference internal" href="../api/docs/gma/utils.html#std:metho-gma.utils.expandReplicateWith"><tt class="xref std std-metho docutils literal"><span class="pre">expandReplicateWith</span></tt></a> method is used to expand the level specification where the <tt class="docutils literal"><span class="pre">replicateWith</span></tt> key has been used. See <a class="reference internal" href="../topics/levels.html#replicatewith"><em>ReplicateWith</em></a> in the level creation topic.</p>
+</div>
+<div class="section" id="s-set-up-all-necessary-defaults-on-the-level">
+<span id="set-up-all-necessary-defaults-on-the-level"></span><h3>Set up all necessary defaults on the level<a class="headerlink" href="#set-up-all-necessary-defaults-on-the-level" title="Permalink to this headline">¶</a></h3>
+<p>Secondly set up defaults for a level&#8217;s light, camera, entities and spawn location. This is done using <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.default_light"><tt class="xref std std-metho docutils literal"><span class="pre">default_light</span></tt></a>, <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.default_camera"><tt class="xref std std-metho docutils literal"><span class="pre">default_camera</span></tt></a>, <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.default_entities"><tt class="xref std std-metho docutils literal"><span class="pre">default_entities</span></tt></a> and <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.default_spawn"><tt class="xref std std-metho docutils literal"><span class="pre">default_spawn</span></tt></a> to get defaults for these particular properties.</p>
+<p>This function will also initialise the following properties:</p>
+<div class="section" id="s-level-removed">
+<span id="level-removed"></span><h4>level.removed<a class="headerlink" href="#level-removed" title="Permalink to this headline">¶</a></h4>
+<p>This list is used by <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.twitch"><tt class="xref std std-metho docutils literal"><span class="pre">twitch</span></tt></a> when it calls <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.removeDead"><tt class="xref std std-metho docutils literal"><span class="pre">removeDead</span></tt></a>, which then uses it to store references to any entities that have died with a <tt class="docutils literal"><span class="pre">reincarnate</span></tt> tag.</p>
+<p><a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a> uses this list of <cite>reincarnatable</cite> enemies to set their status back to <tt class="docutils literal"><span class="pre">alive</span></tt> if when the level is reloaded.</p>
+</div>
+<div class="section" id="s-level-following">
+<span id="level-following"></span><h4>level.following<a class="headerlink" href="#level-following" title="Permalink to this headline">¶</a></h4>
+<p>This is a <a class="reference internal" href="../glossary.html#term-dictionary"><em class="xref std std-term">dictionary</em></a> that holds any item that specifies it follows another item. Currently only the light and camera may specify this, and they are limited to following the character.</p>
+<p>The dictionary is then used by <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a>, which uses the information in calls to <a class="reference internal" href="../api/docs/gma/sceneHelper.html#std:metho-gma.sceneHelper.attach"><tt class="xref std std-metho docutils literal"><span class="pre">attach</span></tt></a> on the manager&#8217;s <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.sceneHelper"><tt class="xref std std-prop docutils literal"><span class="pre">sceneHelper</span></tt></a>.</p>
+</div>
+<div class="section" id="s-level-levelextras">
+<span id="level-levelextras"></span><h4>level.levelExtras<a class="headerlink" href="#level-levelextras" title="Permalink to this headline">¶</a></h4>
+<p>References to any level specific items (currently, just lights and camera) that have been added the the rendered scene. This list is maintained so that when <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.clearLevel"><tt class="xref std std-metho docutils literal"><span class="pre">clearLevel</span></tt></a> is called, it knows what extra items in the current scene belong to the current level and must be removed. (This allows lights and other objects to be permanently added to the scene, regardless of the currently level.)</p>
+</div>
+</div>
+</div>
+<div class="section" id="s-processing-a-level">
+<span id="processing-a-level"></span><h2>Processing a level<a class="headerlink" href="#processing-a-level" title="Permalink to this headline">¶</a></h2>
+<p>The levelParser is designed such that processing each item in the level is done independently of other items. This is accomplished by a suite of <tt class="docutils literal"><span class="pre">validate_*</span></tt> and <tt class="docutils literal"><span class="pre">process_*</span></tt> functions (the star represents the property on the level that these functions will operate on). Gamma provides processing functions for entities, light, camera, other, utility, following, template, removed and levelExtras.</p>
+<p>For example to process entities in a level specification,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">19</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Gamma provides the following functions in <a class="reference internal" href="../api/docs/gma/levelParser.html#std:api-gma.levelParser"><tt class="xref std std-api docutils literal"><span class="pre">gma.levelParser</span></tt></a>:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">self</span><span class="p">.</span><span class="nx">validate_entities</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">manager</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">...</span>
+<span class="p">};</span>
+
+<span class="nx">self</span><span class="p">.</span><span class="nx">process_entities</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">manager</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">...</span>
+<span class="p">}</span>
+
+<span class="nx">self</span><span class="p">.</span><span class="nx">default_entities</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">manager</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="s-arguments-to-validate-and-process-functions">
+<span id="arguments-to-validate-and-process-functions"></span><h3>Arguments to validate and process functions<a class="headerlink" href="#arguments-to-validate-and-process-functions" title="Permalink to this headline">¶</a></h3>
+<p>Each validate and process function will receive, in this order, a <tt class="docutils literal"><span class="pre">manager</span></tt> object, the <tt class="docutils literal"><span class="pre">key</span></tt> of the property being processed, the <tt class="docutils literal"><span class="pre">value</span></tt> of the property being processed, and the <tt class="docutils literal"><span class="pre">level</span></tt> object being processed.</p>
+<p>Changes made to the level object are permanent and cannot be reversed.</p>
+</div>
+<div class="section" id="s-validate-function">
+<span id="validate-function"></span><h3>Validate function<a class="headerlink" href="#validate-function" title="Permalink to this headline">¶</a></h3>
+<p>The validate function checks whether it is possible to create a gamma object with the properties specified. These functions will simply return a Boolean saying whether the information is valid or not.</p>
+<p>This function is allowed to transform the data to be valid for processing.</p>
+</div>
+<div class="section" id="s-process-function">
+<span id="process-function"></span><h3>Process function<a class="headerlink" href="#process-function" title="Permalink to this headline">¶</a></h3>
+<p>The process function will turn each object specification into an actual gamma object. This way <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a> does not need to worry about whether the objects in the level are gamma objects or just specifications.</p>
+</div>
+<div class="section" id="s-default-function">
+<span id="s-levelparserpreprocess"></span><span id="default-function"></span><span id="levelparserpreprocess"></span><h3>Default function<a class="headerlink" href="#default-function" title="Permalink to this headline">¶</a></h3>
+<p>The default function is optional. It is used by <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.preProcess"><tt class="xref std std-metho docutils literal"><span class="pre">preProcess</span></tt></a> to set up a default for the level where one is not specified.</p>
+</div>
+</div>
+<div class="section" id="s-processing-a-custom-type">
+<span id="processing-a-custom-type"></span><h2>Processing a Custom Type<a class="headerlink" href="#processing-a-custom-type" title="Permalink to this headline">¶</a></h2>
+<p>You can create you own type of object in the level parser. For example, say we want to make the levelParser aware of a <tt class="docutils literal"><span class="pre">skybox</span></tt> property on the level, then all we need to do is create <tt class="docutils literal"><span class="pre">validate_skybox</span></tt> and <tt class="docutils literal"><span class="pre">process_skybox</span></tt> functions. Then optionally create a <tt class="docutils literal"><span class="pre">default_skybox</span></tt> function and override <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.preProcess"><tt class="xref std std-metho docutils literal"><span class="pre">preProcess</span></tt></a> such that it is used.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevelParser</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">levelParser</span><span class="p">();</span>
+
+    <span class="kd">var</span> <span class="nx">oldPreProcess</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">preProcess</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">preProcess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">level</span> <span class="o">=</span> <span class="nx">oldPreProcess</span><span class="p">(</span><span class="nx">level</span><span class="p">);</span>
+
+        <span class="nx">level</span><span class="p">.</span><span class="nx">skybox</span> <span class="o">=</span> <span class="nx">level</span><span class="p">.</span><span class="nx">skybox</span> <span class="o">||</span> <span class="nx">self</span><span class="p">.</span><span class="nx">default_skybox</span><span class="p">();</span>
+    <span class="p">};</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">validate_skybox</span><span class="p">(</span><span class="nx">manager</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//validate the information given for the skybox property here</span>
+    <span class="p">};</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">process_skybox</span><span class="p">(</span><span class="nx">manager</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">level</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Do any necessary processing/transformation to the information given for the skybox here</span>
+    <span class="p">};</span>
+<span class="p">})();</span>
+</pre></div>
+</div>
+<p>Then we just set this new levelParser on the manager, and then when we use <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a>, it will be aware of the skybox property and handle it as you have specified.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the levelparser can't find an associated validate and/or process function for a property, it will use the generic <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.validate_other"><tt class="xref std std-metho docutils literal"><span class="pre">validate_other</span></tt></a> and <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.process_other"><tt class="xref std std-metho docutils literal"><span class="pre">process_other</span></tt></a> methods.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="collisionFunctions.html"
+                        title="previous chapter">Defining collision behaviour</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="templates.html"
+                        title="next chapter">Render Helpers and Templates</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Level Parser</a><ul>
+<li><a class="reference internal" href="#determining-if-a-level-is-already-processed">Determining if a level is already processed</a></li>
+<li><a class="reference internal" href="#pre-processing-the-level">Pre-Processing the level</a><ul>
+<li><a class="reference internal" href="#expand-replicate-with">Expand Replicate With</a></li>
+<li><a class="reference internal" href="#set-up-all-necessary-defaults-on-the-level">Set up all necessary defaults on the level</a><ul>
+<li><a class="reference internal" href="#level-removed">level.removed</a></li>
+<li><a class="reference internal" href="#level-following">level.following</a></li>
+<li><a class="reference internal" href="#level-levelextras">level.levelExtras</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#processing-a-level">Processing a level</a><ul>
+<li><a class="reference internal" href="#arguments-to-validate-and-process-functions">Arguments to validate and process functions</a></li>
+<li><a class="reference internal" href="#validate-function">Validate function</a></li>
+<li><a class="reference internal" href="#process-function">Process function</a></li>
+<li><a class="reference internal" href="#default-function">Default function</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#processing-a-custom-type">Processing a Custom Type</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="templates.html" title="Render Helpers and Templates"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="collisionFunctions.html" title="Defining collision behaviour"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

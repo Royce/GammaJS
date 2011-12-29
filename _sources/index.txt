@@ -1,0 +1,73 @@
+
+.. _overview:
+
+.. toctree::
+   :hidden:
+   
+   intro/index
+   topics/index
+   advanced/index
+   api/docs/gma
+   glossary
+   
+====================
+Gamma
+====================
+
+Gamma is a new Javascript library which can be used to create 2.5D platform games for a web browser using the power of HTML, JavaScript, CSS and WebGL.
+
+
+Getting Started
+===============
+    
+    * :doc:`Download / Installation <intro/install>`
+
+    * :doc:`Making your first game <intro/tutorials>`
+
+
+Topics
+===============
+
+    * :doc:`Shapes: Defining the position and dimensions of entities <topics/shapes>`
+    
+    * :doc:`Moveable entities <topics/moveables>`
+    
+    * :doc:`Entities and Tags <topics/tags>`.
+    
+    * :doc:`The Character Object <topics/character>`
+    
+    * :doc:`Default Enemies <topics/enemy>`
+    
+    * :doc:`Platform objects <topics/platform>`
+    
+    * :doc:`Creating levels <topics/levels>`
+    
+    * :doc:`Customising the appearance <topics/appearance>` of characters, enemies and platforms.
+
+    * :doc:`Key Bindings <topics/keyHandling>`
+    
+    * :doc:`Adding a Heads up display (HUD) <topics/hud>`
+    
+    * :doc:`Displaying messages (HUD) <topics/messages>`
+
+
+Advanced Topics
+=======================
+
+    * :doc:`Developing with Gamma <advanced/install>`
+    
+    * :doc:`Framework Architecture <advanced/architecture>`
+    
+    * :doc:`Defining collision behaviour <advanced/collisionFunctions>`
+    
+    * :doc:`How the Level Parser works <advanced/levelParser>`
+    
+    * :doc:`Demystifying Render Helpers <advanced/templates>`
+    
+    * :doc:`Full API <api/docs/gma>`
+    
+Index and glossary
+============================
+
+* :ref:`glossary`
+* :ref:`genindex`

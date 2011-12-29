@@ -1,0 +1,168 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developing with Gamma &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Advanced Topics" href="index.html" />
+    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="Advanced Topics" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="architecture.html" title="Architecture"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Advanced Topics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-developing-with-gamma">
+<span id="s-advancedinstall"></span><span id="developing-with-gamma"></span><span id="advancedinstall"></span><h1>Developing with Gamma<a class="headerlink" href="#developing-with-gamma" title="Permalink to this headline">¶</a></h1>
+<p>Gamma is a modular library that is split into many files. Whilst you can use a combined and <a class="reference internal" href="../glossary.html#term-minified"><em class="xref std std-term">minified</em></a> version of the library, as shown in the <a class="reference internal" href="../intro/install.html#install"><em>getting started section</em></a>, it&#8217;s a lot easier to develop and debug you game if you can view the full source code. This allows you to see the code where errors originate from and set breakpoints in the Gamma library.</p>
+<p>To install the non-minified version, you must download a few files and modify your HTML page to tell RequireJS where to find the Gamma library:</p>
+<ul>
+<li><p class="first">Follow the <a class="reference internal" href="../intro/install.html#install"><em>getting started section</em></a>.</p>
+</li>
+<li><p class="first">Download all the <a class="reference external" href="http://lodle.dyndns.org:8/code/gma.tar.bz2">Gamma files</a> and untar it so you have the <tt class="docutils literal"><span class="pre">gma</span></tt> folder next to your other files.</p>
+</li>
+<li><p class="first">Download <a class="reference internal" href="architecture.html#requirejsns"><em>RequireJS</em></a> and the other libraries that Gamma uses, which you can find in a <a class="reference external" href="http://lodle.dyndns.org:8/code/libs-min.js">single, minifed file</a>.</p>
+</li>
+<li><p class="first">Inside <tt class="docutils literal"><span class="pre">game.html</span></tt>, replace the <tt class="docutils literal"><span class="pre">head</span></tt> element with the following:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;head&gt;</span>
+
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>My Awesome Game<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!-- Include any style sheets here --&gt;</span>
+
+    <span class="c">&lt;!-- Tell requirejs where to find your code --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">require</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">baseUrl</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nx">waitSeconds</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="nx">context</span><span class="o">:</span> <span class="s2">&quot;gma&quot;</span>
+        <span class="p">};</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+    <span class="c">&lt;!-- Include the necessary libraries --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;libs-min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="nt">&lt;/head&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">That's it!</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Advanced Topics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="next chapter">Architecture</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="architecture.html" title="Architecture"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Advanced Topics"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

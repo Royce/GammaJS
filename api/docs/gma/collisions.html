@@ -1,0 +1,337 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gma.collisions &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="gma" href="../gma.html" />
+    <link rel="next" title="gma.hud" href="hud.html" />
+    <link rel="prev" title="gma.utils" href="utils.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hud.html" title="gma.hud"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="gma.utils"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" accesskey="U">gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="std:api-gma.collisions"></span><div class="section" id="s-gma-collisions">
+<span id="s-std:api-collisions"></span><span id="gma-collisions"></span><span id="std:api-collisions"></span><h1>gma.collisions<a class="headerlink" href="#gma-collisions" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<p>Provides collision detection functionality</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Package</td>
+<td>gma/utils/collisions</td>
+</tr>
+<tr><td>Already Instantiated</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="section" id="s-properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p id="std:prop-gma.collisions.factories"><span id="gma-collisions-factories"></span><strong>factories</strong></p>
+<blockquote>
+Provides factories for creating filter functions</blockquote>
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils" id="std:metho-gma.collisions.factories.findBlockers">
+<span id="gma-collisions-factories-findblockers"></span><span id="index-0"></span><dt><strong>factories.findBlockers</strong> (focus, vector) -&gt; Function(environ):Boolean</dt>
+<dd><div class="first line-block">
+<div class="line">Factory for creating a function that filters stuff outside the enclosing box of our focus</div>
+<div class="line">The enclosing box is the box that encloses the focus where it is now and after it&#8217;s intended movement</div>
+<div class="line">This works by saying what isn&#8217;t outside the enclosing box</div>
+<div class="line">Outside occurs when one of the following is true</div>
+</div>
+<ul class="simple">
+<li>Top of the obstacle is below the bottom of the focus</li>
+<li>Left of the obstacle is to the right the right of the focus</li>
+<li>Right of the obstacle is to the left the left of the focus</li>
+<li>Bottom of the obstacle is above the top of the focus</li>
+</ul>
+<table class="last docutils">
+<colgroup>
+<col width="8%" />
+<col width="31%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>focus</td>
+<td><a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a></td>
+<td>Object representing the thing we are moving</td>
+</tr>
+<tr><td>vector</td>
+<td>[x, y]</td>
+<td>Vector representing movement horizontally and vertically</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.collisions.factories.findGround">
+<span id="gma-collisions-factories-findground"></span><span id="index-1"></span><dt><strong>factories.findGround</strong> (focus) -&gt; Function(environ):Boolean</dt>
+<dd><div class="first line-block">
+<div class="line">Factory for creating a function that filters everything that could be ground to our focus</div>
+<div class="line">Something is ground if it&#8217;s top is at the same y position of the focus</div>
+<div class="line">And the object shares horizontal position with the focus</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="9%" />
+<col width="36%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>focus</td>
+<td><a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a></td>
+<td>Object representing the thing we are moving</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.collisions.factories.findCollisions">
+<span id="gma-collisions-factories-findcollisions"></span><span id="index-2"></span><dt><strong>factories.findCollisions</strong> (focus, vector) -&gt; Function(environ):[possibleX, possibleY]</dt>
+<dd><div class="first line-block">
+<div class="line">This factory will create a filter function that determines how far focus can go before it hits a particular object in the environment</div>
+</div>
+<div class="line-block">
+<div class="line">It first creates a closure containing</div>
+</div>
+<ul class="simple">
+<li>the gradient of the vecotr</li>
+<li>the sides of the focus facing the direction of the vector</li>
+<li>the sides of the environ facing the focus</li>
+</ul>
+<div class="line-block">
+<div class="line">The filter works by first setting possibleX and possibleY to the vector passed in. The filter will end up either returning these values or new values possibleX and possibleY.</div>
+</div>
+<div class="line-block">
+<div class="line">It will then decide if the direction is straight or diagonal.</div>
+</div>
+<div class="line-block">
+<div class="line">If we&#8217;re going straight, then we can only go in that direction the minium of the distance between focus and environ or the appropiatepart of the vector.</div>
+</div>
+<div class="line-block">
+<div class="line">If we&#8217;re going diagonal, then we determine which axis is constrained (horizontal, vertical, both or neither) and move the object accordingly. (how is explained below). Whichever is constrained will move the exact distance between the focus and the environ, whilst the other axis will be determined by the full amount of the vector</div>
+</div>
+<div class="line-block">
+<div class="line">We then call collidedWith and collidedBy on the appropiate objects with the appropiate parameters and return [possibleX, possibleY]</div>
+</div>
+<div class="line-block">
+<div class="line">To determine what to do when going diagonally, we first determine the following</div>
+</div>
+<ul class="simple">
+<li>X and y co-ordinates of the vertical and horizontal axis ofthe environ respectively</li>
+<li>The equivalent of the focus</li>
+<li>Where the particular sides chosen is determined by the direction of the vector</li>
+<li>The horizontal and vertical distance between focus and environ (xd and yd)</li>
+<li>We then determine whether horizontal or vertical axis are constrained using the following rules per axis<ul>
+<li>If the distance is zero</li>
+<li>, or this axis is already past the respective axis of the environ</li>
+</ul>
+</li>
+<li>Then we determine whether xd or yd should be negative or positive depending on the direction and gradient of the vector</li>
+<li>Then we determine a projection of xd and yd on the gradient (i.e. If we moved the character xd or yd, then what the respective amount they&#8217;d travel in the other axis according to the gradient). We call these values, yxd and xyd. These values are made absolute astheir polarity doesn&#8217;t make a difference past this point</li>
+<li>If at this point, both axis are still constrained, then we see if we can unconstrain one of the axis. We say that for each axis, if the amount projected is less than the distance between between focusand environ, then the other axis isn&#8217;t constrained, which leaves this axis to still be constrained.</li>
+<li>We then say that each axis that is constrained can only move the distance between focus and environ and each axis that is not constrained moves the full amount of the vector</li>
+<li>We also determine if the focus will completely miss the environ. if both or neither axis are constrained, then it doesn&#8217;t miss.</li>
+<li>If only one axis is constrained, then we look at the distance between the opposite sides of focus and environ. So say for example focus is moving left, then we look at the distance between focus&#8217; left side and environ&#8217;s right side. If this distance is smaller than the projected distance, then the focus must not be hitting the environ, and we&#8217;ve missed it</li>
+</ul>
+<table class="last docutils">
+<colgroup>
+<col width="8%" />
+<col width="31%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>focus</td>
+<td><a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a></td>
+<td>Object representing the thing we are moving</td>
+</tr>
+<tr><td>vector</td>
+<td>[x, y]</td>
+<td>Vector representing movement horizontally and vertically</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.collisions.detectCollisions">
+<span id="gma-collisions-detectcollisions"></span><span id="index-3"></span><dt><strong>detectCollisions</strong> (focus, vector, environment) -&gt; [x, y]</dt>
+<dd><div class="first line-block">
+<div class="line">Given a focus, it&#8217;s movement and what&#8217;s in the environment, this will determine where that focus can go.</div>
+<div class="line">It will first filter out anything that is outside the enclosing box</div>
+<div class="line">It will then determine if there are any collisions</div>
+<div class="line">If there aren&#8217;t collisions, it will return the original vector</div>
+<div class="line">If there are no collisions, it will return a vector representing the smallest amount of movement it can do given the collisions</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="10%" />
+<col width="29%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>focus</td>
+<td><a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a></td>
+<td>Object representing the thing we are moving</td>
+</tr>
+<tr><td>vector</td>
+<td>[x, y]</td>
+<td>Vector representing movement horizontally and vertically</td>
+</tr>
+<tr><td>environment</td>
+<td>[many <a class="reference internal" href="shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a>]</td>
+<td>List of shapes representing collidable objects in the visible environment</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="previous chapter">gma.utils</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hud.html"
+                        title="next chapter">gma.hud</a></p>
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gma.collisions</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hud.html" title="gma.hud"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="gma.utils"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" >gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

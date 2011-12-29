@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Add some platforms &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Making your first game" href="../intro/tutorials.html" />
+    <link rel="next" title="Add a character" href="character.html" />
+    <link rel="prev" title="Getting Started" href="gettingStarted.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="character.html" title="Add a character"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gettingStarted.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" accesskey="U">Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-add-some-platforms">
+<span id="add-some-platforms"></span><h1>Add some platforms<a class="headerlink" href="#add-some-platforms" title="Permalink to this headline">¶</a></h1>
+<p>Lets create a very basic level containing a few platform. To add some platforms to our game, they must be added to a level.</p>
+<p>A platform it a type of entity. Therefore the platforms are specified in the entities array inside the level. For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;platform&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;platform&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">36</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>As <tt class="docutils literal"><span class="pre">platform</span></tt> is the default entity, we could specify this as:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">36</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Finally, we need to add the level to the manager using <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.storeLevels"><tt class="xref std std-metho docutils literal"><span class="pre">storeLevels</span></tt></a>:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">myLevel</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="s-end-result">
+<span id="end-result"></span><h2>End Result<a class="headerlink" href="#end-result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s1">&#39;gma/base&#39;</span><span class="p">,</span> <span class="s1">&#39;gma/manager&#39;</span><span class="p">],</span>
+
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">({</span>
+            <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nx">height</span> <span class="o">:</span> <span class="mi">500</span>
+        <span class="p">});</span>
+        <span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">36</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">};</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">myLevel</span><span class="p">);</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To learn more about the various ways to specify a platform see <a class="reference internal" href="../topics/platform.html#platforms"><em>the platforms topic</em></a></p>
+</div>
+</div>
+<div class="section" id="s-what-s-next">
+<span id="what-s-next"></span><h2>What's next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>In the next section we will <a class="reference internal" href="character.html"><em>add a character to our game</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gettingStarted.html"
+                        title="previous chapter">Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="character.html"
+                        title="next chapter">Add a character</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Add some platforms</a><ul>
+<li><a class="reference internal" href="#end-result">End Result</a></li>
+<li><a class="reference internal" href="#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="character.html" title="Add a character"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gettingStarted.html" title="Getting Started"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" >Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

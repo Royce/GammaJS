@@ -1,0 +1,166 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Customise the Camera &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Making your first game" href="../intro/tutorials.html" />
+    <link rel="next" title="Adding Lights" href="lights.html" />
+    <link rel="prev" title="Adding some enemies" href="enemies.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="lights.html" title="Adding Lights"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="enemies.html" title="Adding some enemies"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" accesskey="U">Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-customise-the-camera">
+<span id="customise-the-camera"></span><h1>Customise the Camera<a class="headerlink" href="#customise-the-camera" title="Permalink to this headline">¶</a></h1>
+<p>Gamma creates a default camera which follows the character&#8217;s movement and is 50 units in front of the character &#8212; a <tt class="docutils literal"><span class="pre">z</span></tt> location of 50.</p>
+<p>To change the camera in your level, you can specify options under the <tt class="docutils literal"><span class="pre">camera</span></tt> label in the level specification. You can only specify one camera in each level specification. When a camera is specified in your level it will override the default camera provided by Gamma.</p>
+<p>The following specification is the equivalent of the default camera:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+         <span class="nx">locZ</span> <span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+         <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">]</span>
+     <span class="p">}</span>
+ <span class="p">};</span>
+</pre></div>
+</div>
+<p>Lets specify a camera a little bit further away from the character, but always a bit higher than it:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+         <span class="nx">locZ</span> <span class="o">:</span> <span class="mi">60</span><span class="p">,</span>
+         <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+     <span class="p">}</span>
+ <span class="p">};</span>
+</pre></div>
+</div>
+<div class="section" id="s-what-s-next">
+<span id="what-s-next"></span><h2>What's next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>In the next section we will <a class="reference internal" href="lights.html"><em>learn how to add some lights</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="enemies.html"
+                        title="previous chapter">Adding some enemies</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="lights.html"
+                        title="next chapter">Adding Lights</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Customise the Camera</a><ul>
+<li><a class="reference internal" href="#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="lights.html" title="Adding Lights"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="enemies.html" title="Adding some enemies"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" >Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

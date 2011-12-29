@@ -1,0 +1,361 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create a HUD &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Messages" href="messages.html" />
+    <link rel="prev" title="KeyHandling" href="keyHandling.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="messages.html" title="Messages"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keyHandling.html" title="KeyHandling"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-create-a-hud">
+<span id="create-a-hud"></span><h1>Create a HUD<a class="headerlink" href="#create-a-hud" title="Permalink to this headline">¶</a></h1>
+<p>A HUD, or Heads Up Display, is a place where information about the game and the user can be displayed whilst the game is being played. This is usually textually based data and doesn&#8217;t need to be rendered in 3D, which means we can take advantage of the fact that the game is a in a webpage and provide the heads up display using html and css.</p>
+<p>Gamma provides the <a class="reference internal" href="../api/docs/gma/hud.html#std:api-gma.hud"><tt class="xref std std-api docutils literal"><span class="pre">gma.hud</span></tt></a> object, which will create the necessary html for you and insert it into your webpage at runtime. It is then up to the programmer to supply the necessary css such that the HUD appears where desired.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An instance of <a class="reference internal" href="../api/docs/gma/hud.html#std:api-gma.hud"><tt class="xref std std-api docutils literal"><span class="pre">gma.hud</span></tt></a> is created for you when you create the manager and can be found on <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.hud"><tt class="xref std std-prop docutils literal"><span class="pre">manager.hud</span></tt></a></p>
+</div>
+<div class="section" id="s-structure-of-the-hud">
+<span id="structure-of-the-hud"></span><h2>Structure of the HUD<a class="headerlink" href="#structure-of-the-hud" title="Permalink to this headline">¶</a></h2>
+<p>A HUD is broken down into sections which contain parts. Each part can hold one or more items of information.</p>
+<p>When the HUD is created, each section will be a <tt class="docutils literal"><span class="pre">div</span></tt> element. Each part within this section will be a <tt class="docutils literal"><span class="pre">dl</span></tt> list and each item of information within this will contain a <tt class="docutils literal"><span class="pre">dt</span></tt>, <tt class="docutils literal"><span class="pre">dd</span></tt> pair.</p>
+</div>
+<div class="section" id="s-specifying-the-hud">
+<span id="specifying-the-hud"></span><h2>Specifying the HUD<a class="headerlink" href="#specifying-the-hud" title="Permalink to this headline">¶</a></h2>
+<p>By default, there is no HUD and it is only after one is specified that any html will be created for the HUD. To specify a hud in your game, you must call <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.setup"><tt class="xref std std-metho docutils literal"><span class="pre">setup</span></tt></a> on <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.hud"><tt class="xref std std-prop docutils literal"><span class="pre">manager.hud</span></tt></a> with a specification of what information you want displayed:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="nx">specification</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="s-specifying-sections">
+<span id="specifying-sections"></span><h3>Specifying Sections<a class="headerlink" href="#specifying-sections" title="Permalink to this headline">¶</a></h3>
+<p>The specification is a Javascript object which contains both keys and values. The keys specify the sections/parts to create and the value holds a javascript object which contains the information you wish to be displayed:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">specification</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">section1_part1</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="nx">section1_part2</span><span class="o">:</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Each key must has an underscore in it's name. This is used to split the name into two parts. The first part is the name of the section this part belongs to and the second part is the name of the part itself.</p>
+<p>The previous example would generate the following html:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;section1_hud&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;part1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+
+    <span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;part2&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>As you shown above, each section is assigned an <tt class="docutils literal"><span class="pre">id</span></tt> of the first part of the key with the string &quot;_hud&quot;, and each section contains a <tt class="docutils literal"><span class="pre">class</span></tt> attribute equal to the second part of the key.</p>
+</div>
+<div class="section" id="s-specifiying-information">
+<span id="specifiying-information"></span><h3>Specifiying information<a class="headerlink" href="#specifiying-information" title="Permalink to this headline">¶</a></h3>
+<p>The information is a javascript object which contains a label with either a value or a function:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">section1_part1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">item1</span> <span class="o">:</span> <span class="mi">5</span>
+        <span class="nx">item2</span> <span class="o">:</span> <span class="s2">&quot;hi&quot;</span>
+    <span class="p">},</span>
+    <span class="nx">section1_part2</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">item1</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">section2_part1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">tHiNg</span> <span class="o">:</span> <span class="s2">&quot;blah&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If the value is static (i.e. not a function), then it will never be updated once the HUD is created. However if you specify a function, then everytime the HUD is refreshed (which happens as part of the <a class="reference internal" href="../glossary.html#term-game-loop"><em class="xref std std-term">Game Loop</em></a>), then the HUD will be updated to reflect the result of calling the function again.</p>
+<p>The example above information will generate the following html:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;section1_hud&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;part1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;dt</span> <span class="na">id=</span><span class="s">&quot;hud_item1&quot;</span><span class="nt">&gt;&lt;span&gt;</span>item1<span class="nt">&lt;/span&gt;&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>5<span class="nt">&lt;/dd&gt;</span>
+
+        <span class="nt">&lt;dt</span> <span class="na">id=</span><span class="s">&quot;hud_item2&quot;</span><span class="nt">&gt;&lt;span&gt;</span>item2<span class="nt">&lt;/span&gt;&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>hi<span class="nt">&lt;/dd&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+
+    <span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;part2&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;dt</span> <span class="na">id=</span><span class="s">&quot;hud_item1&quot;</span><span class="nt">&gt;&lt;span&gt;</span>item1<span class="nt">&lt;/span&gt;&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>Wed Oct 13 2010 21:57:41 GMT+0800 (WST)<span class="nt">&lt;/dd&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;section2_hud&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;part1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;dt</span> <span class="na">id=</span><span class="s">&quot;hud_thing&quot;</span><span class="nt">&gt;&lt;span&gt;</span>tHiNg<span class="nt">&lt;/span&gt;&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>blah<span class="nt">&lt;/dd&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>The dt generated will have an <tt class="docutils literal"><span class="pre">id</span></tt> attribute equal to the name of the item, lowercase, prepended by the string &quot;hud_&quot; holding a span with the label of the information as it's value. The dd that is created is then given the value of the item.</p>
+</div>
+</div>
+<div class="section" id="s-styling-the-hud">
+<span id="s-stylinghud"></span><span id="styling-the-hud"></span><span id="stylinghud"></span><h2>Styling the HUD<a class="headerlink" href="#styling-the-hud" title="Permalink to this headline">¶</a></h2>
+<p>Gamma does not specify how a HUD should appear, instead it only creates some semantic html and lets the game developer create the necessary css to make the HUD appear as desired.</p>
+<p>Below is some example css that will look for a <tt class="docutils literal"><span class="pre">top_hud</span></tt> and <tt class="docutils literal"><span class="pre">bottom_hud</span></tt> sections, and turn them into a bar at the top and bottom of the screen respectively. Each of these sections contain parts named <tt class="docutils literal"><span class="pre">left</span></tt> and <tt class="docutils literal"><span class="pre">right</span></tt>, each appearing at their respective sides of the bars.</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="c">/* Setup the bars */</span>
+
+<span class="nf">#top_hud</span><span class="o">,</span> <span class="nf">#bottom_hud</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">2em</span><span class="p">;</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span><span class="m">0em</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">100%</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span><span class="nb">black</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">7</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nf">#top_hud</span> <span class="p">{</span>
+  <span class="k">top</span><span class="o">:</span><span class="m">0em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#bottom_hud</span> <span class="p">{</span>
+  <span class="k">bottom</span><span class="o">:</span><span class="m">0em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Setup left and right part of each bar */</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dl</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dl</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0.3em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dl</span><span class="nc">.left</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dl</span><span class="nc">.left</span> <span class="p">{</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#bottom_hud</span> <span class="nt">dl</span><span class="nc">.right</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dl</span><span class="nc">.right</span> <span class="p">{</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Setup labels for each itme */</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dt</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dt</span><span class="o">,</span>
+<span class="nf">#bottom_hud</span> <span class="nt">dd</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dd</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">1.4em</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dt</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dt</span> <span class="p">{</span>
+        <span class="k">padding-right</span><span class="o">:</span> <span class="m">0.5em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dd</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dd</span> <span class="p">{</span>
+  <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">dl</span><span class="nc">.left</span> <span class="nt">dd</span> <span class="p">{</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">dl</span><span class="nc">.right</span> <span class="nt">dt</span> <span class="p">{</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference internal" href="../api/docs/gma/hud.html#std:api-gma.hud"><tt class="xref std std-api docutils literal"><span class="pre">gma.hud</span></tt></a> object will hide parts that don't contain items and sections that don't contain any parts</p>
+</div>
+<p>We could create a HUD that uses this structure with the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/*global require */</span>
+<span class="nx">require</span><span class="p">([</span><span class="s1">&#39;gma/base&#39;</span><span class="p">,</span> <span class="s1">&#39;gma/manager&#39;</span><span class="p">],</span>
+
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">({</span>
+            <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nx">height</span> <span class="o">:</span> <span class="mi">500</span>
+        <span class="p">});</span>
+
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
+            <span class="nx">top_left</span><span class="o">:</span> <span class="p">{</span>
+                <span class="c1">//manager.getFPS is a function</span>
+                <span class="c1">//that returns the current fps when called</span>
+                <span class="nx">time</span> <span class="o">:</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">getFPS</span>
+            <span class="p">},</span>
+
+            <span class="nx">top_right</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">score</span> <span class="o">:</span> <span class="mi">1</span>
+            <span class="p">},</span>
+
+            <span class="nx">bottom_left</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">test</span> <span class="o">:</span> <span class="s2">&quot;hello&quot;</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-customising-the-labels">
+<span id="customising-the-labels"></span><h2>Customising the Labels<a class="headerlink" href="#customising-the-labels" title="Permalink to this headline">¶</a></h2>
+<p>We can also do some nice tricks with our css to change the apearance of each item's label. For example, making it hidden, so only the value is visible.</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nf">#hud_fps</span> <span class="nt">span</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then, once the span is hidden, we can also replace the label with an image. For example, the following rules (assuming you have an <cite>fps.png</cite>)</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nf">#hud_fps</span> <span class="nt">span</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#hud_fps</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="k">transparent</span> <span class="sx">url(fps.png)</span> <span class="k">no-repeat</span> <span class="k">top</span> <span class="k">left</span> <span class="k">scroll</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+  <span class="k">min-width</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-hiding-and-showing-the-hud">
+<span id="hiding-and-showing-the-hud"></span><h2>Hiding and Showing the HUD<a class="headerlink" href="#hiding-and-showing-the-hud" title="Permalink to this headline">¶</a></h2>
+<p>You can also programmatically hide sections and/or parts of the HUD, and if you are so inclined, show them again with the HUD's <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.hide"><tt class="xref std std-metho docutils literal"><span class="pre">hide</span></tt></a> and <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.show"><tt class="xref std std-metho docutils literal"><span class="pre">show</span></tt></a> methods.</p>
+<p>Without any arguments, these functions will be applied to the HUD as a whole. Alternatively, you call them with a string that either is the name of the section you want to operate on, or the name of the part prepended by the name of it's section and an underscore.</p>
+<p>For example, say we have a HUD setup in a similar way as shown in <a class="reference internal" href="#stylinghud"><em>Styling the HUD</em></a>, and we wanted to hide the <tt class="docutils literal"><span class="pre">right</span></tt> part of the <tt class="docutils literal"><span class="pre">top</span></tt> section, then we would call <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.hide"><tt class="xref std std-metho docutils literal"><span class="pre">hide</span></tt></a> with the string &quot;top_right&quot;.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If, after hiding a particular part of a section, there are no more parts in that section, then the entire section will be hidden</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="keyHandling.html"
+                        title="previous chapter">KeyHandling</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="messages.html"
+                        title="next chapter">Messages</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Create a HUD</a><ul>
+<li><a class="reference internal" href="#structure-of-the-hud">Structure of the HUD</a></li>
+<li><a class="reference internal" href="#specifying-the-hud">Specifying the HUD</a><ul>
+<li><a class="reference internal" href="#specifying-sections">Specifying Sections</a></li>
+<li><a class="reference internal" href="#specifiying-information">Specifiying information</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#styling-the-hud">Styling the HUD</a></li>
+<li><a class="reference internal" href="#customising-the-labels">Customising the Labels</a></li>
+<li><a class="reference internal" href="#hiding-and-showing-the-hud">Hiding and Showing the HUD</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="messages.html" title="Messages"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keyHandling.html" title="KeyHandling"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

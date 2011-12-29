@@ -1,0 +1,26 @@
+.. _simpleTopics:
+
+Topics
+===========
+
+Introductions to all the key parts of Gamma you'll need to know.
+
+Table of Contents
+-----------------
+
+.. toctree::
+   :maxdepth: 1
+
+   shapes
+   moveables
+   tags
+   character
+   enemy
+   platform
+   levels
+   appearance
+   keyHandling
+   hud
+   messages
+
+

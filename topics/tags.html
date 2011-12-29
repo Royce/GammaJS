@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tags &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Character" href="character.html" />
+    <link rel="prev" title="Moveable Entities" href="moveables.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="character.html" title="Character"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moveables.html" title="Moveable Entities"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-tags">
+<span id="s-id1"></span><span id="tags"></span><span id="id1"></span><h1>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h1>
+<p>Gamma uses <tt class="docutils literal"><span class="pre">tags</span></tt> to control the behaviour and other attributes of entities. Every entity, (i.e. anything that is a descendant of <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a>), has a property <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.tags"><tt class="xref std std-prop docutils literal"><span class="pre">tags</span></tt></a> which is a <a class="reference internal" href="../glossary.html#term-hash"><em class="xref std std-term">hash</em></a>.</p>
+<p>An entity is considered to have a particular tag if the tag-name can be found in the <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.tags"><tt class="xref std std-prop docutils literal"><span class="pre">tags</span></tt></a> property and it has a truthy value.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="nx">myEntity</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">fast</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// This entity has the &#39;fast&#39; tag.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Gamma provides and knows about many tags which control the behaviour of <a class="reference internal" href="enemy.html"><em>enemies</em></a> and <a class="reference internal" href="platform.html"><em>platforms</em></a> such as <em>deathtouch</em>, <em>jumping</em>, and <em>weakhead</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When we refer to <cite>behaviour</cite> here, we mean both movement rules/behaviour, what happens when collisions occur and other attributes of entities.</p>
+</div>
+<div class="section" id="s-setting-tags">
+<span id="setting-tags"></span><h2>Setting tags<a class="headerlink" href="#setting-tags" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways you can set tags on an entity:</p>
+<div class="section" id="s-adding-a-tag-to-the-created-entity">
+<span id="adding-a-tag-to-the-created-entity"></span><h3>Adding a tag to the created entity<a class="headerlink" href="#adding-a-tag-to-the-created-entity" title="Permalink to this headline">¶</a></h3>
+<p>When we have already created an entity, then to give it a tag, we set it to <tt class="docutils literal"><span class="pre">true</span></tt> on the <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.tags"><tt class="xref std std-prop docutils literal"><span class="pre">tags</span></tt></a> property:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myShape</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">});</span>
+
+<span class="c1">//Give the entity &quot;deathly&quot;, &quot;scared&quot; and &quot;psycho&quot; tags.</span>
+<span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">deathly</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">scared</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">psycho</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-listing-tags-when-instantiating-the-entity">
+<span id="listing-tags-when-instantiating-the-entity"></span><h3>Listing tags when instantiating the entity<a class="headerlink" href="#listing-tags-when-instantiating-the-entity" title="Permalink to this headline">¶</a></h3>
+<p>You can also give an entity some tags when you create it. Specify tags by providing the tags as an array of strings. The entity will set each listed tag to <tt class="docutils literal"><span class="pre">true</span></tt> in the <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.tags"><tt class="xref std std-prop docutils literal"><span class="pre">tags</span></tt></a> list.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myShape</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">tags</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;deathly&#39;</span><span class="p">,</span> <span class="s1">&#39;scared&#39;</span><span class="p">,</span> <span class="s1">&#39;psycho&#39;</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="c1">// Print tags to the console</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">);</span>
+
+<span class="c1">// The console will output:</span>
+<span class="c1">// {deathly : true, scared : true, psycho : true, shape : true}</span>
+
+<span class="c1">// ::NOTE:: gma.shapes.rectangle will set a tag of &quot;shape&quot; on the entity</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-removing-tags">
+<span id="removing-tags"></span><h2>Removing tags<a class="headerlink" href="#removing-tags" title="Permalink to this headline">¶</a></h2>
+<p>You can remove tags by using the javascript <cite>delete</cite> keyword.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myShape</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">tags</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;deathly&#39;</span><span class="p">,</span> <span class="s1">&#39;scared&#39;</span><span class="p">,</span> <span class="s1">&#39;psycho&#39;</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="c1">// Checking it exists at all before deleting it is good practise</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">deathly</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">delete</span> <span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">deathly</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Print tags to the console</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myShape</span><span class="p">.</span><span class="nx">tags</span><span class="p">);</span>
+
+<span class="c1">// The console will output:</span>
+<span class="c1">// {scared : true, psycho : true, shape : true}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moveables.html"
+                        title="previous chapter">Moveable Entities</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="character.html"
+                        title="next chapter">Character</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tags</a><ul>
+<li><a class="reference internal" href="#setting-tags">Setting tags</a><ul>
+<li><a class="reference internal" href="#adding-a-tag-to-the-created-entity">Adding a tag to the created entity</a></li>
+<li><a class="reference internal" href="#listing-tags-when-instantiating-the-entity">Listing tags when instantiating the entity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#removing-tags">Removing tags</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="character.html" title="Character"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moveables.html" title="Moveable Entities"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

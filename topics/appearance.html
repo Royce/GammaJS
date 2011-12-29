@@ -1,0 +1,287 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Appearance &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="KeyHandling" href="keyHandling.html" />
+    <link rel="prev" title="Levels" href="levels.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="keyHandling.html" title="KeyHandling"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="levels.html" title="Levels"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-appearance">
+<span id="s-id1"></span><span id="appearance"></span><span id="id1"></span><h1>Appearance<a class="headerlink" href="#appearance" title="Permalink to this headline">¶</a></h1>
+<p>Specifying the 3D object which is rendered to represent an entity is done through using templates. Gamma provides 3 different templates which can be used to specify a 3D object to be rendered.</p>
+<p><a class="reference internal" href="../api/docs/gma/meshTemplate.html#std:api-gma.meshTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.meshTemplate</span></tt></a> to specify a mesh internally.</p>
+<p><a class="reference internal" href="../api/docs/gma/glgeIDTemplate.html#std:api-gma.glgeIDTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.glgeIDTemplate</span></tt></a> to specify objects found in an external xml file.</p>
+<p><a class="reference internal" href="../api/docs/gma/colladaTemplate.html#std:api-gma.colladaTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.colladaTemplate</span></tt></a> to specify an external collada file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To use a template, you must require the <tt class="docutils literal"><span class="pre">gma/utils/render</span></tt> package</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Gamma only provides rendering support for <a class="reference external" href="http://www.glge.org/">GLGE</a>, but feel free to see the <a class="reference internal" href="../advanced/templates.html#renderhelpers"><em>explanation of render helpers and templates</em></a> to find out how to add support for other rendering engines.</p>
+</div>
+<div class="section" id="s-meshtemplate">
+<span id="meshtemplate"></span><h2>MeshTemplate<a class="headerlink" href="#meshtemplate" title="Permalink to this headline">¶</a></h2>
+<p>This template is useful where an object&#8217;s mesh is stored internally.</p>
+<p>When you define a <a class="reference internal" href="../api/docs/gma/meshTemplate.html#std:api-gma.meshTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.meshTemplate</span></tt></a>, you need to specify a <tt class="docutils literal"><span class="pre">mesh</span></tt> and either a <tt class="docutils literal"><span class="pre">material</span></tt> or a <tt class="docutils literal"><span class="pre">texture</span></tt>.</p>
+<div class="section" id="s-material">
+<span id="material"></span><h3>Material<a class="headerlink" href="#material" title="Permalink to this headline">¶</a></h3>
+<p>Material can be specified if you wish to have a simple color for the surface of your mesh. This is done using a hexadecimal value as shown bellow:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">meshTemplate</span><span class="p">({</span>
+    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">myMesh</span><span class="p">,</span>
+    <span class="nx">material</span> <span class="o">:</span> <span class="p">{</span><span class="nx">color</span> <span class="o">:</span> <span class="s1">&#39;#090&#39;</span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>You can look at the <tt class="docutils literal"><span class="pre">set_*</span></tt> methods <a class="reference external" href="http://www.glge.org/api-docs/?url=/symbols/GLGE.Material.html">here</a> to see what options you can set on the material.</p>
+</div>
+<div class="section" id="s-texture">
+<span id="texture"></span><h3>Texture<a class="headerlink" href="#texture" title="Permalink to this headline">¶</a></h3>
+<p>Texture can be specified if you wish to have an image mapped on to the surface of your mesh. This is done by specifying the source of where the image is stored.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">meshTemplate</span><span class="p">({</span>
+    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">myMesh</span><span class="p">,</span>
+    <span class="nx">texture</span> <span class="o">:</span> <span class="p">{</span><span class="nx">src</span> <span class="o">:</span> <span class="s1">&#39;cloud.png&#39;</span><span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The texture by default will loop for every unit of the entities' height, width and depth. You can change this by specifying the <tt class="docutils literal"><span class="pre">repeatX</span></tt> and <tt class="docutils literal"><span class="pre">repeatY</span></tt> on the texture.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">meshTemplate</span><span class="p">({</span>
+    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">myMesh</span><span class="p">,</span>
+    <span class="nx">texture</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">src</span> <span class="o">:</span> <span class="s1">&#39;cloud.png&#39;</span><span class="p">,</span>
+        <span class="nx">repeatX</span> <span class="o">:</span> <span class="mf">0.2</span><span class="p">,</span>
+        <span class="nx">repeatY</span> <span class="o">:</span> <span class="mf">0.2</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>You can look at the <tt class="docutils literal"><span class="pre">set_*</span></tt> methods <a class="reference external" href="http://www.glge.org/api-docs/?url=/symbols/GLGE.Texture.html">here</a> to see what options you can set on the texture.</p>
+</div>
+<div class="section" id="s-mesh">
+<span id="mesh"></span><h3>Mesh<a class="headerlink" href="#mesh" title="Permalink to this headline">¶</a></h3>
+<p>Gamma provides a cube mesh which can be used to specify a simple cube in <a class="reference internal" href="../api/docs/gma/gma.html#std:prop-gma.gma.unitCubeInfo"><tt class="xref std std-prop docutils literal"><span class="pre">unitCubeInfo</span></tt></a>, which is ideal for platforms.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">aCube</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">meshTemplate</span><span class="p">({</span>
+    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">unitCubeInfo</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+    <span class="nx">material</span> <span class="o">:</span> <span class="nx">myMaterial</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Alternatively you could create your own mesh. Eg:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myMesh</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// An array of the x, y,z coordinates of each vertex</span>
+    <span class="nx">positions</span> <span class="o">:</span> <span class="p">[],</span>
+
+    <span class="c1">// An array of the x,y,z coordinates for the normal for each vertex</span>
+    <span class="nx">normals</span> <span class="o">:</span> <span class="p">[],</span>
+
+    <span class="c1">// An array of the x,y UV coordinates for each vertex</span>
+    <span class="nx">UV</span> <span class="o">:</span> <span class="p">[],</span>
+
+    <span class="c1">// An array of specifying which vertexes go together to make each face</span>
+    <span class="nx">faces</span> <span class="o">:</span> <span class="p">[]</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">thingUsingMyMesh</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">meshTemplate</span><span class="p">({</span>
+    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">myMesh</span><span class="p">,</span>
+    <span class="nx">material</span> <span class="o">:</span> <span class="nx">myMaterial</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Look at the <tt class="docutils literal"><span class="pre">set_*</span></tt> methods over <a class="reference external" href="http://www.glge.org/api-docs/?url=/symbols/GLGE.Mesh.html">here</a> for more options that you can set on the mesh.</p>
+</div>
+</div>
+<div class="section" id="s-glge-id-template">
+<span id="glge-id-template"></span><h2>GLGE ID Template<a class="headerlink" href="#glge-id-template" title="Permalink to this headline">¶</a></h2>
+<p>The GLGE rendering engine provides the ability to define an object using xml. Gamma allows you to include these xml files by giving <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.resources"><tt class="xref std std-prop docutils literal"><span class="pre">resources</span></tt></a> a list of paths to the xml you want to include.</p>
+<p>For example, say you have the following xml file</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+<span class="nt">&lt;glge&gt;</span>
+    <span class="nt">&lt;mesh</span> <span class="na">id=</span><span class="s">&quot;box&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;positions&gt;</span>1.000000,1.000000,-1.000000,1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,1.000000,-1.000000,1.000000,0.999999,1.000000,-1.000000,1.000000,1.000000<span class="nt">&lt;/positions&gt;</span>
+                    <span class="nt">&lt;normals&gt;</span>0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,-0.000000,1.000000,0.000000,-0.000000,1.000000,0.000000<span class="nt">&lt;/normals&gt;</span>
+                            <span class="nt">&lt;uv1&gt;</span>0.000000,0.000000,1.000000,0.000000,1.000000,1.000000,0.000000,1.000000,0.000000,0.000000,1.000000<span class="nt">&lt;/uv1&gt;</span>
+        <span class="nt">&lt;faces&gt;</span>0,1,2,0,2,3,4,5,6,4,6,7,8,9<span class="nt">&lt;/faces&gt;</span>
+
+    <span class="nt">&lt;/mesh&gt;</span>
+    <span class="nt">&lt;material</span> <span class="na">id=</span><span class="s">&quot;red&quot;</span> <span class="na">color=</span><span class="s">&quot;#900&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;object</span> <span class="na">id=</span><span class="s">&quot;redcube&quot;</span> <span class="na">mesh=</span><span class="s">&quot;#box&quot;</span> <span class="na">material=</span><span class="s">&quot;#red&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/glge&gt;</span>
+</pre></div>
+</div>
+<p>You can reference an object specified within an xml file, such as the redcube object shown above as a template for rendering an object by simply doing the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myRedCube</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">glgeIdTemplate</span><span class="p">({</span><span class="nx">id</span> <span class="o">:</span> <span class="s2">&quot;redcube&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can use <a class="reference internal" href="../api/docs/gma/glgeIDTemplate.html#std:api-gma.glgeIDTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.glgeIDTemplate</span></tt></a> objects to get anything from the xml, just simply create one and call it's <a class="reference internal" href="../api/docs/gma/glgeIDTemplate.html#std:metho-gma.glgeIDTemplate.defineInstance"><tt class="xref std std-metho docutils literal"><span class="pre">defineInstance</span></tt></a> function.</p>
+</div>
+</div>
+<div class="section" id="s-collada-template">
+<span id="collada-template"></span><h2>Collada Template<a class="headerlink" href="#collada-template" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://collada.org">Collada</a> is open standard xml schema to define a model. Most 3D modelling applications support exporting models in this format (.dae).</p>
+<p>You can specify a collada file as a template for rendering an object by using <a class="reference internal" href="../api/docs/gma/colladaTemplate.html#std:api-gma.colladaTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.colladaTemplate</span></tt></a>. All you need to do is specify a <tt class="docutils literal"><span class="pre">collada</span></tt> property that has a <tt class="docutils literal"><span class="pre">document</span></tt> property which defines where the collada file is stored.</p>
+<p>For example,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myGorilla</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">colladaTemplate</span><span class="p">({</span>
+    <span class="nx">collada</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nb">document</span> <span class="o">:</span> <span class="s1">&#39;mygorilla.dae&#39;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-size-of-the-rendered-object">
+<span id="size-of-the-rendered-object"></span><h2>Size of the rendered Object<a class="headerlink" href="#size-of-the-rendered-object" title="Permalink to this headline">¶</a></h2>
+<p>When you specify an entities' dimensions, the rendered object used for this object is scaled by these dimensions.</p>
+<p>However, this will only produce the desired results when the object being scaled is unit size to begin with. Unfortunately it not currently possible to determine the size of the object being rendered, and so the programmer must manually specify how much to scale the object before it is unit size.</p>
+<p>For example, say you have a collada object that is 2 units high by 4 units wide. Then it must be scaled by half vertically, and by a quarter horizontally, before it can be accurately scaled to the size of the entity. To specify this, we simply specify <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.xScale"><tt class="xref std std-prop docutils literal"><span class="pre">xScale</span></tt></a> and <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.yScale"><tt class="xref std std-prop docutils literal"><span class="pre">yScale</span></tt></a> when we create our templateHelper.</p>
+<p>For example,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myFatGorilla</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">colladaTemplate</span><span class="p">({</span>
+    <span class="nb">document</span> <span class="p">{</span>
+        <span class="nx">src</span> <span class="o">:</span> <span class="s1">&#39;mygorilla.dae&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">xScale</span> <span class="o">:</span> <span class="mf">0.25</span><span class="p">,</span>
+    <span class="nx">yScale</span> <span class="o">:</span> <span class="mf">0.5</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:api-gma.baseTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.baseTemplate</span></tt></a> allows you to specify <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.xScale"><tt class="xref std std-prop docutils literal"><span class="pre">xScale</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.yScale"><tt class="xref std std-prop docutils literal"><span class="pre">yScale</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.zScale"><tt class="xref std std-prop docutils literal"><span class="pre">zScale</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.yRot"><tt class="xref std std-prop docutils literal"><span class="pre">yRot</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.xRot"><tt class="xref std std-prop docutils literal"><span class="pre">xRot</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.zRot"><tt class="xref std std-prop docutils literal"><span class="pre">zRot</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.xOffset"><tt class="xref std std-prop docutils literal"><span class="pre">xOffset</span></tt></a>, <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.yOffset"><tt class="xref std std-prop docutils literal"><span class="pre">yOffset</span></tt></a> and <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:prop-gma.baseTemplate.zOffset"><tt class="xref std std-prop docutils literal"><span class="pre">zOffset</span></tt></a> for the purpose of such normalisation.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="levels.html"
+                        title="previous chapter">Levels</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="keyHandling.html"
+                        title="next chapter">KeyHandling</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Appearance</a><ul>
+<li><a class="reference internal" href="#meshtemplate">MeshTemplate</a><ul>
+<li><a class="reference internal" href="#material">Material</a></li>
+<li><a class="reference internal" href="#texture">Texture</a></li>
+<li><a class="reference internal" href="#mesh">Mesh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#glge-id-template">GLGE ID Template</a></li>
+<li><a class="reference internal" href="#collada-template">Collada Template</a></li>
+<li><a class="reference internal" href="#size-of-the-rendered-object">Size of the rendered Object</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="keyHandling.html" title="KeyHandling"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="levels.html" title="Levels"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

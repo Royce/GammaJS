@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Render Helpers and Templates &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Advanced Topics" href="index.html" />
+    <link rel="next" title="gma" href="../api/docs/gma.html" />
+    <link rel="prev" title="Level Parser" href="levelParser.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../api/docs/gma.html" title="gma"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="levelParser.html" title="Level Parser"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-render-helpers-and-templates">
+<span id="s-renderhelpers"></span><span id="render-helpers-and-templates"></span><span id="renderhelpers"></span><h1>Render Helpers and Templates<a class="headerlink" href="#render-helpers-and-templates" title="Permalink to this headline">¶</a></h1>
+<p>This page explains how Gamma uses <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:api-gma.renderHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.renderHelper</span></tt></a> to provide the link between Gamma entities and the rendering engine.</p>
+<p>Everything that is rendered in Gamma is found inside the <tt class="docutils literal"><span class="pre">entities</span></tt> or <tt class="docutils literal"><span class="pre">levelExtras</span></tt> property of the current level. The content of the <tt class="docutils literal"><span class="pre">entities</span></tt> list doesn&#8217;t matter, as long as each <cite>entity</cite> has a <tt class="docutils literal"><span class="pre">helper</span></tt> property that is an instance of <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:api-gma.renderHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.renderHelper</span></tt></a>, and that the <cite>render helper</cite> has a <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:prop-gma.renderHelper.template"><tt class="xref std std-prop docutils literal"><span class="pre">template</span></tt></a> property set to a descendant of <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:api-gma.baseTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.baseTemplate</span></tt></a>. These <cite>render helpers</cite> are used to provide the visual representation to the <cite>scene helper</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="../topics/appearance.html#appearance"><em>Appearance</em></a> for more information on templates</p>
+</div>
+<p>As a part of processing a level, in the <a class="reference internal" href="../api/docs/gma/levelParser.html#std:metho-gma.levelParser.process_entities"><tt class="xref std std-metho docutils literal"><span class="pre">process_entities</span></tt></a> method, the <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.levelParser"><tt class="xref std std-prop docutils literal"><span class="pre">levelParser</span></tt></a> will go through all the entities in the level and use <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.prepareEntity"><tt class="xref std std-metho docutils literal"><span class="pre">prepareEntity</span></tt></a> to give them each a <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:api-gma.renderHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.renderHelper</span></tt></a>.</p>
+<p>These render helper objects are responsible for ensuring that the visual representation of the entity it belongs to has the correct size and position and is added to the current <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.sceneHelper"><tt class="xref std std-prop docutils literal"><span class="pre">sceneHelper</span></tt></a>. The render helper also maintains a cache of the object specifying this representation.</p>
+<div class="section" id="s-registering-with-the-scenehelper">
+<span id="registering-with-the-scenehelper"></span><h2>Registering with the SceneHelper<a class="headerlink" href="#registering-with-the-scenehelper" title="Permalink to this headline">¶</a></h2>
+<p>As a part of loading a level, <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a> will go through the <tt class="docutils literal"><span class="pre">entities</span></tt> list on the current level and ask the <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.sceneHelper"><tt class="xref std std-prop docutils literal"><span class="pre">sceneHelper</span></tt></a> to add each entity&#8217;s <tt class="docutils literal"><span class="pre">helper</span></tt> object.</p>
+<p>This will cause the <a class="reference internal" href="../api/docs/gma/sceneHelper.html#std:api-gma.sceneHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.sceneHelper</span></tt></a> to call the render helper&#8217;s <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:metho-gma.renderHelper.addTo"><tt class="xref std std-metho docutils literal"><span class="pre">addTo</span></tt></a> method with a container that it can add the visual representation to.</p>
+</div>
+<div class="section" id="s-maintaining-size-and-position">
+<span id="maintaining-size-and-position"></span><h2>Maintaining size and position<a class="headerlink" href="#maintaining-size-and-position" title="Permalink to this headline">¶</a></h2>
+<p>As part of the <a class="reference internal" href="../glossary.html#term-game-loop"><em class="xref std std-term">Game Loop</em></a>, the manager&#8217;s <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.sceneHelper"><tt class="xref std std-prop docutils literal"><span class="pre">sceneHelper</span></tt></a> is asked to render the scene using it&#8217;s <a class="reference internal" href="../api/docs/gma/sceneHelper.html#std:metho-gma.sceneHelper.render"><tt class="xref std std-metho docutils literal"><span class="pre">render</span></tt></a> method. This method will first update all the objects specific to the rendering engine using <a class="reference internal" href="../api/docs/gma/sceneHelper.html#std:metho-gma.sceneHelper.setRenderedLocations"><tt class="xref std std-metho docutils literal"><span class="pre">setRenderedLocations</span></tt></a> and then use ask the rendering engine to render everything.</p>
+<p>The <a class="reference internal" href="../api/docs/gma/sceneHelper.html#std:metho-gma.sceneHelper.setRenderedLocations"><tt class="xref std std-metho docutils literal"><span class="pre">setRenderedLocations</span></tt></a> method will go through each entity on the current level and call <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:metho-gma.renderHelper.setLocation"><tt class="xref std std-metho docutils literal"><span class="pre">setLocation</span></tt></a> on each entity&#8217;s render helper. This method will get the object that represents the entity and make sure it accurately represents the size and position of the entity.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference internal" href="../api/docs/gma/sceneHelper.html#std:metho-gma.sceneHelper.setRenderedLocations"><tt class="xref std std-metho docutils literal"><span class="pre">setRenderedLocations</span></tt></a> method is also responsible for ensuring anything registered as being <a class="reference internal" href="../topics/levels.html#attached"><em>attached</em></a> to something else is moved when that entity is moved.</p>
+</div>
+</div>
+<div class="section" id="s-providing-a-cache">
+<span id="providing-a-cache"></span><h2>Providing a cache<a class="headerlink" href="#providing-a-cache" title="Permalink to this headline">¶</a></h2>
+<p>To get the rendering specific object from a render helper, we call it&#8217;s <a class="reference internal" href="../api/docs/gma/renderHelper.html#std:metho-gma.renderHelper.getRenderedObj"><tt class="xref std std-metho docutils literal"><span class="pre">getRenderedObj</span></tt></a> method. This method will look for an <tt class="docutils literal"><span class="pre">_instance</span></tt> attribute on the render helper. If it does not have one, then it will ask it&#8217;s template (one is added as part of <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.prepareEntity"><tt class="xref std std-metho docutils literal"><span class="pre">prepareEntity</span></tt></a>) to give it an instance to work with by calling it&#8217;s <a class="reference internal" href="../api/docs/gma/baseTemplate.html#std:metho-gma.baseTemplate.getInstance"><tt class="xref std std-metho docutils literal"><span class="pre">getInstance</span></tt></a> method.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can override the template on the render helper just by setting it&#8217;s <tt class="docutils literal"><span class="pre">_instance</span></tt> property.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="levelParser.html"
+                        title="previous chapter">Level Parser</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../api/docs/gma.html"
+                        title="next chapter">gma</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Render Helpers and Templates</a><ul>
+<li><a class="reference internal" href="#registering-with-the-scenehelper">Registering with the SceneHelper</a></li>
+<li><a class="reference internal" href="#maintaining-size-and-position">Maintaining size and position</a></li>
+<li><a class="reference internal" href="#providing-a-cache">Providing a cache</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../api/docs/gma.html" title="gma"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="levelParser.html" title="Level Parser"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

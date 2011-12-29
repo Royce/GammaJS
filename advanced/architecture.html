@@ -1,0 +1,293 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Architecture &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Advanced Topics" href="index.html" />
+    <link rel="next" title="Defining collision behaviour" href="collisionFunctions.html" />
+    <link rel="prev" title="Developing with Gamma" href="install.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="collisionFunctions.html" title="Defining collision behaviour"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Developing with Gamma"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-architecture">
+<span id="architecture"></span><h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<p>If you are planning to extend or modify the Gamma framework &#8211; or are, perhaps, simply curious &#8211; it is desirable to understand the various patterns that were used whilst constructing the framework.</p>
+<p>Reading this section, you will learn:</p>
+<ul class="simple">
+<li>how to use <a class="reference external" href="http://requirejs.org/">RequireJS</a>;</li>
+<li>how each module is put in the gma namespace;</li>
+<li>how we&#8217;ve constructed the building blocks in Gamma to allow inheritance;</li>
+<li>how we&#8217;ve allowed private variables through closures; and</li>
+<li>the limitations we imposed on the game engine for simplicity.</li>
+</ul>
+<div class="section" id="s-namespace-and-requirejs">
+<span id="s-requirejsns"></span><span id="namespace-and-requirejs"></span><span id="requirejsns"></span><h2>Namespace and RequireJS<a class="headerlink" href="#namespace-and-requirejs" title="Permalink to this headline">¶</a></h2>
+<p>Eveything in Gamma exists under the <tt class="docutils literal"><span class="pre">gma</span></tt> namespace, which has been achieved using <a class="reference external" href="http://requirejs.org/">RequireJS</a>.</p>
+<p>Whether defining a new module with <tt class="docutils literal"><span class="pre">require.def</span></tt> or simply loading dependencies with  <tt class="docutils literal"><span class="pre">require</span></tt>, you need to supply a list of dependencies that will be loaded before executing the supplied callback. RequireJS will then pass in all these dependencies into callback function when it loads. When defining a module, this callback function is expected to return the module and is called the <cite>Module&#8217;s function</cite>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span><span class="p">(</span><span class="s1">&#39;newModule&#39;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;dependency1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;dependency2&#39;</span>
+    <span class="p">],</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">dependency1</span><span class="p">,</span> <span class="nx">dependency2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Module&#39;s function</span>
+
+        <span class="k">return</span> <span class="nx">the_module</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Gamma uses the convention that each module has <tt class="docutils literal"><span class="pre">gma/base</span></tt> as the first dependency, then the gma namespace will be the first argument to the module's function. Then, each module will append it's contents straight onto the gma namespace. Therefore only the gma base object will return a module.</p>
+<p>For example, <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> is added to the gma namespace with the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">def</span><span class="p">(</span><span class="s1">&#39;gma/entities/character&#39;</span><span class="p">,</span>
+    <span class="p">[</span> <span class="s1">&#39;gma/base&#39;</span><span class="p">,</span>              <span class="c1">// Provides the gma namespace which</span>
+      <span class="s1">&#39;gma/entities/moveable&#39;</span><span class="p">,</span> <span class="c1">//  is passed into the function</span>
+      <span class="s1">&#39;gma/utils/collisions&#39;</span>   <span class="c1">//  below.</span>
+    <span class="p">],</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Add gma.character</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">spec</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// character class goes here</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-factory-pattern">
+<span id="factory-pattern"></span><h2>Factory Pattern<a class="headerlink" href="#factory-pattern" title="Permalink to this headline">¶</a></h2>
+<p>Gamma was designed so that <cite>classes</cite> behave like building blocks, allowing objects to be created by applying many such &quot;building blocks&quot; to a JavaScript object.</p>
+<p>This was achieved using the factory pattern. In this pattern, an object is created by a factory function that accepts an object and simply add more properties/methods to it.</p>
+<p>We have designed all our building blocks to &quot;respect&quot; properties/methods already existing on any input object, by only setting such properties and methods if the object doesn't already have such a property. The building blocks ensure that a default set of properties/methods exist on objects, so that they may be &quot;complete&quot;.</p>
+<p>For example,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">spec</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">spec</span> <span class="o">||</span> <span class="p">{};</span>
+
+    <span class="c1">// add properties and methods to self</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">y</span> <span class="o">||</span> <span class="mi">6</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">someFunction</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">someFunction</span> <span class="o">||</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;hi there&#39;</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// Defaults to a new object if one isn&#39;t passed in</span>
+<span class="kd">var</span> <span class="nx">myNewObject</span> <span class="o">=</span> <span class="nx">myClass</span><span class="p">();</span>
+
+<span class="c1">// Or we can apply the building block with some object</span>
+<span class="kd">var</span> <span class="nx">myOtherNewObject</span> <span class="o">=</span> <span class="nx">myClass</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">5</span><span class="p">});</span>
+<span class="nx">myOtherNewObject</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span> <span class="c1">// &lt;= 6</span>
+
+<span class="c1">// Or just by calling the function on an existing object</span>
+<span class="kd">var</span> <span class="nx">yetAnotherObject</span> <span class="o">=</span> <span class="p">{</span><span class="nx">y</span><span class="o">:</span><span class="mi">2</span><span class="p">};</span>
+<span class="nx">myClass</span><span class="p">(</span><span class="nx">yetAnotherObject</span><span class="p">);</span>
+<span class="nx">yetAnotherObject</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span> <span class="c1">// &lt;= 2</span>
+</pre></div>
+</div>
+<p>This allows the Gamma framework to imitate inheritance -- in the previous example <tt class="docutils literal"><span class="pre">yetAnotherObject</span></tt> inherits from <tt class="docutils literal"><span class="pre">myClass</span></tt> -- but it is possible to create an object that is built using a combination of unrelated blocks.</p>
+<p>For example,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObject</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="c1">// There are no building blocks as shape, animateable or</span>
+<span class="c1">//  armed, but for example&#39;s sake</span>
+<span class="nx">shape</span><span class="p">(</span><span class="nx">myObject</span><span class="p">);</span>
+<span class="nx">animateable</span><span class="p">(</span><span class="nx">myObject</span><span class="p">);</span>
+<span class="nx">armed</span><span class="p">(</span><span class="nx">myObject</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For all these examples to work, the factory must return the object it creates/edits at the bottom</p>
+</div>
+<p>The factory pattern also chosen because it allows our classes to have a <a class="reference internal" href="../glossary.html#term-closure"><em class="xref std std-term">closure</em></a>, which allows us to imitate private variables.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">spec</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">spec</span> <span class="o">||</span> <span class="p">{};</span>
+
+    <span class="c1">// Anything else that is var&#39;d is private</span>
+    <span class="kd">var</span> <span class="nx">secret</span> <span class="o">=</span> <span class="s2">&quot;Lalala&quot;</span><span class="p">;</span>
+
+    <span class="c1">// Private variable is only exposed through an accessor</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">someFunction</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">someFunction</span> <span class="o">||</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;My secret is &#39;</span> <span class="o">+</span> <span class="nx">secret</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="section" id="s-factories-in-collision-detection">
+<span id="factories-in-collision-detection"></span><h3>Factories in collision detection<a class="headerlink" href="#factories-in-collision-detection" title="Permalink to this headline">¶</a></h3>
+<p>We have also used factories for our collision detection for caching purposes, as you can see on the page that <em class="xref std std-ref">explains our collision detection</em></p>
+</div>
+</div>
+<div class="section" id="s-separating-concerns">
+<span id="separating-concerns"></span><h2>Separating Concerns<a class="headerlink" href="#separating-concerns" title="Permalink to this headline">¶</a></h2>
+<p>The Gamma framework aims to disconnect the game logic from the visual logic. We have  achieved this by making an interface that sits between Gamma and an arbitary rendering engine. This interface is collectively referred to as the <tt class="docutils literal"><span class="pre">Render</span> <span class="pre">Helpers</span></tt>. Theoretically we can define rendering helpers for many rendering engines, and perhaps even non-webgl engines. At this point we only have Render Helpers that use GLGE. You can find more about these <em class="xref std std-ref">here</em>.</p>
+</div>
+<div class="section" id="s-limitations-for-simplicity">
+<span id="limitations-for-simplicity"></span><h2>Limitations for Simplicity<a class="headerlink" href="#limitations-for-simplicity" title="Permalink to this headline">¶</a></h2>
+<p>Gamma was designed to be with two main limitations to keep the code simple</p>
+<ul class="simple">
+<li>Entities can only move in 2D space</li>
+<li>Everything is a square</li>
+</ul>
+<p>Below is the list of places in the Gamma codebase that makes these assumptions</p>
+<ul class="simple">
+<li>The entire collision detection assumes we don't need to look at the <tt class="docutils literal"><span class="pre">z</span></tt> axis, and that everything is a square<ul>
+<li><a class="reference internal" href="../api/docs/gma/collisions.html#std:metho-gma.collisions.detectCollisions"><tt class="xref std std-metho docutils literal"><span class="pre">detectCollisions</span></tt></a>, <a class="reference internal" href="../api/docs/gma/collisions.html#std:metho-gma.collisions.factories.findCollisions"><tt class="xref std std-metho docutils literal"><span class="pre">findCollisions</span></tt></a>, <a class="reference internal" href="../api/docs/gma/collisions.html#std:metho-gma.collisions.factories.findGround"><tt class="xref std std-metho docutils literal"><span class="pre">findGround</span></tt></a>, <a class="reference internal" href="../api/docs/gma/collisions.html#std:metho-gma.collisions.factories.findBlockers"><tt class="xref std std-metho docutils literal"><span class="pre">findBlockers</span></tt></a></li>
+</ul>
+</li>
+<li>We only supply directional <a class="reference internal" href="../api/docs/gma/constants.html#std:api-gma.constants"><tt class="xref std std-api docutils literal"><span class="pre">constants</span></tt></a> that represent 2D directions, (<a class="reference internal" href="../api/docs/gma/constants.html#std:constant-LEFT"><tt class="xref std std-constant docutils literal"><span class="pre">LEFT</span></tt></a>, <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-RIGHT"><tt class="xref std std-constant docutils literal"><span class="pre">RIGHT</span></tt></a>, <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-FALLING"><tt class="xref std std-constant docutils literal"><span class="pre">FALLING</span></tt></a>, <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-JUMPING"><tt class="xref std std-constant docutils literal"><span class="pre">JUMPING</span></tt></a>)</li>
+<li><a class="reference internal" href="../api/docs/gma/renderHelper.html#std:metho-gma.renderHelper.setLocation"><tt class="xref std std-metho docutils literal"><span class="pre">setLocation</span></tt></a> assumes entities don't have a <tt class="docutils literal"><span class="pre">z</span></tt> property.</li>
+<li><a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> assumes it only needs to keep track of vertical and horizontal state (<a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a> and <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.yState"><tt class="xref std std-prop docutils literal"><span class="pre">yState</span></tt></a>)</li>
+<li><a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> also has functions that change the position of an entity, and they all assume we only need to update it's <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.x"><tt class="xref std std-prop docutils literal"><span class="pre">x</span></tt></a> and <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.y"><tt class="xref std std-prop docutils literal"><span class="pre">y</span></tt></a> properties<ul>
+<li><a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.updatePositions"><tt class="xref std std-metho docutils literal"><span class="pre">updatePositions</span></tt></a>, <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.animate"><tt class="xref std std-metho docutils literal"><span class="pre">animate</span></tt></a>, <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getMovement"><tt class="xref std std-metho docutils literal"><span class="pre">getMovement</span></tt></a></li>
+<li>This also means everything that inherits from <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> have the same limitations.</li>
+</ul>
+</li>
+<li><a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a> has a couple of functions that don't care about the <tt class="docutils literal"><span class="pre">z</span></tt> axis.<ul>
+<li><a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:metho-gma.shapes.rectangle.setBottomLeft"><tt class="xref std std-metho docutils literal"><span class="pre">setBottomLeft</span></tt></a> and <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:metho-gma.shapes.rectangle.setPointsAndEdges"><tt class="xref std std-metho docutils literal"><span class="pre">setPointsAndEdges</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">gma.shapes.rectangle</span></tt></a> is the only object that provides any &quot;shape&quot; functionality.</li>
+</ul>
+</div>
+<div class="section" id="s-functionality-through-tags">
+<span id="functionality-through-tags"></span><h2>Functionality through tags<a class="headerlink" href="#functionality-through-tags" title="Permalink to this headline">¶</a></h2>
+<p>Gamma uses a very simple tags system to provide the ability to specify particular functionality on entities. This is explained in further detail on <a class="reference internal" href="../topics/tags.html#tags"><em>this page</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Developing with Gamma</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="collisionFunctions.html"
+                        title="next chapter">Defining collision behaviour</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Architecture</a><ul>
+<li><a class="reference internal" href="#namespace-and-requirejs">Namespace and RequireJS</a></li>
+<li><a class="reference internal" href="#factory-pattern">Factory Pattern</a><ul>
+<li><a class="reference internal" href="#factories-in-collision-detection">Factories in collision detection</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#separating-concerns">Separating Concerns</a></li>
+<li><a class="reference internal" href="#limitations-for-simplicity">Limitations for Simplicity</a></li>
+<li><a class="reference internal" href="#functionality-through-tags">Functionality through tags</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="collisionFunctions.html" title="Defining collision behaviour"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Developing with Gamma"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

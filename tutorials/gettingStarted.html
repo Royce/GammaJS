@@ -1,0 +1,201 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Making your first game" href="../intro/tutorials.html" />
+    <link rel="next" title="Add some platforms" href="platforms.html" />
+    <link rel="prev" title="Making your first game" href="../intro/tutorials.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="platforms.html" title="Add some platforms"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../intro/tutorials.html" title="Making your first game"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" accesskey="U">Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-getting-started">
+<span id="getting-started"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference internal" href="../intro/install.html#install"><em>the install guide</em></a> to find out how to setup the game. Once you&#8217;ve done this your <tt class="docutils literal"><span class="pre">game.js</span></tt> will contain the following.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s1">&#39;gma/base&#39;</span><span class="p">,</span> <span class="s1">&#39;gma/manager&#39;</span><span class="p">],</span>
+
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// The game specification is contained within this function.</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">();</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">({});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="s-the-require-function">
+<span id="the-require-function"></span><h2>The require function<a class="headerlink" href="#the-require-function" title="Permalink to this headline">¶</a></h2>
+<p>The first thing  you will notice about <tt class="docutils literal"><span class="pre">game.js</span></tt> is that we &quot;import&quot; the required parts of the Gamma library, by using the require method. The require method takes in a list of dependencies to import from the Gamma library (<tt class="docutils literal"><span class="pre">gma/base</span></tt> and <tt class="docutils literal"><span class="pre">gma/manager</span></tt>) and a function that is executed when all these dependencies are resolved.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/*global require */</span>
+<span class="nx">require</span><span class="p">([</span><span class="s1">&#39;gma/base&#39;</span><span class="p">,</span> <span class="s1">&#39;gma/manager&#39;</span><span class="p">],</span>
+
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// The game specification is contained within this function.</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>The sole argument to this function is the <a class="reference internal" href="../api/docs/gma/gma.html#std:api-gma"><tt class="xref std std-api docutils literal"><span class="pre">gma</span></tt></a> package.</p>
+</div>
+<div class="section" id="s-creating-a-canvas">
+<span id="creating-a-canvas"></span><h2>Creating a canvas<a class="headerlink" href="#creating-a-canvas" title="Permalink to this headline">¶</a></h2>
+<p>The second thing you will notice is <tt class="docutils literal"><span class="pre">var</span> <span class="pre">manager</span> <span class="pre">=</span> <span class="pre">gma.manager();</span></tt>. This will, by default, create a canvas inside a div with id of &quot;gamma&quot;. (Set the manager's <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.containerID"><tt class="xref std std-prop docutils literal"><span class="pre">containerID</span></tt></a> property when creating the manager, to change this. See also: <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.container"><tt class="xref std std-prop docutils literal"><span class="pre">container</span></tt></a> and <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.canvas"><tt class="xref std std-prop docutils literal"><span class="pre">canvas</span></tt></a>.)</p>
+<p>You can control the height and width of the canvas by setting the manager's <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.width"><tt class="xref std std-prop docutils literal"><span class="pre">width</span></tt></a> and <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.height"><tt class="xref std std-prop docutils literal"><span class="pre">height</span></tt></a> properties when you create the manager. This example creates a canvas with width and height of 600 and 500 respectively:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/*global require */</span>
+<span class="nx">require</span><span class="p">([</span><span class="s1">&#39;gma/base&#39;</span><span class="p">,</span> <span class="s1">&#39;gma/manager&#39;</span><span class="p">],</span>
+
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">({</span>
+            <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nx">height</span> <span class="o">:</span> <span class="mi">500</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-starting-the-game-loop">
+<span id="starting-the-game-loop"></span><h2>Starting the game loop<a class="headerlink" href="#starting-the-game-loop" title="Permalink to this headline">¶</a></h2>
+<p>To make our game actually run, we must initiate the <a class="reference internal" href="../glossary.html#term-game-loop"><em class="xref std std-term">Game loop</em></a>. To do this we need to store a level on the manager and call it's init method. In this case we are storing an empty level:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">({});</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-what-s-next">
+<span id="what-s-next"></span><h2>What's next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>In the next section we will <a class="reference internal" href="platforms.html"><em>create a very basic level containing a few platforms</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../intro/tutorials.html"
+                        title="previous chapter">Making your first game</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="platforms.html"
+                        title="next chapter">Add some platforms</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
+<li><a class="reference internal" href="#the-require-function">The require function</a></li>
+<li><a class="reference internal" href="#creating-a-canvas">Creating a canvas</a></li>
+<li><a class="reference internal" href="#starting-the-game-loop">Starting the game loop</a></li>
+<li><a class="reference internal" href="#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="platforms.html" title="Add some platforms"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../intro/tutorials.html" title="Making your first game"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" >Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

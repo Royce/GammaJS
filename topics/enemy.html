@@ -1,0 +1,295 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Enemy &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Platform" href="platform.html" />
+    <link rel="prev" title="Character" href="character.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="platform.html" title="Platform"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="character.html" title="Character"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-enemy">
+<span id="s-enemies"></span><span id="enemy"></span><span id="enemies"></span><h1>Enemy<a class="headerlink" href="#enemy" title="Permalink to this headline">¶</a></h1>
+<p>A range of enemy objects are provided by <a class="reference internal" href="../api/docs/gma/enemy.html#std:api-gma.enemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.enemy</span></tt></a>. An enemy object is very similar to the <em class="xref std std-ref">character</em> object, except that it is not controlled by the player. Instead it follows a set of behaviour definitions to determine it&#8217;s movement.</p>
+<div class="section" id="s-enemy-movement-and-collision-behaviour">
+<span id="enemy-movement-and-collision-behaviour"></span><h2>Enemy Movement and Collision Behaviour<a class="headerlink" href="#enemy-movement-and-collision-behaviour" title="Permalink to this headline">¶</a></h2>
+<p>Gamma provides several behaviours which can be assigned to an enemy, by specifying particular <a class="reference internal" href="tags.html#tags"><em>tags</em></a> when you create the enemy. These tags and the associated behaviour are described below:</p>
+<div class="section" id="s-patrolling">
+<span id="patrolling"></span><h3>Patrolling<a class="headerlink" href="#patrolling" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>patrolling</cite> tag makes the enemy move back and forward between 2 specified x coordinates.</p>
+<p>It requires that the enemy has <tt class="docutils literal"><span class="pre">limitLeft</span></tt> and <tt class="docutils literal"><span class="pre">limitRight</span></tt> properties set on it, which hold a number representing the left and right horizontal limit of the enemy&#8217;s <cite>patrolling area</cite> respectively.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is provided via <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.behaviour__patrolling"><tt class="xref std std-metho docutils literal"><span class="pre">behaviour__patrolling</span></tt></a>, through <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.determineState"><tt class="xref std std-metho docutils literal"><span class="pre">determineState</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-platformer">
+<span id="platformer"></span><h3>Platformer<a class="headerlink" href="#platformer" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>platformer</cite> tag makes the enemy move back and forward between the edges of the platform which it is currently standing on. The enemy will automatically detect edges of the platform so no extra information is required when declaring it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is provided via <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.behaviour__platformer"><tt class="xref std std-metho docutils literal"><span class="pre">behaviour__platformer</span></tt></a>, through <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.determineState"><tt class="xref std std-metho docutils literal"><span class="pre">determineState</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-jumping">
+<span id="jumping"></span><h3>Jumping<a class="headerlink" href="#jumping" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>jumping</cite> tag makes the enemy jump repeatedly on the spot. It is possible to customize how high the enemy jumps by changing the value of it&#8217;s <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.jumpVelocity"><tt class="xref std std-prop docutils literal"><span class="pre">jumpVelocity</span></tt></a> property.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is provided via <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.behaviour__jumping"><tt class="xref std std-metho docutils literal"><span class="pre">behaviour__jumping</span></tt></a>, through <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.determineState"><tt class="xref std std-metho docutils literal"><span class="pre">determineState</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-deathtouch">
+<span id="deathtouch"></span><h3>Deathtouch<a class="headerlink" href="#deathtouch" title="Permalink to this headline">¶</a></h3>
+<p>Enemies with the <cite>deathtouch</cite> tag will kill a character if it collides with one.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is provided via <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:metho-gma.shapes.rectangle.collided__deathtouch"><tt class="xref std std-metho docutils literal"><span class="pre">collided__deathtouch</span></tt></a>. See this <a class="reference internal" href="../advanced/collisionFunctions.html#collisionfunctions"><em>explanation of collision functions</em></a>.</p>
+</div>
+</div>
+<div class="section" id="s-rebound">
+<span id="rebound"></span><h3>Rebound<a class="headerlink" href="#rebound" title="Permalink to this headline">¶</a></h3>
+<p>Enemies that have the <cite>rebound</cite> tag will turn around and walk in the opposite direction if they collide with another entity.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is provided via <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.collided__rebound"><tt class="xref std std-metho docutils literal"><span class="pre">collided__rebound</span></tt></a>. See this <a class="reference internal" href="../advanced/collisionFunctions.html#collisionfunctions"><em>explanation of collision functions</em></a>.</p>
+</div>
+</div>
+<div class="section" id="s-weakhead">
+<span id="weakhead"></span><h3>Weakhead<a class="headerlink" href="#weakhead" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>weakhead</cite> tag makes the top of the enemy vulnerable to <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> objects. As in, if a character jumps on top of an enemy that has this tag, that enemy will be &#8220;killed&#8221;.</p>
+<p>This functionality has precedence over <cite>deathtouch</cite>, such that you can kill an enemy with <cite>deathtouch</cite> without dying.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is provided via <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.collided__weakhead"><tt class="xref std std-metho docutils literal"><span class="pre">collided__weakhead</span></tt></a>. See this <a class="reference internal" href="../advanced/collisionFunctions.html#collisionfunctions"><em>explanation of collision functions</em></a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="s-predefined-enemies">
+<span id="predefined-enemies"></span><h2>Predefined Enemies<a class="headerlink" href="#predefined-enemies" title="Permalink to this headline">¶</a></h2>
+<p>Gamma also provides some convenience objects for you that already have particular tags defined on them.</p>
+<p>All of them have <tt class="docutils literal"><span class="pre">weakhead</span></tt> and <tt class="docutils literal"><span class="pre">deathtouch</span></tt> tags by default.</p>
+<div class="section" id="s-gma-patrolenemy">
+<span id="gma-patrolenemy"></span><h3><a class="reference internal" href="../api/docs/gma/patrolEnemy.html#std:api-gma.patrolEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.patrolEnemy</span></tt></a><a class="headerlink" href="#gma-patrolenemy" title="Permalink to this headline">¶</a></h3>
+<p>This object also has <tt class="docutils literal"><span class="pre">rebound</span></tt> and <tt class="docutils literal"><span class="pre">patrolling</span></tt> tags</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">turtle</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">patrolEnemy</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">limitLeft</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nx">limitRight</span><span class="o">:</span> <span class="mi">40</span>
+<span class="p">});</span>
+
+<span class="c1">// Is equivalent to</span>
+
+<span class="kd">var</span> <span class="nx">turtle</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;weakhead&#39;</span><span class="p">,</span> <span class="s1">&#39;deathtouch&#39;</span><span class="p">,</span> <span class="s1">&#39;rebound&#39;</span><span class="p">,</span> <span class="s1">&#39;patrolling&#39;</span><span class="p">],</span>
+    <span class="nx">limitLeft</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nx">limitRight</span><span class="o">:</span> <span class="mi">40</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-gma-jumpingenemy">
+<span id="gma-jumpingenemy"></span><h3><a class="reference internal" href="../api/docs/gma/jumpingEnemy.html#std:api-gma.jumpingEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.jumpingEnemy</span></tt></a><a class="headerlink" href="#gma-jumpingenemy" title="Permalink to this headline">¶</a></h3>
+<p>This object also has a <tt class="docutils literal"><span class="pre">jumping</span></tt> tag.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">platform_turtle</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">jumpingEnemy</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">// Is equivalent to</span>
+
+<span class="kd">var</span> <span class="nx">turtle</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;weakhead&#39;</span><span class="p">,</span> <span class="s1">&#39;deathtouch&#39;</span><span class="p">,</span> <span class="s1">&#39;jumping&#39;</span><span class="p">]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-gma-platformenemy">
+<span id="gma-platformenemy"></span><h3><a class="reference internal" href="../api/docs/gma/platformEnemy.html#std:api-gma.platformEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.platformEnemy</span></tt></a><a class="headerlink" href="#gma-platformenemy" title="Permalink to this headline">¶</a></h3>
+<p>This object also has <tt class="docutils literal"><span class="pre">rebound</span></tt> and <tt class="docutils literal"><span class="pre">platformer</span></tt> tags</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">platformer</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">platformEnemy</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">// Is equivalent to</span>
+
+<span class="kd">var</span> <span class="nx">turtle</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;weakhead&#39;</span><span class="p">,</span> <span class="s1">&#39;deathtouch&#39;</span><span class="p">,</span> <span class="s1">&#39;rebound&#39;</span><span class="p">,</span> <span class="s1">&#39;platformer&#39;</span><span class="p">]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-create-your-own-enemy-definition">
+<span id="s-adventure"></span><span id="create-your-own-enemy-definition"></span><span id="adventure"></span><h2>Create Your Own Enemy Definition<a class="headerlink" href="#create-your-own-enemy-definition" title="Permalink to this headline">¶</a></h2>
+<p>As these behaviours and enemy interactions are based on tags, you can define your own combination of enemy behaviours. This example creates a patrolling <a class="reference internal" href="../api/docs/gma/enemy.html#std:api-gma.enemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.enemy</span></tt></a> that doesn't die if you jump on it (no <cite>weakhead</cite> tag) and won't turn around until it reaches the end of it's patrol (no <cite>rebound</cite> tag)</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">onyx_one</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span>
+    <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;deathtouch&quot;</span><span class="p">,</span> <span class="s2">&quot;patrolling&quot;</span><span class="p">],</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">limitLeft</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nx">limitRight</span><span class="o">:</span> <span class="mi">40</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>To make this into a reusable definition, create a function that calls gma.enemy and modifies the result:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">gma</span><span class="p">.</span><span class="nx">onyx</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">spec</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">(</span><span class="nx">spec</span><span class="p">);</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">deathtouch</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">patrolling</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// Example of using the new definition</span>
+<span class="kd">var</span> <span class="nx">onyx_two</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">onyx</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">50</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nx">limitLeft</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="nx">limitRight</span><span class="o">:</span> <span class="mi">60</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="character.html"
+                        title="previous chapter">Character</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="platform.html"
+                        title="next chapter">Platform</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Enemy</a><ul>
+<li><a class="reference internal" href="#enemy-movement-and-collision-behaviour">Enemy Movement and Collision Behaviour</a><ul>
+<li><a class="reference internal" href="#patrolling">Patrolling</a></li>
+<li><a class="reference internal" href="#platformer">Platformer</a></li>
+<li><a class="reference internal" href="#jumping">Jumping</a></li>
+<li><a class="reference internal" href="#deathtouch">Deathtouch</a></li>
+<li><a class="reference internal" href="#rebound">Rebound</a></li>
+<li><a class="reference internal" href="#weakhead">Weakhead</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#predefined-enemies">Predefined Enemies</a><ul>
+<li><a class="reference internal" href="#gma-patrolenemy"><tt class="docutils literal"><span class="pre">gma.patrolEnemy</span></tt></a></li>
+<li><a class="reference internal" href="#gma-jumpingenemy"><tt class="docutils literal"><span class="pre">gma.jumpingEnemy</span></tt></a></li>
+<li><a class="reference internal" href="#gma-platformenemy"><tt class="docutils literal"><span class="pre">gma.platformEnemy</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#create-your-own-enemy-definition">Create Your Own Enemy Definition</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="platform.html" title="Platform"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="character.html" title="Character"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

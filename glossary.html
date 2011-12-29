@@ -1,0 +1,173 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Glossary &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="index.html" />
+    <link rel="prev" title="gma.meshTemplate" href="api/docs/gma/meshTemplate.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api/docs/gma/meshTemplate.html" title="gma.meshTemplate"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Gamma v1.0 documentation</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-glossary">
+<span id="s-id1"></span><span id="glossary"></span><span id="id1"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-closure">Closure</dt>
+<dd>A closure is a first-class function which has access to variables declared in its surrounding scope. A closure is defined within the scope of its free variables, and the extent of those variables is at least as long as the lifetime of the closure itself. The explicit use of closures is associated with functional programming and with languages such as ML and Lisp. Closures are used to implement continuation passing style, and in this manner, hide state. Constructs such as objects and control structures can thus be implemented with closures.</dd>
+<dt id="term-curry">Curry</dt>
+<dd><p class="first">Currying a function with arguments returns a function that calls the original function with the arguments provided. For example, the following function (<tt class="docutils literal"><span class="pre">f1</span></tt> and <tt class="docutils literal"><span class="pre">f2</span></tt>) are equivalent; to create <tt class="docutils literal"><span class="pre">f2</span></tt>, the <tt class="docutils literal"><span class="pre">sayThing</span></tt> function is <cite>curried</cite> with the first of it&#8217;s arguments (<tt class="docutils literal"><span class="pre">verb</span></tt>) to create a function with the second argument (<tt class="docutils literal"><span class="pre">noun</span></tt>) as the only argument:</p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span class="nx">sayThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">verb</span><span class="p">,</span> <span class="nx">noun</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span> <span class="s2">&quot;Why don&#39;t you &quot;</span> <span class="o">+</span> <span class="nx">verb</span> <span class="o">+</span> <span class="s2">&quot; the &quot;</span> <span class="o">+</span> <span class="nx">noun</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">f1</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">noun</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">sayThing</span><span class="p">(</span><span class="s2">&quot;jump&quot;</span><span class="p">,</span> <span class="nx">noun</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">f2</span> <span class="o">=</span> <span class="nx">sayThing</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="s2">&quot;jump&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt id="term-dictionary">Dictionary</dt>
+<dd>Another word for <a class="reference internal" href="#term-hash"><em class="xref std std-term">Hash</em></a>. This term is used to highlight the key-value aspect of javascript objects.</dd>
+<dt id="term-game-loop">Game loop</dt>
+<dd><p class="first">The game loop allows the game to run smoothly regardless of a user's input or lack thereof. A game loop will typically do the following:</p>
+<ul class="last simple">
+<li>check for user input</li>
+<li>run AI</li>
+<li>move enemies</li>
+<li>resolve collisions</li>
+<li>draw graphics</li>
+<li>play sounds</li>
+</ul>
+</dd>
+<dt id="term-hash">Hash</dt>
+<dd><p class="first">A hash is simply a Javascript object, with a set of associated keys and values. For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">key</span> <span class="o">:</span> <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+    <span class="nx">another</span> <span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p class="last">In other programming languages, a hash may be referred to as a struct(ure), or a dictionary.</p>
+</dd>
+<dt id="term-hud">HUD</dt>
+<dd>A heads-up display (HUD) is any transparent display that presents data without requiring users to look away from their usual viewpoints. In Gamma, the HUD is an overlay used to display information to the game player (generally their score and lives).</dd>
+<dt id="term-minified">Minified</dt>
+<dd>Minified source code is code that has been stripped of all unnecessary characters from source code, resulting in code that is compressed and often obfuscated. Sometimes the minification process will combines multiple files.</dd>
+<dt id="term-rectangular-prism">Rectangular prism</dt>
+<dd>A rectangular prism (or more accurately rectangular cuboid) is a solid shape bounded by 6 rectangular faces. All corners are right angles and it has a uniform height, width and depth. See <a class="reference external" href="http://en.wikipedia.org/wiki/Cuboid#Rectangular_cuboid">Rectangular cuboid on wikipedia</a></dd>
+<dt id="term-recursion">Recursion</dt>
+<dd>See <a class="reference internal" href="#term-recursion"><em class="xref std std-term">recursion</em></a>.</dd>
+<dt id="term-scene">Scene</dt>
+<dd>The 3D environment, containing lights and objects, that is rendered and displayed to the player.</dd>
+<dt id="term-spawn">Spawn</dt>
+<dd><em>Verb</em>: To appear. Spawning is the in-game placement of an entity, such as a player character or enemy.</dd>
+<dt id="term-spawn-point">Spawn point</dt>
+<dd>A spawn point is the coordinates at which a character or enemy can appear (or <a class="reference internal" href="#term-spawn"><em class="xref std std-term">spawn</em></a>).</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api/docs/gma/meshTemplate.html"
+                        title="previous chapter">gma.meshTemplate</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api/docs/gma/meshTemplate.html" title="gma.meshTemplate"
+             >previous</a> |</li>
+        <li><a href="index.html">Gamma v1.0 documentation</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

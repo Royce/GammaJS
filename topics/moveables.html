@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Moveable Entities &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Tags" href="tags.html" />
+    <link rel="prev" title="Shapes" href="shapes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tags.html" title="Tags"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="shapes.html" title="Shapes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-moveable-entities">
+<span id="s-moveables"></span><span id="moveable-entities"></span><span id="moveables"></span><h1>Moveable Entities<a class="headerlink" href="#moveable-entities" title="Permalink to this headline">¶</a></h1>
+<p>Gamma has abstracted the functionality required to a move an entity into the <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> class. This class is currently used by <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> and <a class="reference internal" href="../api/docs/gma/enemy.html#std:api-gma.enemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.enemy</span></tt></a>.</p>
+<p>This class provides properties that represent the movement state of an entity as well as functions for changing these states and functions for updating the entity&#8217;s position.</p>
+<div class="section" id="s-representing-an-entities-state">
+<span id="representing-an-entities-state"></span><h2>Representing an entities&#8217; state<a class="headerlink" href="#representing-an-entities-state" title="Permalink to this headline">¶</a></h2>
+<p>Although Gamma is rendered in 3D all entities move in 2D. As a result of this, the movement state only needs to keep track of the entities&#8217; horizontal and vertical movement.</p>
+<div class="section" id="s-horizontal-state">
+<span id="horizontal-state"></span><h3>Horizontal State<a class="headerlink" href="#horizontal-state" title="Permalink to this headline">¶</a></h3>
+<p>The horizontal state of an entity is held in it&#8217;s <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a> property. Gamma provides <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-STILL"><tt class="xref std std-constant docutils literal"><span class="pre">STILL</span></tt></a>, <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-RIGHT"><tt class="xref std std-constant docutils literal"><span class="pre">RIGHT</span></tt></a> and <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-LEFT"><tt class="xref std std-constant docutils literal"><span class="pre">LEFT</span></tt></a> as valid values for this property.</p>
+<p>For convenience, <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> also provides <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.lastXState"><tt class="xref std std-prop docutils literal"><span class="pre">lastXState</span></tt></a>, which is used to determine what direction the entity was going in before it stopped moving.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.lastXState"><tt class="xref std std-prop docutils literal"><span class="pre">lastXState</span></tt></a> can also be used to set the direction an entity is looking in when it is first created, due to it&#8217;s use in <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getRotation"><tt class="xref std std-metho docutils literal"><span class="pre">getRotation</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-vertical-state">
+<span id="vertical-state"></span><h3>Vertical State<a class="headerlink" href="#vertical-state" title="Permalink to this headline">¶</a></h3>
+<p>The vertical state of an entity is held in it&#8217;s <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.yState"><tt class="xref std std-prop docutils literal"><span class="pre">yState</span></tt></a> property. Gamma provides <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-STILL"><tt class="xref std std-constant docutils literal"><span class="pre">STILL</span></tt></a>, <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-JUMPING"><tt class="xref std std-constant docutils literal"><span class="pre">JUMPING</span></tt></a> and <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-FALLING"><tt class="xref std std-constant docutils literal"><span class="pre">FALLING</span></tt></a> as valid values for this property.</p>
+<p>When an entity starts jumping, it will use <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.jumpVelocity"><tt class="xref std std-prop docutils literal"><span class="pre">jumpVelocity</span></tt></a> to determine what vertical velocity the entity should start with. For the rest of the time the entity is in the air, it&#8217;s vertical velocity is held by <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.velocity"><tt class="xref std std-prop docutils literal"><span class="pre">velocity</span></tt></a>, which is changed by <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getMovement"><tt class="xref std std-metho docutils literal"><span class="pre">getMovement</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="s-changing-an-entities-direction">
+<span id="changing-an-entities-direction"></span><h2>Changing an entities&#8217; direction<a class="headerlink" href="#changing-an-entities-direction" title="Permalink to this headline">¶</a></h2>
+<p>Changing an entities&#8217; movement state is not controlled by <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a>. Rather, it is the responsibility of each class that subclasses <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a>.</p>
+<p>For example, <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> provides the functions <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.move"><tt class="xref std std-metho docutils literal"><span class="pre">move</span></tt></a> and <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.jump"><tt class="xref std std-metho docutils literal"><span class="pre">jump</span></tt></a> which when called through combination with <a class="reference internal" href="../api/docs/gma/keyHandler.html#std:api-gma.keyHandler"><tt class="xref std std-api docutils literal"><span class="pre">keybindings</span></tt></a> will change the entities movement states and allow the player to control the entity.</p>
+<p>On the other  hand, <a class="reference internal" href="../api/docs/gma/enemy.html#std:api-gma.enemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.enemy</span></tt></a> entities override <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getMovement"><tt class="xref std std-metho docutils literal"><span class="pre">getMovement</span></tt></a> such that the movement state of the entity is determined every time <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.animate"><tt class="xref std std-metho docutils literal"><span class="pre">animate</span></tt></a> is called.</p>
+</div>
+<div class="section" id="s-updating-an-entities-position">
+<span id="updating-an-entities-position"></span><h2>Updating an entities` position<a class="headerlink" href="#updating-an-entities-position" title="Permalink to this headline">¶</a></h2>
+<p>To change the position of an entity according to it’s vertical and horizontal state, <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> provides <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.animate"><tt class="xref std std-metho docutils literal"><span class="pre">animate</span></tt></a> and <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getMovement"><tt class="xref std std-metho docutils literal"><span class="pre">getMovement</span></tt></a>.  The <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getMovement"><tt class="xref std std-metho docutils literal"><span class="pre">getMovement</span></tt></a> function returns a movement vector calculated from the entity’s current vertical and horizontal state and is used by the <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.animate"><tt class="xref std std-metho docutils literal"><span class="pre">animate</span></tt></a> function, which in turn, is called as part of the Game Loop.</p>
+<p>The animate function does the following:</p>
+<ul class="simple">
+<li>Determine a movement vector</li>
+<li>Use <a class="reference internal" href="../api/docs/gma/collisions.html#std:metho-gma.collisions.detectCollisions"><tt class="xref std std-metho docutils literal"><span class="pre">detectCollisions</span></tt></a> to determine how far the entity can move along this movement vector.</li>
+<li>Change the position of the entity using <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.updatePositions"><tt class="xref std std-metho docutils literal"><span class="pre">updatePositions</span></tt></a>.</li>
+<li>Determine if the entity is on standing on top of something by calling <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.findGround"><tt class="xref std std-metho docutils literal"><span class="pre">findGround</span></tt></a> and change the vertical state of the entity to <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-FALLING"><tt class="xref std std-constant docutils literal"><span class="pre">FALLING</span></tt></a> or <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-STILL"><tt class="xref std std-constant docutils literal"><span class="pre">STILL</span></tt></a> as appropriate.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="../api/docs/gma/collisions.html#std:metho-gma.collisions.detectCollisions"><tt class="xref std std-metho docutils literal"><span class="pre">detectCollisions</span></tt></a> will only be used if either <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a> or <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.yState"><tt class="xref std std-prop docutils literal"><span class="pre">yState</span></tt></a> are not <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-STILL"><tt class="xref std std-constant docutils literal"><span class="pre">STILL</span></tt></a>, but <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.updatePositions"><tt class="xref std std-metho docutils literal"><span class="pre">updatePositions</span></tt></a> and <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.findGround"><tt class="xref std std-metho docutils literal"><span class="pre">findGround</span></tt></a> will always be called.</p>
+</div>
+</div>
+<div class="section" id="s-utility-functions">
+<span id="utility-functions"></span><h2>Utility functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
+<p>There are a couple of other functions that <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> provides, <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getRotation"><tt class="xref std std-metho docutils literal"><span class="pre">getRotation</span></tt></a> and <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.kill"><tt class="xref std std-metho docutils literal"><span class="pre">kill</span></tt></a>.</p>
+<p>The <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.kill"><tt class="xref std std-metho docutils literal"><span class="pre">kill</span></tt></a> method will set <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.alive"><tt class="xref std std-prop docutils literal"><span class="pre">alive</span></tt></a> to false and set <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a> to <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-STILL"><tt class="xref std std-constant docutils literal"><span class="pre">STILL</span></tt></a>. This ensures the entity won&#8217;t continue moving after being &#8220;killed&#8221;, and <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.removeDead"><tt class="xref std std-metho docutils literal"><span class="pre">removeDead</span></tt></a> will become aware that this entity should be removed.</p>
+<p>The <a class="reference internal" href="../api/docs/gma/moveable.html#std:metho-gma.moveable.getRotation"><tt class="xref std std-metho docutils literal"><span class="pre">getRotation</span></tt></a> is purely for changing the visual representation of an entity. When called, it will look at the state of the entity and determine which direction it should be facing and return a number representing how far around the y-axis the entity should be rotated.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="shapes.html"
+                        title="previous chapter">Shapes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tags.html"
+                        title="next chapter">Tags</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Moveable Entities</a><ul>
+<li><a class="reference internal" href="#representing-an-entities-state">Representing an entities&#8217; state</a><ul>
+<li><a class="reference internal" href="#horizontal-state">Horizontal State</a></li>
+<li><a class="reference internal" href="#vertical-state">Vertical State</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changing-an-entities-direction">Changing an entities&#8217; direction</a></li>
+<li><a class="reference internal" href="#updating-an-entities-position">Updating an entities` position</a></li>
+<li><a class="reference internal" href="#utility-functions">Utility functions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tags.html" title="Tags"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="shapes.html" title="Shapes"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

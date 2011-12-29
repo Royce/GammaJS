@@ -1,0 +1,729 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gma.manager &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="gma" href="../gma.html" />
+    <link rel="next" title="gma.character" href="character.html" />
+    <link rel="prev" title="gma.keyHandler" href="keyHandler.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="character.html" title="gma.character"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keyHandler.html" title="gma.keyHandler"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" accesskey="U">gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="std:api-gma.manager"></span><div class="section" id="s-gma-manager">
+<span id="s-std:api-manager"></span><span id="gma-manager"></span><span id="std:api-manager"></span><h1>gma.manager<a class="headerlink" href="#gma-manager" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<p>Provides basic setup functionality</p>
+<table class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Package</td>
+<td>gma/manager</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="section" id="s-properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p id="std:prop-gma.manager.width"><span id="gma-manager-width"></span><strong>width</strong></p>
+<blockquote>
+<p>Holds the width of the canvas</p>
+<table class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+<tr><td>Default</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.height"><span id="gma-manager-height"></span><strong>height</strong></p>
+<blockquote>
+<p>Holds the height of the canvas</p>
+<table class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+<tr><td>Default</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.containerID"><span id="gma-manager-containerid"></span><strong>containerID</strong></p>
+<blockquote>
+<p>Id for the gamma div</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>String</td>
+</tr>
+<tr><td>Default</td>
+<td>&#8220;gamma&#8221;</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.container"><span id="gma-manager-container"></span><strong>container</strong></p>
+<blockquote>
+<p>The gamma div</p>
+<table class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Element</td>
+</tr>
+<tr><td>Default</td>
+<td>$(&#8220;#gamma&#8221;)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.canvas"><span id="gma-manager-canvas"></span><strong>canvas</strong></p>
+<blockquote>
+<p>Holds the canvas</p>
+<table class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>DOM Element</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.sceneHelper"><span id="gma-manager-scenehelper"></span><strong>sceneHelper</strong></p>
+<blockquote>
+<p>Helper object connecting manager to rendering library</p>
+<table class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td><a class="reference internal" href="sceneHelper.html#std:api-gma.sceneHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.sceneHelper</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.resources"><span id="gma-manager-resources"></span><strong>resources</strong></p>
+<blockquote>
+<p>List of resources to give the renderer</p>
+<table class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="63%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>[String]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.levelParser"><span id="gma-manager-levelparser"></span><strong>levelParser</strong></p>
+<blockquote>
+<p>The manager&#8217;s levelParser object</p>
+<table class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td><a class="reference internal" href="levelParser.html#std:api-gma.levelParser"><tt class="xref std std-api docutils literal"><span class="pre">gma.levelParser</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.levels"><span id="gma-manager-levels"></span><strong>levels</strong></p>
+<blockquote>
+<p>Holds the level specs</p>
+<table class="docutils">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>List</td>
+</tr>
+<tr><td>Default</td>
+<td>[]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.hud"><span id="gma-manager-hud"></span><strong>hud</strong></p>
+<blockquote>
+<p>Holds the hud</p>
+<table class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td><a class="reference internal" href="hud.html#std:api-gma.hud"><tt class="xref std std-api docutils literal"><span class="pre">gma.hud</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.showLoading"><span id="gma-manager-showloading"></span><strong>showLoading</strong></p>
+<blockquote>
+<p>Specifies whether it should display a loading message</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Boolean</td>
+</tr>
+<tr><td>Default</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.character"><span id="gma-manager-character"></span><strong>character</strong></p>
+<blockquote>
+<div class="line-block">
+<div class="line">Holds a character object</div>
+<div class="line">This is optional</div>
+</div>
+<table class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td><a class="reference internal" href="character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a></td>
+</tr>
+<tr><td>Default</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.time"><span id="gma-manager-time"></span><strong>time</strong></p>
+<blockquote>
+<p>Holds the last time scene was rendered</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.counter"><span id="gma-manager-counter"></span><strong>counter</strong></p>
+<blockquote>
+<p>Holds an accumulation of time to be used for fps calculation</p>
+<table class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+<tr><td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.fps"><span id="gma-manager-fps"></span><strong>fps</strong></p>
+<blockquote>
+<p>Holds the frames per second</p>
+<table class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+<tr><td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.manager.twitchCount"><span id="gma-manager-twitchcount"></span><strong>twitchCount</strong></p>
+<blockquote>
+<p>Number of times the scene has twitched since fps last calculated</p>
+<table class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+<tr><td>Default</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils" id="std:metho-gma.manager.getFPS">
+<span id="gma-manager-getfps"></span><span id="index-0"></span><dt><strong>getFPS</strong> ( ) -&gt; Number</dt>
+<dd>Get the current FPS</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.entities">
+<span id="gma-manager-entities"></span><span id="index-1"></span><dt><strong>entities</strong> ( ) -&gt; Array</dt>
+<dd>Returns a list of all entities in the current level</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.determineObject">
+<span id="gma-manager-determineobject"></span><span id="index-2"></span><dt><strong>determineObject</strong> (type, opts) -&gt; Gamma Object</dt>
+<dd><div class="first line-block">
+<div class="line">Returns a gamma object given the type given</div>
+<div class="line">If type is a string, then we look on gma to see if it exists</div>
+<div class="line">Otherwise it is used as is</div>
+<div class="line">And any options supplied in the opts object is applied to this object</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="8%" />
+<col width="30%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>type</td>
+<td>Gamma Object or string</td>
+<td>Name of a gamma object or just a gamma object</td>
+</tr>
+<tr><td>opts</td>
+<td>Gamma Object or string</td>
+<td>Name of a gamma object or just a gamma object</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.prepareEntity">
+<span id="gma-manager-prepareentity"></span><span id="index-3"></span><dt><strong>prepareEntity</strong> (focus, template, opts) -&gt; Gamma Object</dt>
+<dd><div class="first line-block">
+<div class="line">Attaches renderHelper and renderTemplate to the gamma object given</div>
+<div class="line">Also applies any extra options to this Gamma object</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="12%" />
+<col width="19%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>focus</td>
+<td>Gamma Object</td>
+<td>Gamma object</td>
+</tr>
+<tr><td>template</td>
+<td>renderTemplate</td>
+<td>A renderTemplate object to be given to the gamma object</td>
+</tr>
+<tr><td>opts</td>
+<td>{}</td>
+<td>Options to be applied to the gamma object</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.addCustomDefinitions">
+<span id="gma-manager-addcustomdefinitions"></span><span id="index-4"></span><dt><strong>addCustomDefinitions</strong> (opts)</dt>
+<dd><div class="first line-block">
+<div class="line">Gives an object othe levelParser to process, without storing the result anywhere</div>
+<div class="line">Useful for giving the levelParser type and template specifications</div>
+<div class="line">Which end up stored on the levelParser</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="10%" />
+<col width="14%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>opts</td>
+<td>Object</td>
+<td>Options that are given to the levelParser</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.storeLevels">
+<span id="gma-manager-storelevels"></span><span id="index-5"></span><dt><strong>storeLevels</strong> (levels, replaceAll)</dt>
+<dd><p class="first">Stores level specifications on the manager</p>
+<table class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>levels</td>
+<td>Array</td>
+<td>A list of level objets to store</td>
+</tr>
+<tr><td>replaceAll</td>
+<td>Boolean</td>
+<td>Flag specifying whether to replace all current levels</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.loadLevel">
+<span id="gma-manager-loadlevel"></span><span id="index-6"></span><dt><strong>loadLevel</strong> (level, spawnId)</dt>
+<dd><div class="first line-block">
+<div class="line">Will load the specified level into the manager</div>
+<div class="line">Or the first level in self.levels if no level is specified</div>
+<div class="line">Or complain if manager has no stored levels</div>
+<div class="line">It will also remove any current levels in the manager</div>
+<div class="line">And set the position of the character according to the spawn location specified</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="15%" />
+<col width="14%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>level</td>
+<td>Number</td>
+<td>The index of the level to load</td>
+</tr>
+<tr><td>spawnId</td>
+<td>String</td>
+<td>Id of the spawn location for character</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.clearLevel">
+<span id="gma-manager-clearlevel"></span><span id="index-7"></span><dt><strong>clearLevel</strong> ( )</dt>
+<dd>Clears the current level from the scenehelper</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.init">
+<span id="gma-manager-init"></span><span id="index-8"></span><dt><strong>init</strong> (level, spawn)</dt>
+<dd><div class="first line-block">
+<div class="line">Called when we want the game to start</div>
+<div class="line">It creates a Scene and then starts the twitch</div>
+<div class="line">It will also call loadLevel if no level is currently loaded</div>
+<div class="line">Or if a level has been specified</div>
+</div>
+<table class="last docutils">
+<colgroup>
+<col width="14%" />
+<col width="16%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>level</td>
+<td>Number</td>
+<td>The index of the level to load</td>
+</tr>
+<tr><td>spawn</td>
+<td>String</td>
+<td>Alternate spawn point to use</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.twitch">
+<span id="gma-manager-twitch"></span><span id="index-9"></span><dt><strong>twitch</strong> (self)</dt>
+<dd><div class="first line-block">
+<div class="line">The game loop function</div>
+<div class="line">Responsible for :</div>
+</div>
+<ul class="simple">
+<li>Calling animate</li>
+<li>Calling render</li>
+<li>Calculating fps</li>
+<li>Removing entities that are dead</li>
+<li>Calling itself again to continue the loop</li>
+</ul>
+<table class="last docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>self</td>
+<td>gma.manager</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.animate">
+<span id="gma-manager-animate"></span><span id="index-10"></span><dt><strong>animate</strong> (tick)</dt>
+<dd><p class="first">Calls the animate function on objects inside the map</p>
+<table class="last docutils">
+<colgroup>
+<col width="9%" />
+<col width="13%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>tick</td>
+<td>Integer</td>
+<td>Number representing the time since the last twitch</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.removeDead">
+<span id="gma-manager-removedead"></span><span id="index-11"></span><dt><strong>removeDead</strong> (entities, cemetry)</dt>
+<dd><p class="first">Removes any dead entities from the map</p>
+<table class="last docutils">
+<colgroup>
+<col width="13%" />
+<col width="8%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>entities</td>
+<td>List</td>
+<td>List of entities to look through</td>
+</tr>
+<tr><td>cemetry</td>
+<td>List</td>
+<td>List to add dead entities to if they have the reincarnate tag</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.checkCharacter">
+<span id="gma-manager-checkcharacter"></span><span id="index-12"></span><dt><strong>checkCharacter</strong> ( )</dt>
+<dd>Determines if the character is dead and does something about it if it is</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.manager.respawn">
+<span id="gma-manager-respawn"></span><span id="index-13"></span><dt><strong>respawn</strong> (spawnId)</dt>
+<dd><p class="first">Puts character back to the beginning</p>
+<table class="last docutils">
+<colgroup>
+<col width="10%" />
+<col width="9%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>spawnId</td>
+<td>String</td>
+<td>String specifying where to respawn the character. This defaults to &#8220;main&#8221;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="keyHandler.html"
+                        title="previous chapter">gma.keyHandler</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="character.html"
+                        title="next chapter">gma.character</a></p>
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gma.manager</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="character.html" title="gma.character"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keyHandler.html" title="gma.keyHandler"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" >gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

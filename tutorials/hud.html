@@ -1,0 +1,366 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create a Heads Up Display (HUD) &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Making your first game" href="../intro/tutorials.html" />
+    <link rel="next" title="Add some polish to your game" href="polish.html" />
+    <link rel="prev" title="Creating multiple Levels" href="extraLevels.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="polish.html" title="Add some polish to your game"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="extraLevels.html" title="Creating multiple Levels"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" accesskey="U">Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-create-a-heads-up-display-hud">
+<span id="create-a-heads-up-display-hud"></span><h1>Create a Heads Up Display (HUD)<a class="headerlink" href="#create-a-heads-up-display-hud" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="../glossary.html#term-hud"><em class="xref std std-term">HUD</em></a> is used to display information, such as lives and score, to the player.</p>
+<div class="section" id="s-specifying-a-hud">
+<span id="specifying-a-hud"></span><h2>Specifying a HUD<a class="headerlink" href="#specifying-a-hud" title="Permalink to this headline">¶</a></h2>
+<p>To specify a hud in your game, you must call <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.setup"><tt class="xref std std-metho docutils literal"><span class="pre">setup</span></tt></a> on <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.hud"><tt class="xref std std-prop docutils literal"><span class="pre">manager.hud</span></tt></a> with a specification of what information you want displayed and where:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="nx">specification</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The specification is an object with keys matching the positions of where we wish to display information in the HUD. Each position is passed information about what data you wish to be displayed within this area as well as what heading you wish it to be displayed under. This example will display the score number under the label 'Score' in the top left corner:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
+    <span class="nx">top_left</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Score&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="nx">character</span><span class="p">.</span><span class="nx">score</span><span class="p">;}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>For this tutorial we will make a HUD which displays the frames per second (FPS) of your game in the bottom right corner:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
+    <span class="nx">bottom_right</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">fps</span> <span class="o">:</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">getFPS</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-styling-and-position-the-hud">
+<span id="styling-and-position-the-hud"></span><h2>Styling and position the HUD<a class="headerlink" href="#styling-and-position-the-hud" title="Permalink to this headline">¶</a></h2>
+<p>The appearance and position of each section is controlled by CSS, not the <tt class="docutils literal"><span class="pre">hud</span></tt> object. The following style sheet can be used to style the information display by the HUD:</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="c">/* Setup the bars */</span>
+
+<span class="nf">#top_hud</span><span class="o">,</span> <span class="nf">#bottom_hud</span> <span class="p">{</span>
+    <span class="k">height</span><span class="o">:</span><span class="m">2em</span><span class="p">;</span>
+    <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span>
+    <span class="k">left</span><span class="o">:</span><span class="m">0em</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span><span class="m">100%</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">7</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nf">#top_hud</span> <span class="p">{</span>
+    <span class="k">top</span><span class="o">:</span><span class="m">0em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#bottom_hud</span> <span class="p">{</span>
+    <span class="k">bottom</span><span class="o">:</span><span class="m">0em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Setup left and right part of each bar */</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dl</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dl</span> <span class="p">{</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">0.3em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dl</span><span class="nc">.left</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dl</span><span class="nc">.left</span> <span class="p">{</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#bottom_hud</span> <span class="nt">dl</span><span class="nc">.right</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dl</span><span class="nc">.right</span> <span class="p">{</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Setup labels for each item */</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dt</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dt</span><span class="o">,</span>
+<span class="nf">#bottom_hud</span> <span class="nt">dd</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dd</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">line-height</span><span class="o">:</span> <span class="m">1.4em</span><span class="p">;</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dt</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dt</span> <span class="p">{</span>
+    <span class="k">padding-right</span><span class="o">:</span> <span class="m">0.5em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#bottom_hud</span> <span class="nt">dd</span><span class="o">,</span> <span class="nf">#top_hud</span> <span class="nt">dd</span> <span class="p">{</span>
+    <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">dl</span><span class="nc">.left</span> <span class="nt">dd</span> <span class="p">{</span>
+    <span class="k">padding-right</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">dl</span><span class="nc">.right</span> <span class="nt">dt</span> <span class="p">{</span>
+    <span class="k">padding-left</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Copy the CSS into <tt class="docutils literal"><span class="pre">game.css</span></tt> in the same directory as your <tt class="docutils literal"><span class="pre">game.js</span></tt> file. Then uncomment this line in the HTML file:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!--</span>
+<span class="c">    Include any style sheets here</span>
+<span class="c">    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;gamma.css&quot; media=&quot;all&quot;/&gt;</span>
+<span class="c">--&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To learn more about the various ways to specify a HUD see <a class="reference internal" href="../topics/hud.html"><em>the hud topic</em></a></p>
+</div>
+</div>
+<div class="section" id="s-end-result">
+<span id="end-result"></span><h2>End Result<a class="headerlink" href="#end-result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">([</span>
+    <span class="s1">&#39;gma/base&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/manager&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/entities/character&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/events&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/entities/enemy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/entities/door&#39;</span>
+<span class="p">],</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">({</span>
+            <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nx">height</span> <span class="o">:</span> <span class="mi">500</span>
+        <span class="p">});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">setup</span><span class="p">({</span>
+            <span class="nx">bottom_right</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">fps</span> <span class="o">:</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">getFPS</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span><span class="p">({</span>
+            <span class="nx">left</span>     <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">bottom</span>   <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">width</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">height</span>   <span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">template</span> <span class="o">:</span> <span class="s1">&#39;gorilla&#39;</span>
+        <span class="p">});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">addCustomDefinitions</span><span class="p">({</span>
+            <span class="nx">templates</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">greencube</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;meshTemplate&#39;</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">unitCubeInfo</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                    <span class="nx">material</span> <span class="o">:</span> <span class="p">{</span><span class="nx">color</span> <span class="o">:</span> <span class="s2">&quot;#090&quot;</span><span class="p">}</span>
+                <span class="p">}],</span>
+                <span class="nx">gorilla</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;colladaTemplate&#39;</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="nx">collada</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="nb">document</span> <span class="o">:</span> <span class="s1">&#39;gorilla.dae&#39;</span>
+                    <span class="p">},</span>
+                    <span class="nx">yRot</span> <span class="o">:</span> <span class="mf">1.57</span><span class="p">,</span>
+                    <span class="nx">yOffset</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span>
+                    <span class="nx">yScale</span><span class="o">:</span><span class="mf">0.7</span>
+                <span class="p">}],</span>
+                <span class="nx">brickscube</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;meshTemplate&#39;</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">unitCubeInfo</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                    <span class="nx">texture</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">src</span><span class="o">:</span><span class="s1">&#39;bricks.jpg&#39;</span><span class="p">,</span>
+                        <span class="nx">repeatX</span><span class="o">:</span><span class="mf">0.5</span><span class="p">,</span>
+                        <span class="nx">repeatY</span><span class="o">:</span><span class="mf">0.5</span>
+                    <span class="p">}</span>
+                <span class="p">}]</span>
+            <span class="p">},</span>
+
+            <span class="nx">types</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">jumpingJack</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;jumpingEnemy&#39;</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">width</span>    <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="nx">height</span>   <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="nx">template</span> <span class="o">:</span> <span class="s1">&#39;greencube&#39;</span>
+                <span class="p">}]</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">spawn</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">main</span> <span class="o">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">light</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">myLight</span> <span class="o">:</span> <span class="p">{</span>
+                     <span class="nx">type</span> <span class="o">:</span> <span class="nx">GLGE</span><span class="p">.</span><span class="nx">L_POINT</span><span class="p">,</span>
+                     <span class="nx">rotY</span> <span class="o">:</span> <span class="mf">1.54</span><span class="p">,</span>
+                     <span class="nx">color</span>    <span class="o">:</span> <span class="s2">&quot;#fff&quot;</span><span class="p">,</span>
+                     <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+                <span class="p">}</span>
+             <span class="p">},</span>
+            <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="nx">gma</span><span class="p">.</span><span class="nx">door</span><span class="p">({</span><span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">55</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mf">0.5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">level</span><span class="o">:</span><span class="mi">1</span><span class="p">}),</span>
+                <span class="p">{</span><span class="nx">template</span><span class="o">:</span><span class="s1">&#39;brickscube&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">template</span><span class="o">:</span><span class="s1">&#39;brickscube&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">39</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+                <span class="nx">gma</span><span class="p">.</span><span class="nx">platformEnemy</span><span class="p">({</span><span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">45</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">}),</span>
+                <span class="nx">gma</span><span class="p">.</span><span class="nx">patrolEnemy</span><span class="p">({</span><span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">limitLeft</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">limitRight</span><span class="o">:</span><span class="mi">12</span><span class="p">}),</span>
+                <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;jumpingJack&#39;</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">21</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;jumpingJack&#39;</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">24</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;jumpingJack&#39;</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">27</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">otherLevel</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">spawn</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">main</span> <span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">light</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">myLight</span> <span class="o">:</span> <span class="p">{</span>
+                     <span class="nx">type</span> <span class="o">:</span> <span class="nx">GLGE</span><span class="p">.</span><span class="nx">L_POINT</span><span class="p">,</span>
+                     <span class="nx">rotY</span> <span class="o">:</span> <span class="mf">1.54</span><span class="p">,</span>
+                     <span class="nx">color</span>    <span class="o">:</span> <span class="s2">&quot;#fff&quot;</span><span class="p">,</span>
+                     <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+                <span class="p">}</span>
+             <span class="p">},</span>
+            <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="nx">gma</span><span class="p">.</span><span class="nx">door</span><span class="p">({</span><span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">25</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mf">0.5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">level</span><span class="o">:</span><span class="mi">0</span><span class="p">}),</span>
+                <span class="p">{</span><span class="nx">template</span><span class="o">:</span><span class="s1">&#39;brickscube&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">};</span>
+
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">myLevel</span><span class="p">);</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">otherLevel</span><span class="p">);</span>
+
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">));</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">));</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">);</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-what-s-next">
+<span id="what-s-next"></span><h2>What's next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>In the next section we will <a class="reference internal" href="polish.html"><em>add some 'polish' to your game</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="extraLevels.html"
+                        title="previous chapter">Creating multiple Levels</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="polish.html"
+                        title="next chapter">Add some polish to your game</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Create a Heads Up Display (HUD)</a><ul>
+<li><a class="reference internal" href="#specifying-a-hud">Specifying a HUD</a></li>
+<li><a class="reference internal" href="#styling-and-position-the-hud">Styling and position the HUD</a></li>
+<li><a class="reference internal" href="#end-result">End Result</a></li>
+<li><a class="reference internal" href="#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="polish.html" title="Add some polish to your game"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="extraLevels.html" title="Creating multiple Levels"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" >Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

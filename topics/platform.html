@@ -1,0 +1,200 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Platform &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Levels" href="levels.html" />
+    <link rel="prev" title="Enemy" href="enemy.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="levels.html" title="Levels"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="enemy.html" title="Enemy"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-platform">
+<span id="s-platforms"></span><span id="platform"></span><span id="platforms"></span><h1>Platform<a class="headerlink" href="#platform" title="Permalink to this headline">¶</a></h1>
+<p>A platform is a entity in the game which the character stands on, runs on, and jumps to and from.</p>
+<p>A <a class="reference internal" href="../api/docs/gma/platform.html#std:api-gma.platform"><tt class="xref std std-api docutils literal"><span class="pre">gma.platform</span></tt></a> is defined by it&#8217;s dimensions (height, width, depth) and position (x, y). As with all <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">rectangles</span></tt></a>, this can be specified in <a class="reference internal" href="shapes.html#definingshapes"><em>many different ways</em></a>. For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// 3 ways to specify the same platform.</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">platform</span><span class="p">({</span><span class="nx">depth</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">});</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">platform</span><span class="p">({</span><span class="nx">depth</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">15</span><span class="p">});</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">platform</span><span class="p">({</span><span class="nx">depth</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span>    <span class="nx">width</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mf">12.5</span><span class="p">,</span>    <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">});</span>
+</pre></div>
+</div>
+<div class="section" id="s-a-non-solid-platform">
+<span id="a-non-solid-platform"></span><h2>A non-solid platform<a class="headerlink" href="#a-non-solid-platform" title="Permalink to this headline">¶</a></h2>
+<p>Platforms can also be defined as solid or not via it's <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.solid"><tt class="xref std std-prop docutils literal"><span class="pre">solid</span></tt></a> property. If this is set to <tt class="docutils literal"><span class="pre">false</span></tt>, then nothing can collide with the platform, i.e. entities will go through it.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">cloud</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">platform</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">depth</span><span class="o">:</span> <span class="mi">20</span>
+    <span class="nx">solid</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-a-deadly-platform">
+<span id="a-deadly-platform"></span><h2>A deadly platform<a class="headerlink" href="#a-deadly-platform" title="Permalink to this headline">¶</a></h2>
+<p>Platforms support the <tt class="docutils literal"><span class="pre">deathtouch</span></tt> tag. A platform with <cite>deathtouch</cite> will &quot;kill&quot; any <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> that hits it. This tag is already specified when you create a platform using <a class="reference internal" href="../api/docs/gma/deathPlatform.html#std:api-gma.deathPlatform"><tt class="xref std std-api docutils literal"><span class="pre">gma.deathPlatform</span></tt></a>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">lava</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">deathPlatform</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">y</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">depth</span><span class="o">:</span> <span class="mi">20</span>
+<span class="p">});</span>
+
+<span class="c1">// Is equivalent to:</span>
+<span class="kd">var</span> <span class="nx">lava</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">platform</span><span class="p">({</span>
+    <span class="nx">x</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">y</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">depth</span><span class="o">:</span> <span class="mi">20</span>
+    <span class="nx">tags</span> <span class="o">:</span> <span class="p">[</span><span class="s2">&quot;deathtouch&quot;</span><span class="p">]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-adding-platforms-to-your-game">
+<span id="adding-platforms-to-your-game"></span><h2>Adding platforms to your game<a class="headerlink" href="#adding-platforms-to-your-game" title="Permalink to this headline">¶</a></h2>
+<p>To add platforms to your game, they must be added to a <a class="reference internal" href="levels.html#levelspecs"><em>level specification</em></a>, which is stored on the manager and loaded. The example platforms above could be added to a level like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">aLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">types</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">lava</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;deathplatform&#39;</span><span class="p">,</span> <span class="p">{}]</span>
+    <span class="p">},</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="c1">// Normal Platform. Note the default entity type is platform</span>
+        <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">depth</span><span class="o">:</span><span class="mi">20</span><span class="p">},</span>
+
+        <span class="c1">// Non-solid platform</span>
+        <span class="p">{</span><span class="nx">solid</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>  <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">depth</span><span class="o">:</span> <span class="mi">20</span><span class="p">},</span>
+
+        <span class="c1">// Death Platform</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s2">&quot;lava&quot;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">10</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">depth</span><span class="o">:</span><span class="mi">20</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="c1">// Then add level to manager</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">aLevel</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="levels.html#levelspec-entities"><em>Adding Entities</em></a> and <a class="reference internal" href="levels.html#levelspec-types"><em>Types</em></a> (in the <a class="reference internal" href="levels.html#levelspecs"><em>levels</em></a> topic) for an explanation of how the above code works. (Particularly, to explain why we don't need to explicitly use <tt class="docutils literal"><span class="pre">gma.deathPlatform</span></tt> and <tt class="docutils literal"><span class="pre">gma.platform</span></tt>.)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="enemy.html"
+                        title="previous chapter">Enemy</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="levels.html"
+                        title="next chapter">Levels</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Platform</a><ul>
+<li><a class="reference internal" href="#a-non-solid-platform">A non-solid platform</a></li>
+<li><a class="reference internal" href="#a-deadly-platform">A deadly platform</a></li>
+<li><a class="reference internal" href="#adding-platforms-to-your-game">Adding platforms to your game</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="levels.html" title="Levels"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="enemy.html" title="Enemy"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

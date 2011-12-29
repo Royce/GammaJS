@@ -1,0 +1,625 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gma.shapes.rectangle &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="gma" href="../gma.html" />
+    <link rel="next" title="gma.utils" href="utils.html" />
+    <link rel="prev" title="gma.shapes" href="shapes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="utils.html" title="gma.utils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="shapes.html" title="gma.shapes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" accesskey="U">gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="std:api-gma.shapes.rectangle"></span><div class="section" id="s-gma-shapes-rectangle">
+<span id="s-std:api-shapes.rectangle"></span><span id="gma-shapes-rectangle"></span><span id="std:api-shapes.rectangle"></span><h1>gma.shapes.rectangle<a class="headerlink" href="#gma-shapes-rectangle" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<p>Represents a rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Package</td>
+<td>gma/entities/shapes</td>
+</tr>
+<tr><td>Descendants</td>
+<td><a class="reference internal" href="collectable.html#std:api-gma.collectable"><tt class="xref std std-api docutils literal"><span class="pre">gma.collectable</span></tt></a>, <a class="reference internal" href="scoreCollectable.html#std:api-gma.scoreCollectable"><tt class="xref std std-api docutils literal"><span class="pre">gma.scoreCollectable</span></tt></a>, <a class="reference internal" href="door.html#std:api-gma.door"><tt class="xref std std-api docutils literal"><span class="pre">gma.door</span></tt></a>, <a class="reference internal" href="moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a>, <a class="reference internal" href="character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a>, <a class="reference internal" href="enemy.html#std:api-gma.enemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.enemy</span></tt></a>, <a class="reference internal" href="platformEnemy.html#std:api-gma.platformEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.platformEnemy</span></tt></a>, <a class="reference internal" href="jumpingEnemy.html#std:api-gma.jumpingEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.jumpingEnemy</span></tt></a>, <a class="reference internal" href="patrolEnemy.html#std:api-gma.patrolEnemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.patrolEnemy</span></tt></a>, <a class="reference internal" href="platform.html#std:api-gma.platform"><tt class="xref std std-api docutils literal"><span class="pre">gma.platform</span></tt></a>, <a class="reference internal" href="deathPlatform.html#std:api-gma.deathPlatform"><tt class="xref std std-api docutils literal"><span class="pre">gma.deathPlatform</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="section" id="s-tags">
+<span id="tags"></span><h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<p><em>shape</em></p>
+</div>
+<div class="section" id="s-properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p id="std:prop-gma.shapes.rectangle.points"><span id="gma-shapes-rectangle-points"></span><strong>points</strong></p>
+<blockquote>
+<p>List of points that makes up the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>[many [x, y]]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.edges"><span id="gma-shapes-rectangle-edges"></span><strong>edges</strong></p>
+<blockquote>
+<p>List of edges that makes up the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>[many [x1, y1, x2, y2]]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.width"><span id="gma-shapes-rectangle-width"></span><strong>width</strong></p>
+<blockquote>
+<p>The width of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.height"><span id="gma-shapes-rectangle-height"></span><strong>height</strong></p>
+<blockquote>
+<p>The height of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.depth"><span id="gma-shapes-rectangle-depth"></span><strong>depth</strong></p>
+<blockquote>
+<p>The depth of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.z"><span id="gma-shapes-rectangle-z"></span><strong>z</strong></p>
+<blockquote>
+<p>The z co-ordinate of the rectangle&#8217;s centre</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.x"><span id="gma-shapes-rectangle-x"></span><strong>x</strong></p>
+<blockquote>
+<p>The x co-ordinate of the rectangle&#8217;s centre</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.y"><span id="gma-shapes-rectangle-y"></span><strong>y</strong></p>
+<blockquote>
+<p>The y co-ordinate of the rectangle&#8217;s centre</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.centre"><span id="gma-shapes-rectangle-centre"></span><strong>centre</strong></p>
+<blockquote>
+<p>List representing the rectangle&#8217;s centre</p>
+<table class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>[self.x, self.y]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.left"><span id="gma-shapes-rectangle-left"></span><strong>left</strong></p>
+<blockquote>
+<p>The x co-ordinate of the left of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.right"><span id="gma-shapes-rectangle-right"></span><strong>right</strong></p>
+<blockquote>
+<p>The x co-ordinate of the right of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.top"><span id="gma-shapes-rectangle-top"></span><strong>top</strong></p>
+<blockquote>
+<p>The y co-ordinate of the top of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.bottom"><span id="gma-shapes-rectangle-bottom"></span><strong>bottom</strong></p>
+<blockquote>
+<p>The bottom co-ordinate of the bottom of the rectangle</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.yOffset"><span id="gma-shapes-rectangle-yoffset"></span><strong>yOffset</strong></p>
+<blockquote>
+<p>Amount to offset model in y axis when rendering it</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.xOffset"><span id="gma-shapes-rectangle-xoffset"></span><strong>xOffset</strong></p>
+<blockquote>
+<p>Amount to offset model in x axis when rendering it</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.type"><span id="gma-shapes-rectangle-type"></span><strong>type</strong></p>
+<blockquote>
+<p>Dictionary containing keys for each type the object is</p>
+<table class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Dictionary</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.alive"><span id="gma-shapes-rectangle-alive"></span><strong>alive</strong></p>
+<blockquote>
+<p>Flag representing the alive/dead status</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Boolean</td>
+</tr>
+<tr><td>Default</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.solid"><span id="gma-shapes-rectangle-solid"></span><strong>solid</strong></p>
+<blockquote>
+<p>Flag representing the solid-ness</p>
+<table class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Boolean</td>
+</tr>
+<tr><td>Default</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p id="std:prop-gma.shapes.rectangle.tags"><span id="gma-shapes-rectangle-tags"></span><strong>tags</strong></p>
+<blockquote>
+<div class="line-block">
+<div class="line">Hash containing tags</div>
+<div class="line">This should be specified as an array of strings, if at all.</div>
+<div class="line">Then each string in the list will be set to true in the resulting hash</div>
+</div>
+<table class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Object</td>
+</tr>
+<tr><td>Default</td>
+<td>{shapes : true}</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.setPointsAndEdges">
+<span id="gma-shapes-rectangle-setpointsandedges"></span><span id="index-0"></span><dt><strong>setPointsAndEdges</strong> ( )</dt>
+<dd>Function to reset the rectangle&#8217;s points and edges</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.setCentre">
+<span id="gma-shapes-rectangle-setcentre"></span><span id="index-1"></span><dt><strong>setCentre</strong> (centre)</dt>
+<dd><p class="first">Function to reset the rectangle&#8217;s points and edges</p>
+<table class="last docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>centre</td>
+<td>[x, y]</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.setBottomLeft">
+<span id="gma-shapes-rectangle-setbottomleft"></span><span id="index-2"></span><dt><strong>setBottomLeft</strong> (bl)</dt>
+<dd><p class="first">Function to reset the rectangle&#8217;s points and edges</p>
+<table class="last docutils">
+<colgroup>
+<col width="5%" />
+<col width="10%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>bl</td>
+<td>[x, y]</td>
+<td>Co-ordinates you want to move the bottom left corner of the entity to</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.xOf">
+<span id="gma-shapes-rectangle-xof"></span><span id="index-3"></span><dt><strong>xOf</strong> (side) -&gt; Number</dt>
+<dd><p class="first">Determines the x coordinate of the side specified</p>
+<table class="last docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>side</td>
+<td><a class="reference internal" href="constants.html#std:constant-LEFT"><tt class="xref std std-constant docutils literal"><span class="pre">LEFT</span></tt></a> or <a class="reference internal" href="constants.html#std:constant-RIGHT"><tt class="xref std std-constant docutils literal"><span class="pre">RIGHT</span></tt></a> or null</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.yOf">
+<span id="gma-shapes-rectangle-yof"></span><span id="index-4"></span><dt><strong>yOf</strong> (side) -&gt; Number</dt>
+<dd><p class="first">Determines the y coordinate of the side specified</p>
+<table class="last docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>side</td>
+<td><a class="reference internal" href="constants.html#std:constant-TOP"><tt class="xref std std-constant docutils literal"><span class="pre">TOP</span></tt></a> or <a class="reference internal" href="constants.html#std:constant-BOTTOM"><tt class="xref std std-constant docutils literal"><span class="pre">BOTTOM</span></tt></a> or null</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.toString">
+<span id="gma-shapes-rectangle-tostring"></span><span id="index-5"></span><dt><strong>toString</strong> ( ) -&gt; String</dt>
+<dd>Returns information about rectangle as a string</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.collided">
+<span id="gma-shapes-rectangle-collided"></span><span id="index-6"></span><dt><strong>collided</strong> (where, focus, focusSide, focusVector)</dt>
+<dd><p class="first">Hook for when a collision with something occurs</p>
+<table class="last docutils">
+<colgroup>
+<col width="16%" />
+<col width="25%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>where</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of this object that was collided with</td>
+</tr>
+<tr><td>focus</td>
+<td>object</td>
+<td>Thing we collided with</td>
+</tr>
+<tr><td>focusSide</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of the focus object that was collided with</td>
+</tr>
+<tr><td>focusVector</td>
+<td>[x,y]</td>
+<td>Amount focus is trying to move</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.shapes.rectangle.collided__deathtouch">
+<span id="gma-shapes-rectangle-collided-deathtouch"></span><span id="index-7"></span><dt><strong>collided__deathtouch</strong> (where, focus, focusSide, focusVector)</dt>
+<dd><p class="first">Hook for when a collision with something occurs when we have deathtouch</p>
+<table class="last docutils">
+<colgroup>
+<col width="16%" />
+<col width="25%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>where</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of this object that was collided with</td>
+</tr>
+<tr><td>focus</td>
+<td>object</td>
+<td>Thing we collided with</td>
+</tr>
+<tr><td>focusSide</td>
+<td><a class="reference internal" href="constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></td>
+<td>Side of the focus object that was collided with</td>
+</tr>
+<tr><td>focusVector</td>
+<td>[x,y]</td>
+<td>Amount focus is trying to move</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="shapes.html"
+                        title="previous chapter">gma.shapes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="next chapter">gma.utils</a></p>
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">gma.shapes.rectangle</a><ul>
+<li><a class="reference internal" href="#tags">Tags</a></li>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="utils.html" title="gma.utils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="shapes.html" title="gma.shapes"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../gma.html" >gma</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

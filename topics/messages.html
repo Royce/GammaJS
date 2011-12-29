@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Messages &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Advanced Topics" href="../advanced/index.html" />
+    <link rel="prev" title="Create a HUD" href="hud.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../advanced/index.html" title="Advanced Topics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hud.html" title="Create a HUD"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-messages">
+<span id="messages"></span><h1>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h1>
+<p>Gamma provides the ability to display messages to the player through <a class="reference internal" href="../api/docs/gma/hud.html#std:api-gma.hud"><tt class="xref std std-api docutils literal"><span class="pre">gma.hud</span></tt></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When you create an instance of <a class="reference internal" href="../api/docs/gma/manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a>, an instance of <a class="reference internal" href="../api/docs/gma/hud.html#std:api-gma.hud"><tt class="xref std std-api docutils literal"><span class="pre">gma.hud</span></tt></a> is created for you which you can access through <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.hud"><tt class="xref std std-prop docutils literal"><span class="pre">manager.hud</span></tt></a></p>
+</div>
+<p>The function <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.displayMessage"><tt class="xref std std-metho docutils literal"><span class="pre">displayMessage</span></tt></a> accepts a string to display:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">displayMessage</span><span class="p">(</span><span class="s2">&quot;Greetings, traveller&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Use <a class="reference internal" href="../api/docs/gma/hud.html#std:metho-gma.hud.hideMessage"><tt class="xref std std-metho docutils literal"><span class="pre">hideMessage</span></tt></a> to remove the message:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">hideMessage</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can specify an amount of time for the message to be displayed, after which the message is removed:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// Message is displayed for 1 second (1000 milliseconds)</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">displayMessage</span><span class="p">(</span><span class="s2">&quot;Look out!&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Finally, you may specify a function to be called when the message is removed:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// Message is displayed for 1 second (1000 milliseconds)</span>
+<span class="c1">// ... then the character jumps</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">displayMessage</span><span class="p">(</span><span class="s2">&quot;Watch out, its jumping time!&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<div class="section" id="s-style-the-messages">
+<span id="style-the-messages"></span><h2>Style the messages<a class="headerlink" href="#style-the-messages" title="Permalink to this headline">¶</a></h2>
+<p>The message can be styled using CSS. Eg:</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nf">#message</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="o">:</span> <span class="n">Arial</span><span class="o">,</span> <span class="n">san</span><span class="o">-</span><span class="k">serif</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span><span class="nb">black</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#99c</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">7</span><span class="p">);</span> <span class="c">/* CSS 3 transparencies */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hud.html"
+                        title="previous chapter">Create a HUD</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../advanced/index.html"
+                        title="next chapter">Advanced Topics</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Messages</a><ul>
+<li><a class="reference internal" href="#style-the-messages">Style the messages</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../advanced/index.html" title="Advanced Topics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hud.html" title="Create a HUD"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

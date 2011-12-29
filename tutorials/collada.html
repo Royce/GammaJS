@@ -1,0 +1,298 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using Collada &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Making your first game" href="../intro/tutorials.html" />
+    <link rel="next" title="Creating multiple Levels" href="extraLevels.html" />
+    <link rel="prev" title="Adding textures" href="textures.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="extraLevels.html" title="Creating multiple Levels"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="textures.html" title="Adding textures"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" accesskey="U">Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-using-collada">
+<span id="using-collada"></span><h1>Using Collada<a class="headerlink" href="#using-collada" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://collada.org">Collada</a> is open standard xml schema to define a model. Most 3D modelling applications support exporting models in this format (a .dae file).</p>
+<p>For this tutorial we will use <a class="reference external" href="http://lodle.dyndns.org:8/code/collada/gorilla.dae">a gorilla model</a> to represent the character. Download the <a class="reference external" href="http://lodle.dyndns.org:8/code/collada/gorilla.dae">gorilla model</a> and the <a class="reference external" href="http://lodle.dyndns.org:8/code/collada/skin.jpg">gorilla&#8217;s texture file</a> and put them in the same directory.</p>
+<div class="section" id="s-create-a-collada-template">
+<span id="create-a-collada-template"></span><h2>Create a collada template<a class="headerlink" href="#create-a-collada-template" title="Permalink to this headline">¶</a></h2>
+<p>To assign our model to an entity you must (again) create a template. We will use the <a class="reference internal" href="../api/docs/gma/colladaTemplate.html#std:api-gma.colladaTemplate"><tt class="xref std std-api docutils literal"><span class="pre">gma.colladaTemplate</span></tt></a> object to create a 3D object from a collada file. We specify the location of the collada file inside a template named <tt class="docutils literal"><span class="pre">gorilla</span></tt>:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">addCustomDefinitions</span><span class="p">({</span>
+    <span class="nx">templates</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">gorilla</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;colladaTemplate&#39;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nx">collada</span> <span class="o">:</span> <span class="p">{</span>
+                    <span class="nb">document</span> <span class="o">:</span> <span class="s1">&#39;gorilla.dae&#39;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Unfortunately the gorilla is facing the wrong direction and not centered correctly. To fix this we will rotate the model by 180 degrees (1.57 radians), move it 0.5 units down and scale it by 0.7 vertically:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">addCustomDefinitions</span><span class="p">({</span>
+    <span class="nx">templates</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">gorilla</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;colladaTemplate&#39;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nx">collada</span> <span class="o">:</span> <span class="p">{</span>
+                    <span class="nb">document</span> <span class="o">:</span> <span class="s1">&#39;gorilla.dae&#39;</span>
+                <span class="p">},</span>
+                <span class="nx">yRot</span> <span class="o">:</span> <span class="mf">1.57</span><span class="p">,</span>
+                <span class="nx">yOffset</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span>
+                <span class="nx">yScale</span> <span class="o">:</span> <span class="mf">0.7</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Loading the Collada file requires that your game's JavaScript file and the collada model are both fetched via http and from the same server. Accessing your game via the local filesystem (without a server) will not work.</p>
+<p class="last">If the url in thr browser starts with &quot;<a class="reference external" href="file:///">file:///</a>&quot; then you're accessing your game straight from the local filesystem. You will need to serve you files from a web server like <a class="reference external" href="http://httpd.apache.org/">Apache</a>, <a class="reference external" href="http://www.lighttpd.net/">Lighttpd</a> or <a class="reference external" href="http://www.iis.net/">IIS</a></p>
+</div>
+</div>
+<div class="section" id="s-assign-the-template-to-the-character">
+<span id="assign-the-template-to-the-character"></span><h2>Assign the template to the character<a class="headerlink" href="#assign-the-template-to-the-character" title="Permalink to this headline">¶</a></h2>
+<p>Assign this new template to the character, and you're done:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">manager</span><span class="p">.</span><span class="nx">character</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span><span class="p">({</span>
+    <span class="nx">left</span>     <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">bottom</span>   <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">width</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">height</span>   <span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">template</span> <span class="o">:</span> <span class="s1">&#39;gorilla&#39;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-end-result">
+<span id="end-result"></span><h2>End result<a class="headerlink" href="#end-result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">require</span><span class="p">([</span>
+    <span class="s1">&#39;gma/base&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/manager&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/entities/character&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/events&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gma/entities/enemy&#39;</span>
+<span class="p">],</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">gma</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">({</span>
+            <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nx">height</span> <span class="o">:</span> <span class="mi">500</span>
+        <span class="p">});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span><span class="p">({</span>
+            <span class="nx">left</span>     <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">bottom</span>   <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">width</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">height</span>   <span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">template</span> <span class="o">:</span> <span class="s1">&#39;gorilla&#39;</span>
+        <span class="p">});</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">addCustomDefinitions</span><span class="p">({</span>
+            <span class="nx">templates</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">greencube</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;meshTemplate&#39;</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">unitCubeInfo</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                    <span class="nx">material</span> <span class="o">:</span> <span class="p">{</span><span class="nx">color</span> <span class="o">:</span> <span class="s2">&quot;#090&quot;</span><span class="p">}</span>
+                <span class="p">}],</span>
+                <span class="nx">brickscube</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;meshTemplate&#39;</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">:</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">unitCubeInfo</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                    <span class="nx">texture</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">src</span><span class="o">:</span><span class="s1">&#39;bricks.jpg&#39;</span><span class="p">,</span>
+                        <span class="nx">repeatX</span><span class="o">:</span><span class="mf">0.5</span><span class="p">,</span>
+                        <span class="nx">repeatY</span><span class="o">:</span><span class="mf">0.5</span>
+                    <span class="p">}</span>
+                <span class="p">}],</span>
+                <span class="nx">gorilla</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;colladaTemplate&#39;</span><span class="p">,</span>
+                    <span class="p">{</span>
+                        <span class="nx">collada</span> <span class="o">:</span> <span class="p">{</span>
+                            <span class="nb">document</span> <span class="o">:</span> <span class="s1">&#39;gorilla.dae&#39;</span>
+                        <span class="p">},</span>
+                        <span class="nx">yRot</span> <span class="o">:</span> <span class="mf">1.57</span><span class="p">,</span>
+                        <span class="nx">yOffset</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span>
+                        <span class="nx">yScale</span> <span class="o">:</span> <span class="mf">0.7</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+
+            <span class="nx">types</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">jumpingJack</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;jumpingEnemy&#39;</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">width</span>    <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="nx">height</span>   <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="nx">template</span> <span class="o">:</span> <span class="s1">&#39;greencube&#39;</span>
+                <span class="p">}]</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">spawn</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">main</span> <span class="o">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nx">light</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="nx">myLight</span> <span class="o">:</span> <span class="p">{</span>
+                     <span class="nx">type</span> <span class="o">:</span> <span class="nx">GLGE</span><span class="p">.</span><span class="nx">L_POINT</span><span class="p">,</span>
+                     <span class="nx">rotY</span> <span class="o">:</span> <span class="mf">1.54</span><span class="p">,</span>
+                     <span class="nx">color</span>    <span class="o">:</span> <span class="s2">&quot;#fff&quot;</span><span class="p">,</span>
+                     <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+                <span class="p">}</span>
+             <span class="p">},</span>
+            <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nx">template</span><span class="o">:</span><span class="s1">&#39;brickscube&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">template</span><span class="o">:</span><span class="s1">&#39;brickscube&#39;</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">39</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">},</span>
+                <span class="nx">gma</span><span class="p">.</span><span class="nx">platformEnemy</span><span class="p">({</span><span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">45</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">}),</span>
+                <span class="nx">gma</span><span class="p">.</span><span class="nx">patrolEnemy</span><span class="p">({</span><span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">limitLeft</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">limitRight</span><span class="o">:</span><span class="mi">12</span><span class="p">}),</span>
+                <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;jumpingJack&#39;</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">21</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;jumpingJack&#39;</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">24</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;jumpingJack&#39;</span><span class="p">,</span> <span class="nx">bottom</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">27</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">};</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">myLevel</span><span class="p">);</span>
+
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">));</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">));</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">);</span>
+
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-what-s-next">
+<span id="what-s-next"></span><h2>What's next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>In the next section we will <a class="reference internal" href="extraLevels.html"><em>learn how make multiple levels</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="textures.html"
+                        title="previous chapter">Adding textures</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extraLevels.html"
+                        title="next chapter">Creating multiple Levels</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using Collada</a><ul>
+<li><a class="reference internal" href="#create-a-collada-template">Create a collada template</a></li>
+<li><a class="reference internal" href="#assign-the-template-to-the-character">Assign the template to the character</a></li>
+<li><a class="reference internal" href="#end-result">End result</a></li>
+<li><a class="reference internal" href="#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="extraLevels.html" title="Creating multiple Levels"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="textures.html" title="Adding textures"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="../intro/index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="../intro/tutorials.html" >Making your first game</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

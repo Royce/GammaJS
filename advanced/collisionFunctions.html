@@ -1,0 +1,296 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Defining collision behaviour &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Advanced Topics" href="index.html" />
+    <link rel="next" title="Level Parser" href="levelParser.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="levelParser.html" title="Level Parser"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Architecture"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-defining-collision-behaviour">
+<span id="s-collisionfunctions"></span><span id="defining-collision-behaviour"></span><span id="collisionfunctions"></span><h1>Defining collision behaviour<a class="headerlink" href="#defining-collision-behaviour" title="Permalink to this headline">¶</a></h1>
+<p>Each entity in Gamma defines what happens when a collision with another entity occurs via their <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:metho-gma.shapes.rectangle.collided"><tt class="xref std std-metho docutils literal"><span class="pre">collided</span></tt></a> method. When Gamma <em class="xref std std-ref">detects that a collision has occurred</em>, this function is invoked on the entities that have collided.</p>
+<p>An understanding of this function is helpful if you wish to extend the functionality of the character or enemies, or create new entities.</p>
+<div class="section" id="s-the-collided-method">
+<span id="the-collided-method"></span><h2>The <em>collided</em> method<a class="headerlink" href="#the-collided-method" title="Permalink to this headline">¶</a></h2>
+<p>For the following explanation, <tt class="docutils literal"><span class="pre">self</span></tt> refers to the entity defining the behaviour, and <tt class="docutils literal"><span class="pre">focus</span></tt> refers to the entity that is being collided with.</p>
+<p>The <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:metho-gma.shapes.rectangle.collided"><tt class="xref std std-metho docutils literal"><span class="pre">collided</span></tt></a> method accepts four arguments:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">where</span></tt> &#8211; The side of <tt class="docutils literal"><span class="pre">self</span></tt> that was collided with as a <a class="reference internal" href="../api/docs/gma/constants.html#std:api-gma.constant"><tt class="xref std std-api docutils literal"><span class="pre">gma.constant</span></tt></a></li>
+<li><tt class="docutils literal"><span class="pre">focus</span></tt> &#8211; The entity that was collided with</li>
+<li><tt class="docutils literal"><span class="pre">focusSide</span></tt> &#8211; The side of the <tt class="docutils literal"><span class="pre">focus</span></tt> that was collided with</li>
+<li><tt class="docutils literal"><span class="pre">focusVector</span></tt> &#8211; The movement vector [x, y] that the <tt class="docutils literal"><span class="pre">focus</span></tt> was trying to move by before it collided</li>
+</ul>
+<p>To make configuring and customising behaviour flexible, we have implemented this function so that it looks at the <a class="reference internal" href="../topics/tags.html#tags"><em>tags</em></a> on the entity. If a particular tag exists, then an internal method (with the same method signature) is called to carry out the functionality.</p>
+<p>In this example the function to pick up a collectable (eg. coin) is called if the focus has a collectable tag:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+<span class="nx">self</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="nx">focus</span><span class="p">,</span> <span class="nx">focusSide</span><span class="p">,</span> <span class="nx">focusVector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">focus</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">collectable</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">collided__pickupCollectable</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>In this extract from <a class="reference internal" href="../api/docs/gma/enemy.html#std:api-gma.enemy"><tt class="xref std std-api docutils literal"><span class="pre">gma.enemy</span></tt></a>, the focus (character) is killed if the enemy is alive and has the <tt class="docutils literal"><span class="pre">deathtouch</span></tt> tag:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+<span class="nx">self</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">...</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">alive</span> <span class="o">&amp;&amp;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">deathtouch</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">collided__deathtouch</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Defined elsewhere</span>
+<span class="nx">self</span><span class="p">.</span><span class="nx">collided__deathtouch</span> <span class="o">||</span> <span class="kd">function</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">focus</span><span class="p">,</span> <span class="nx">fs</span><span class="p">,</span> <span class="nx">fv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">focus</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">character</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">focus</span><span class="p">.</span><span class="nx">kill</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>As a convention, these internal methods are named by prepending the tag name with &quot;collided__&quot;. See <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:metho-gma.shapes.rectangle.collided__deathtouch"><tt class="xref std std-metho docutils literal"><span class="pre">collided__deathtouch</span></tt></a>, <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.collided__weakhead"><tt class="xref std std-metho docutils literal"><span class="pre">collided__weakhead</span></tt></a>, <a class="reference internal" href="../api/docs/gma/enemy.html#std:metho-gma.enemy.collided__rebound"><tt class="xref std std-metho docutils literal"><span class="pre">collided__rebound</span></tt></a> and <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.collided__pickupCollectable"><tt class="xref std std-metho docutils literal"><span class="pre">collided__pickupCollectable</span></tt></a></p>
+</div>
+<div class="section" id="s-writing-custom-collision-behaviour">
+<span id="writing-custom-collision-behaviour"></span><h2>Writing custom collision behaviour<a class="headerlink" href="#writing-custom-collision-behaviour" title="Permalink to this headline">¶</a></h2>
+<p>Let's say we want to make a <cite>cryer</cite> that yells in pain every time something hits it.</p>
+<p>To create a <cite>cryer</cite> we can create a rectangle and define a custom <tt class="docutils literal"><span class="pre">collided</span></tt> function on that rectangle. We create a reference of the old <tt class="docutils literal"><span class="pre">collided</span></tt> function before we define the new one. Then, inside the new <tt class="docutils literal"><span class="pre">collided</span></tt> function we invoke the old function:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">myRectangle</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">});</span>
+
+<span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">myRectangle</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+<span class="nx">myRectangle</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;OOOOWWWW&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Alternatively, we can create a function that can be used to add this functionality to any entity.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">cryerFunctionality</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">entity</span> <span class="o">||</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">oldCollided</span> <span class="o">&amp;&amp;</span> <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;OOOOWWWW&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If we follow the convention that this logic should be defined in an internal function, would would write the function as:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">cryerFunctionality</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">entity</span> <span class="o">||</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">oldCollided</span> <span class="o">&amp;&amp;</span> <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">collided__announce</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided__announce</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;OOOOWWWW&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We could take this further and use the functions arguments to change the message:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">cryerFunctionality</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">entity</span> <span class="o">||</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">});</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">TOP</span><span class="p">]</span>    <span class="o">=</span> <span class="s1">&#39;top&#39;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">]</span>   <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">]</span>  <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">BOTTOM</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bottom&#39;</span>
+
+    <span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">collided__announce</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided__announce</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="nx">focus</span><span class="p">,</span> <span class="nx">focusSide</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;OWWWWWW, damnit!, something hit my &quot;</span> <span class="o">+</span> <span class="nx">sides</span><span class="p">[</span><span class="nx">where</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; with their &quot;</span> <span class="o">+</span> <span class="nx">sides</span><span class="p">[</span><span class="nx">focusSide</span><span class="p">],</span> <span class="mi">20</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>We could also change the message based on the entity's tags:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">cryerFunctionality</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">entity</span> <span class="o">||</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">shapes</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span><span class="p">});</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">TOP</span><span class="p">]</span>    <span class="o">=</span> <span class="s1">&#39;top&#39;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">]</span>   <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">]</span>  <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">sides</span><span class="p">[</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">BOTTOM</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bottom&#39;</span>
+
+    <span class="nx">oldCollided</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">oldCollided</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">tags</span><span class="p">.</span><span class="nx">angry</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">collided__anger</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguements</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">collided__announce</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided__announce</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="nx">environ</span><span class="p">,</span> <span class="nx">environSide</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;OWWWWWW, damnit!, something hit my &quot;</span> <span class="o">+</span> <span class="nx">sides</span><span class="p">[</span><span class="nx">where</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; with their &quot;</span> <span class="o">+</span> <span class="nx">sides</span><span class="p">[</span><span class="nx">environSide</span><span class="p">],</span> <span class="mi">20</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">self</span><span class="p">.</span><span class="nx">collided__anger</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">where</span><span class="p">,</span> <span class="nx">environ</span><span class="p">,</span> <span class="nx">environSide</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">manager</span><span class="p">.</span><span class="nx">hud</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;GO AWAY, ANNOYING THING&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">self</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>We can then use it as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">captainObvious</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">jumpingEnemy</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">});</span>
+<span class="nx">cryerFunctionality</span><span class="p">(</span><span class="nx">captainObvious</span><span class="p">);</span>
+
+<span class="nx">anAngryEnemy</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="nx">tags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;angry&#39;</span><span class="p">]});</span>
+<span class="nx">cryerFunctionality</span><span class="p">(</span><span class="nx">anAngryEnemy</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="previous chapter">Architecture</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="levelParser.html"
+                        title="next chapter">Level Parser</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Defining collision behaviour</a><ul>
+<li><a class="reference internal" href="#the-collided-method">The <em>collided</em> method</a></li>
+<li><a class="reference internal" href="#writing-custom-collision-behaviour">Writing custom collision behaviour</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="levelParser.html" title="Level Parser"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Architecture"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Advanced Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

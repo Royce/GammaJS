@@ -1,0 +1,213 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Character &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Enemy" href="enemy.html" />
+    <link rel="prev" title="Tags" href="tags.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="enemy.html" title="Enemy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tags.html" title="Tags"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-character">
+<span id="character"></span><h1>Character<a class="headerlink" href="#character" title="Permalink to this headline">¶</a></h1>
+<p>Gamma provides <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a>, which is a convenience class for representing an <strong>entity controlled by the player</strong>. In most games there is only one such entity (multiple in multiplayer games) and it is called the character.</p>
+<p>The <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> class extends <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">gma.moveable</span></tt></a> and provides some extra functions for changing the state of the entity &#8211; to control jumping and moving.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="moveables.html#moveables"><em>Moveable Entities</em></a> for what else is provided for the character</p>
+</div>
+<div class="section" id="s-instantiating-the-character">
+<span id="instantiating-the-character"></span><h2>Instantiating the character<a class="headerlink" href="#instantiating-the-character" title="Permalink to this headline">¶</a></h2>
+<p>The character is a <a class="reference internal" href="../api/docs/gma/moveable.html#std:api-gma.moveable"><tt class="xref std std-api docutils literal"><span class="pre">moveable</span> <span class="pre">entity</span></tt></a>, which in turn is a <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:api-gma.shapes.rectangle"><tt class="xref std std-api docutils literal"><span class="pre">rectangle</span></tt></a>. Therefore you should provide the dimensions and position when specifying a character.</p>
+<p>The character is typically instantiated and provided to the manager. For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">(...);</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">character</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span><span class="p">({</span>
+    <span class="nx">left</span>     <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">bottom</span>   <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">width</span>    <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">height</span>   <span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">3</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="shapes.html#rectangle"><em>shapes</em></a> topic for possible combinations of dimensions and position.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The position properties of a character is ignored (<a class="reference internal" href="levels.html#spawnpoints"><em>spawn points</em></a> are defined per level) but is still required.</p>
+</div>
+</div>
+<div class="section" id="s-jumping">
+<span id="jumping"></span><h2>Jumping<a class="headerlink" href="#jumping" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.jump"><tt class="xref std std-metho docutils literal"><span class="pre">jump</span></tt></a> method is used to tell the character to jump. It sets the character's <tt class="docutils literal"><span class="pre">ystate</span></tt> to <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-JUMPING"><tt class="xref std std-constant docutils literal"><span class="pre">JUMPING</span></tt></a> when the character isn't already jumping and sets it's <tt class="docutils literal"><span class="pre">velocity</span></tt> to what has been defined for it's <tt class="docutils literal"><span class="pre">jumpVelocity</span></tt> property.</p>
+<p>The jump function is designed to be bound to a key-press:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// Jump when spacebar (keycode 32) is pressed</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">jump</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the character is dead (character's <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.alive"><tt class="xref std std-prop docutils literal"><span class="pre">alive</span></tt></a> property isn't set to <tt class="docutils literal"><span class="pre">true</span></tt>) <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.jump"><tt class="xref std std-metho docutils literal"><span class="pre">jump</span></tt></a> will have no effect.</p>
+</div>
+</div>
+<div class="section" id="s-moving">
+<span id="moving"></span><h2>Moving<a class="headerlink" href="#moving" title="Permalink to this headline">¶</a></h2>
+<p>To tell the character to move left or right, the <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.move"><tt class="xref std std-metho docutils literal"><span class="pre">move</span></tt></a> method is supplied. This function accepts one of the <a class="reference internal" href="../api/docs/gma/constants.html#std:api-gma.constants"><tt class="xref std std-api docutils literal"><span class="pre">gma.constants</span></tt></a> to specify the direction we want to move in (either <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-LEFT"><tt class="xref std std-constant docutils literal"><span class="pre">LEFT</span></tt></a> or <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-RIGHT"><tt class="xref std std-constant docutils literal"><span class="pre">RIGHT</span></tt></a>) and an event object.</p>
+<p>It will then set <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a> on the character to this direction if the event object is a <tt class="docutils literal"><span class="pre">keydown</span></tt>, otherwise it will set the character's <a class="reference internal" href="../api/docs/gma/moveable.html#std:prop-gma.moveable.xState"><tt class="xref std std-prop docutils literal"><span class="pre">xState</span></tt></a> to <a class="reference internal" href="../api/docs/gma/constants.html#std:constant-STILL"><tt class="xref std std-constant docutils literal"><span class="pre">STILL</span></tt></a> if the event is a <tt class="docutils literal"><span class="pre">keyup</span></tt>.</p>
+<p>An example keybinding would be (with or without <a class="reference internal" href="../glossary.html#term-curry"><em class="xref std std-term">currying</em></a>):</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// Using currying</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">));</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">.</span><span class="nx">curry</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">));</span>
+
+<span class="c1">// Not using currying</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">RIGHT</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">gma</span><span class="p">.</span><span class="nx">keyHandler</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">gma</span><span class="p">.</span><span class="nx">constants</span><span class="p">.</span><span class="nx">LEFT</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the character is dead (character's <a class="reference internal" href="../api/docs/gma/shapes.rectangle.html#std:prop-gma.shapes.rectangle.alive"><tt class="xref std std-prop docutils literal"><span class="pre">alive</span></tt></a> property isn't set to <tt class="docutils literal"><span class="pre">true</span></tt>) <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.move"><tt class="xref std std-metho docutils literal"><span class="pre">move</span></tt></a> will have no effect.</p>
+</div>
+</div>
+<div class="section" id="s-collision-functionality">
+<span id="collision-functionality"></span><h2>Collision functionality<a class="headerlink" href="#collision-functionality" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">gma.character</span></tt></a> class defines additional collision functionality. After doing the collision checks it inherits, the <a class="reference internal" href="../api/docs/gma/character.html#std:api-gma.character"><tt class="xref std std-api docutils literal"><span class="pre">character</span></tt></a> check if it collided with a <a class="reference internal" href="../api/docs/gma/collectable.html#std:api-gma.collectable"><tt class="xref std std-api docutils literal"><span class="pre">gma.collectable</span></tt></a> and calls <a class="reference internal" href="../api/docs/gma/collectable.html#std:metho-gma.collectable.pickup"><tt class="xref std std-metho docutils literal"><span class="pre">pickup</span></tt></a> on the collectable and increment <a class="reference internal" href="../api/docs/gma/character.html#std:prop-gma.character.score"><tt class="xref std std-prop docutils literal"><span class="pre">score</span></tt></a> on the character.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is implemented in the <a class="reference internal" href="../api/docs/gma/character.html#std:metho-gma.character.collided__pickupCollectable"><tt class="xref std std-metho docutils literal"><span class="pre">collided__pickupCollectable</span></tt></a> function. See the advanced topic on <a class="reference internal" href="../advanced/collisionFunctions.html#collisionfunctions"><em>collision functionality</em></a> to find out how to customize collision behaviours.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tags.html"
+                        title="previous chapter">Tags</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="enemy.html"
+                        title="next chapter">Enemy</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Character</a><ul>
+<li><a class="reference internal" href="#instantiating-the-character">Instantiating the character</a></li>
+<li><a class="reference internal" href="#jumping">Jumping</a></li>
+<li><a class="reference internal" href="#moving">Moving</a></li>
+<li><a class="reference internal" href="#collision-functionality">Collision functionality</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="enemy.html" title="Enemy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tags.html" title="Tags"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>

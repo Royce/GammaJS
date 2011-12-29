@@ -1,0 +1,41 @@
+.. _advancedInstall:
+
+Developing with Gamma
+=====================
+
+Gamma is a modular library that is split into many files. Whilst you can use a combined and :term:`minified` version of the library, as shown in the :ref:`getting started section <install>`, it's a lot easier to develop and debug you game if you can view the full source code. This allows you to see the code where errors originate from and set breakpoints in the Gamma library.
+
+To install the non-minified version, you must download a few files and modify your HTML page to tell RequireJS where to find the Gamma library:
+
+* Follow the :ref:`getting started section <install>`.
+
+* Download all the `Gamma files <http://lodle.dyndns.org:8/code/gma.tar.bz2>`_ and untar it so you have the ``gma`` folder next to your other files. 
+
+* Download :ref:`RequireJS <requireJSNS>` and the other libraries that Gamma uses, which you can find in a `single, minifed file <http://lodle.dyndns.org:8/code/libs-min.js>`_.
+
+* Inside ``game.html``, replace the ``head`` element with the following:
+
+    .. code-block:: html
+
+        <head> 
+     
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+            <title>My Awesome Game</title>
+        
+            <!-- Include any style sheets here -->
+
+            <!-- Tell requirejs where to find your code -->
+            <script type="text/javascript">
+                var require = {
+                    baseUrl: "",
+                    waitSeconds: 15,
+                    context: "gma"
+                }; 
+            </script>
+        
+            <!-- Include the necessary libraries -->
+            <script type="text/javascript" src="libs-min.js"></script>
+        
+        </head>
+    
+* That's it!

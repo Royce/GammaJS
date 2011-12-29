@@ -1,0 +1,479 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Levels &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../index.html" />
+    <link rel="up" title="Topics" href="index.html" />
+    <link rel="next" title="Appearance" href="appearance.html" />
+    <link rel="prev" title="Platform" href="platform.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="appearance.html" title="Appearance"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="platform.html" title="Platform"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="s-levels">
+<span id="s-levelspecs"></span><span id="levels"></span><span id="levelspecs"></span><h1>Levels<a class="headerlink" href="#levels" title="Permalink to this headline">¶</a></h1>
+<p>A level specification is created to specify what is inside a game. This is used to tell the game engine the position, appearance and behaviour of any objects in each level.</p>
+<div class="section" id="s-specifying-levels">
+<span id="specifying-levels"></span><h2>Specifying Levels<a class="headerlink" href="#specifying-levels" title="Permalink to this headline">¶</a></h2>
+<p>A level specification is a normal Javascript object with particular properties. A level needs at minimum, a spawn location for the character and a camera. Gamma will provide defaults if these properties are not specified. This means that you can provide an empty object and Gamma will still be able to start a working level.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The advanced topic on <a class="reference internal" href="../advanced/levelParser.html#levelparsers"><em>Level Parser</em></a> describes what is provided on the level by default, and how to customise this behaviour.</p>
+</div>
+<div class="section" id="s-adding-spawn-points">
+<span id="s-spawnpoints"></span><span id="adding-spawn-points"></span><span id="spawnpoints"></span><h3>Adding Spawn points<a class="headerlink" href="#adding-spawn-points" title="Permalink to this headline">¶</a></h3>
+<p>A <a class="reference internal" href="../glossary.html#term-spawn-point"><em class="xref std std-term">spawn point</em></a> is a location in 2D space with a label attached to it.</p>
+<p>Spawn points are commonly used by Gamma to set the position of the character when a level is loaded. To do this, a level must specify a spawn point with the label <tt class="docutils literal"><span class="pre">main</span></tt>. If no such location is specified, then one is added to the level at [0, 0].</p>
+<p>Spawn points are specified as a <a class="reference internal" href="../glossary.html#term-hash"><em class="xref std std-term">hash</em></a> that associates a label to a [x, y] co-ordinate.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">spawn</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">main</span><span class="o">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+        <span class="nx">someOtherLocation</span> <span class="o">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">65</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As shown in the <a class="reference internal" href="#initialisinglevels"><em>Initialising Levels</em></a> section, it is possible to change which spawn point is used to <a class="reference internal" href="../glossary.html#term-spawn"><em class="xref std std-term">spawn</em></a> the character when the level is loaded</p>
+</div>
+</div>
+<div class="section" id="s-customising-the-camera">
+<span id="customising-the-camera"></span><h3>Customising the camera<a class="headerlink" href="#customising-the-camera" title="Permalink to this headline">¶</a></h3>
+<p>To customise the camera, you may specify options under the <tt class="docutils literal"><span class="pre">camera</span></tt> label. All of the options provided by the <a class="reference external" href="http://www.glge.org/api-docs/?url=/symbols/GLGE.Camera.html">GLGE Camera</a> are available (look for the the <tt class="docutils literal"><span class="pre">set*</span></tt> functions).</p>
+<p>To make an orthographic camera, 50 units from the origin:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">locZ</span> <span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="nx">type</span> <span class="o">:</span> <span class="nx">GLGE</span><span class="p">.</span><span class="nx">C_ORTHO</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-adding-lights">
+<span id="s-lights"></span><span id="adding-lights"></span><span id="lights"></span><h3>Adding Lights<a class="headerlink" href="#adding-lights" title="Permalink to this headline">¶</a></h3>
+<p>You can add lights to your level by specifying them inside a <a class="reference internal" href="../glossary.html#term-hash"><em class="xref std std-term">hash</em></a> under the label <tt class="docutils literal"><span class="pre">light</span></tt>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">light</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">light1</span> <span class="o">:</span> <span class="p">{},</span>
+        <span class="nx">light2</span> <span class="o">:</span> <span class="p">{},</span>
+        <span class="nx">light3</span> <span class="o">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can find all the options you can set by finding all the <tt class="docutils literal"><span class="pre">set*</span></tt> functions over <a class="reference external" href="http://www.glge.org/api-docs/?url=/symbols/GLGE.Light.html">here</a>.</p>
+<p>For example,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">light</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">spotlight1</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="nx">rotY</span> <span class="o">:</span> <span class="mf">1.54</span><span class="p">,</span>
+            <span class="nx">locZ</span> <span class="o">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+            <span class="nx">type</span> <span class="o">:</span> <span class="nx">GLGE</span><span class="p">.</span><span class="nx">L_POINT</span><span class="p">,</span>
+
+            <span class="nx">color</span>    <span class="o">:</span> <span class="s2">&quot;#fff&quot;</span><span class="p">,</span>
+            <span class="nx">rotOrder</span> <span class="o">:</span> <span class="nx">GLGE</span><span class="p">.</span><span class="nx">ROT_XZY</span><span class="p">,</span>
+
+            <span class="nx">attenuationLinear</span>    <span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="nx">attenuationConstant</span>  <span class="o">:</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="nx">attenuationQuadratic</span> <span class="o">:</span> <span class="mf">0.00</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-attaching-lights-and-camera-to-the-character">
+<span id="s-attached"></span><span id="attaching-lights-and-camera-to-the-character"></span><span id="attached"></span><h3>Attaching Lights and Camera to the character<a class="headerlink" href="#attaching-lights-and-camera-to-the-character" title="Permalink to this headline">¶</a></h3>
+<p>When specifying your camera and lights, you may also specify an <tt class="docutils literal"><span class="pre">attached</span></tt> option, which will cause that camera/light to follow some other entity. When you specify <tt class="docutils literal"><span class="pre">attached</span></tt>, you provide an array that contains at least a string specifying the entity to follow. You may then optionally specify <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt> and <tt class="docutils literal"><span class="pre">z</span></tt> offsets.</p>
+<p>For example,</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">camera</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">locZ</span> <span class="o">:</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span>
+        <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">]</span>
+    <span class="p">},</span>
+
+    <span class="nx">light</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">spotlight</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="nx">attached</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;character&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When you don't specify <tt class="docutils literal"><span class="pre">x</span></tt> or <tt class="docutils literal"><span class="pre">y</span></tt> offsets, they will default to zero. If there is no <tt class="docutils literal"><span class="pre">z</span></tt> offset the z-position of the object will be set to <tt class="docutils literal"><span class="pre">locZ</span></tt> (which defaults to 0). So in the above example, the camera will follow the movement of the character (but 50 units towards the viewer) and the light will always be 3 units above where the character is.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For now, Gamma only allows you to follow the character, but this may change in the future.</p>
+</div>
+</div>
+<div class="section" id="s-adding-entities">
+<span id="s-levelspec-entities"></span><span id="adding-entities"></span><span id="levelspec-entities"></span><h3>Adding Entities<a class="headerlink" href="#adding-entities" title="Permalink to this headline">¶</a></h3>
+<p>Entities may be specified as a list of Gamma objects:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">door</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">}),</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">door</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">}),</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">2</span><span class="p">}),</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">platform</span><span class="p">({</span><span class="nx">left</span><span class="o">:-</span><span class="mi">9</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="mi">18</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">})</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>This example creates a platform with an enemy and two doors sitting on it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Your character object should be attached to the manager, not the level. Therefore the following will break some functionality the manager provides:</p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">character</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">}),</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-templates">
+<span id="templates"></span><h3>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
+<p>By default, all entities will be rendered as a <a class="reference internal" href="../glossary.html#term-rectangular-prism"><em class="xref std std-term">rectangular prism</em></a> using <a class="reference internal" href="../api/docs/gma/gma.html#std:prop-gma.gma.unitCube"><tt class="xref std std-prop docutils literal"><span class="pre">unitCube</span></tt></a>. You can change the template used by setting the template property on the entity. Gamma provides 3 different templates for rendering as described in the <a class="reference internal" href="appearance.html#appearance"><em>appearance section</em></a>. This example will render a gorilla collada file instead of the default unit cube:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myGorilla</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">colladaTemplate</span><span class="p">({</span>
+    <span class="nx">collada</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nb">document</span> <span class="o">:</span> <span class="s1">&#39;gorilla.dae&#39;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="nx">gma</span><span class="p">.</span><span class="nx">enemy</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span> <span class="nx">template</span><span class="o">:</span><span class="nx">myGorilla</span><span class="p">}),</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Gamma also provides another default template, <tt class="docutils literal"><span class="pre">redcube</span></tt>. This will render a red cube instead of a blue cube.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">19</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="nx">template</span> <span class="o">:</span> <span class="s1">&#39;redcube&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-removing-repetition">
+<span id="removing-repetition"></span><h2>Removing Repetition<a class="headerlink" href="#removing-repetition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="s-types">
+<span id="s-levelspec-types"></span><span id="types"></span><span id="levelspec-types"></span><h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
+<p>Types can be used to remove repetition when defining similar objects. A <tt class="docutils literal"><span class="pre">type</span></tt> is a specification of attributes, which can be associated with an object through it's <tt class="docutils literal"><span class="pre">type</span></tt> property. For example to create a type <tt class="docutils literal"><span class="pre">shinyDoor</span></tt> that creates a <a class="reference internal" href="../api/docs/gma/door.html#std:api-gma.door"><tt class="xref std std-api docutils literal"><span class="pre">gma.door</span></tt></a> with a width, height and depth of 4:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">types</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">shinyDoor</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;door&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">width</span>    <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">height</span>   <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>To assign this type to two objects:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;shinyDoor&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">}</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;shinyDoor&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span><span class="mi">15</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">}</span>
+    <span class="p">],</span>
+
+    <span class="c1">//Types same as above</span>
+    <span class="nx">types</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">shinyDoor</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;door&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">width</span>    <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">depth</span>    <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">height</span>   <span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>By default, specifications will have the <tt class="docutils literal"><span class="pre">default</span></tt> type, which creates a <a class="reference internal" href="../api/docs/gma/platform.html#std:api-gma.platform"><tt class="xref std std-api docutils literal"><span class="pre">gma.platform</span></tt></a>, so a platform in our level could be specified as</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nx">left</span><span class="o">:-</span><span class="mi">9</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="mi">18</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>You can also override attributes specified in the type. For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">types</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="nx">myEnemy</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;enemy&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">4</span><span class="p">}]</span>
+    <span class="p">},</span>
+
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;myEnemy&#39;</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span><span class="mi">9</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
+        <span class="c1">//height is now 2</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="s-replicating-objects">
+<span id="s-replicatewith"></span><span id="replicating-objects"></span><span id="replicatewith"></span><h3>Replicating objects<a class="headerlink" href="#replicating-objects" title="Permalink to this headline">¶</a></h3>
+<p>Gamma provides the ability to replicate options on a list of objects through a <tt class="docutils literal"><span class="pre">replicateWith</span></tt> property.</p>
+<p>ReplicateWith will create an object for each set of attributes in the array passed to it. This object will have these attributes as well as the attributes of the object <tt class="docutils literal"><span class="pre">replicateWith</span></tt> was defined in.</p>
+<p>For example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">replicateWith</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">12</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">17</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">left</span><span class="o">:</span><span class="mi">25</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">}</span>
+        <span class="p">]}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>is equivalent to</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myLevel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">12</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">17</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">width</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nx">left</span><span class="o">:</span><span class="mi">25</span><span class="p">,</span> <span class="nx">top</span><span class="o">:</span><span class="mi">5</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>You can also <tt class="docutils literal"><span class="pre">replicateWith</span></tt> recursively. For example you could do the following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObject</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">expandReplicateWith</span><span class="p">({</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">optionB</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">optionC</span> <span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">replicateWith</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="nx">optionD</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionE</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">replicateWith</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nx">optionF</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">optionF</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionG</span> <span class="o">:</span> <span class="mi">11</span><span class="p">}</span>
+            <span class="p">]},</span>
+            <span class="p">{</span><span class="nx">optionD</span> <span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nx">replicateWith</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nx">optionF</span> <span class="o">:</span> <span class="mi">8</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">optionF</span> <span class="o">:</span> <span class="mi">10</span><span class="p">}</span>
+            <span class="p">]},</span>
+        <span class="p">]}</span>
+    <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Which is equivalent to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObject</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">expandReplicateWith</span><span class="p">({</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">optionB</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">optionC</span> <span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">replicateWith</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="nx">optionD</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionE</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">optionD</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionE</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionG</span> <span class="o">:</span> <span class="mi">11</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">optionD</span> <span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">8</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">optionD</span> <span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">10</span><span class="p">}</span>
+        <span class="p">]}</span>
+    <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Which is equivalent to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObject</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">expandReplicateWith</span><span class="p">({</span>
+    <span class="nx">entities</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nx">optionB</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">optionC</span> <span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">optionD</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionE</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">optionB</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">optionC</span> <span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">optionD</span> <span class="o">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">optionE</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">optionG</span> <span class="o">:</span> <span class="mi">11</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">optionB</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">optionC</span> <span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">optionD</span> <span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">8</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">optionA</span> <span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">optionB</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">optionC</span> <span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nx">optionD</span> <span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nx">optionF</span> <span class="o">:</span> <span class="mi">10</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="s-adding-levels">
+<span id="adding-levels"></span><h2>Adding Levels<a class="headerlink" href="#adding-levels" title="Permalink to this headline">¶</a></h2>
+<p>Once you've created a <a class="reference internal" href="../api/docs/gma/manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a>, adding levels is as simple as calling <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.storeLevels"><tt class="xref std std-metho docutils literal"><span class="pre">storeLevels</span></tt></a> with one or more level specifications</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// We either call storeLevels with one level specification</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">(</span><span class="nx">someSpecification</span><span class="p">);</span>
+
+<span class="c1">// Or we call storeLevels with an array of one or more specifications and it will store them all</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">([</span><span class="nx">levelSpecification1</span><span class="p">,</span> <span class="nx">levelSpecification2</span><span class="p">,</span> <span class="nx">levelSpecification3</span><span class="p">]);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Storing a level does not load it. Loading levels is explaining in the <a class="reference internal" href="#initialisinglevels"><em>Initialising Levels</em></a> section below.</p>
+</div>
+</div>
+<div class="section" id="s-initialising-levels">
+<span id="s-initialisinglevels"></span><span id="initialising-levels"></span><span id="initialisinglevels"></span><h2>Initialising Levels<a class="headerlink" href="#initialising-levels" title="Permalink to this headline">¶</a></h2>
+<p>Once you've stored one or more levels on the manager using <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.storeLevels"><tt class="xref std std-metho docutils literal"><span class="pre">storeLevels</span></tt></a>, you can use <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a> to load one of them.</p>
+<p>For example</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">manager</span> <span class="o">=</span> <span class="nx">gma</span><span class="p">.</span><span class="nx">manager</span><span class="p">();</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">({});</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">loadLevel</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>By default, <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.loadLevel"><tt class="xref std std-metho docutils literal"><span class="pre">loadLevel</span></tt></a> will load the first level that has been stored on the manager and will spawn the <a class="reference internal" href="../api/docs/gma/manager.html#std:prop-gma.manager.character"><tt class="xref std std-prop docutils literal"><span class="pre">character</span></tt></a> at the spawn point with label <tt class="docutils literal"><span class="pre">main</span></tt>.</p>
+<p>However, you can specify which level you wish to load, and at which spawn point.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// Create some level specifications</span>
+<span class="kd">var</span> <span class="nx">level1</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">level2</span> <span class="o">=</span> <span class="p">{</span><span class="nx">spawn</span> <span class="o">:</span> <span class="p">{</span><span class="nx">other</span> <span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">]}};</span>
+<span class="kd">var</span> <span class="nx">level3</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="c1">// Store the levels on manager</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">storeLevels</span><span class="p">([</span><span class="nx">level1</span><span class="p">,</span> <span class="nx">level2</span><span class="p">,</span> <span class="nx">level3</span><span class="p">])</span>
+
+<span class="c1">// Load the second level</span>
+<span class="c1">// Note that the levels are zero indexed</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">loadLevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">// Or we could load the second level, and spawn the character at the spawn point labelled &quot;other&quot;</span>
+<span class="nx">manager</span><span class="p">.</span><span class="nx">loadLevel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;other&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The list of levels on the manager is zero indexed. This means the first level is at index 0, the second level is at index 1, etc.</p>
+</div>
+<p>Once you've loaded a level, <a class="reference internal" href="../api/docs/gma/manager.html#std:metho-gma.manager.twitch"><tt class="xref std std-metho docutils literal"><span class="pre">twitch</span></tt></a> is started, and the <a class="reference internal" href="../glossary.html#term-game-loop"><em class="xref std std-term">Game Loop</em></a> will cause a cycle of animating, removing &quot;killed&quot; entities, and rendering.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="platform.html"
+                        title="previous chapter">Platform</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="appearance.html"
+                        title="next chapter">Appearance</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Levels</a><ul>
+<li><a class="reference internal" href="#specifying-levels">Specifying Levels</a><ul>
+<li><a class="reference internal" href="#adding-spawn-points">Adding Spawn points</a></li>
+<li><a class="reference internal" href="#customising-the-camera">Customising the camera</a></li>
+<li><a class="reference internal" href="#adding-lights">Adding Lights</a></li>
+<li><a class="reference internal" href="#attaching-lights-and-camera-to-the-character">Attaching Lights and Camera to the character</a></li>
+<li><a class="reference internal" href="#adding-entities">Adding Entities</a></li>
+<li><a class="reference internal" href="#templates">Templates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#removing-repetition">Removing Repetition</a><ul>
+<li><a class="reference internal" href="#types">Types</a></li>
+<li><a class="reference internal" href="#replicating-objects">Replicating objects</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#adding-levels">Adding Levels</a></li>
+<li><a class="reference internal" href="#initialising-levels">Initialising Levels</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="appearance.html" title="Appearance"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="platform.html" title="Platform"
+             >previous</a> |</li>
+        <li><a href="../index.html">Gamma v1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Topics</a> &raquo;</li>
+<li id="searchbox" class="right" style="display: none">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</li>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+      </ul>
+    </div>
+    
+    <div class="footer">
+        &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+      Last updated on Oct 30, 2010.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+    </div>
+    <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-19399155-1']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+
+  </body>
+</html>
