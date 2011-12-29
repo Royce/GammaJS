@@ -1,0 +1,235 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gma.backgroundMaker &mdash; Gamma v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Gamma v1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="gma" href="../gma.html" />
+    <link rel="next" title="gma.utils" href="utils.html" />
+    <link rel="prev" title="gma.shapes.rectangle" href="shapes.rectangle.html" /> 
+  </head>
+  <body>
+    <div id="header">
+        <div class="inner">
+            <p id="site_title">
+                <a href="/">GammaJS: A WebGL platformer game engine</a>
+            </p>
+            <ul class="menu">
+                <li><a href="../../../index.html">Overview</a></li>
+            
+                <li><a href="../../../intro/tutorials.html">Tutorial</a></li>
+            
+                <li><a href="../../../topics/index.html">Topics</a></li>
+            
+                <li><a href="../gma.html"class="selected">API</a></li>
+            
+                <li><a href="http://example.gammajs.org">Examples/Tests</a></li>
+            
+                <li><a href="../../../intro/install.html">Download</a></li>
+            
+                <li>
+    <form class="search" id="searchbox" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+                </li>
+            </ul>
+        </div>
+    </div>
+  
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body">
+          
+  <span class="target" id="std:api-gma.backgroundMaker"></span><div class="section" id="s-gma-backgroundmaker">
+<span id="s-std:api-backgroundMaker"></span><span id="gma-backgroundmaker"></span><span id="std:api-backgroundMaker"></span><h1>gma.backgroundMaker<a class="headerlink" href="#gma-backgroundmaker" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<p>Provides some functions to transform specification into background</p>
+<table class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Package</td>
+<td>gma/utils/background</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="section" id="s-properties">
+<span id="properties"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p id="std:prop-gma.backgroundMaker.z"><span id="gma-backgroundmaker-z"></span><strong>z</strong></p>
+<blockquote>
+<p>The z co-ordinate given to all background items</p>
+<table class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Type</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+<div class="section" id="s-methods">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils" id="std:metho-gma.backgroundMaker.process">
+<span id="gma-backgroundmaker-process"></span><span id="index-0"></span><dt><strong>process</strong> (manager, value) -&gt; <a class="reference internal" href="renderHelper.html#std:api-gma.renderHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.renderHelper</span></tt></a></dt>
+<dd><p class="first">Dispatcher for determining how to treat background specifications</p>
+<table class="last docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+</tr>
+<tr><td>value</td>
+<td>specification</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.backgroundMaker.sanitise">
+<span id="gma-backgroundmaker-sanitise"></span><span id="index-1"></span><dt><strong>sanitise</strong> (value, opts)</dt>
+<dd><p class="first">Function to ensure value.entity is a rectangle</p>
+<table class="last docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>value</td>
+<td>specification</td>
+</tr>
+<tr><td>opts</td>
+<td>Options</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.backgroundMaker.process_other">
+<span id="gma-backgroundmaker-process-other"></span><span id="index-2"></span><dt><strong>process_other</strong> (manager, value, type) -&gt; <a class="reference internal" href="renderHelper.html#std:api-gma.renderHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.renderHelper</span></tt></a></dt>
+<dd><p class="first">Processer for specifications with no or unknown type</p>
+<table class="last docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+</tr>
+<tr><td>value</td>
+<td>specification</td>
+</tr>
+<tr><td>type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils" id="std:metho-gma.backgroundMaker.process_skybox">
+<span id="gma-backgroundmaker-process-skybox"></span><span id="index-3"></span><dt><strong>process_skybox</strong> (manager, value, type) -&gt; <a class="reference internal" href="renderHelper.html#std:api-gma.renderHelper"><tt class="xref std std-api docutils literal"><span class="pre">gma.renderHelper</span></tt></a></dt>
+<dd><p class="first">Processer for skybox</p>
+<table class="last docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>manager</td>
+<td><a class="reference internal" href="manager.html#std:api-gma.manager"><tt class="xref std std-api docutils literal"><span class="pre">gma.manager</span></tt></a></td>
+</tr>
+<tr><td>value</td>
+<td>specification</td>
+</tr>
+<tr><td>type</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+      </div>
+    <div class="sphinxsidebar">
+          <h3>Table Of Contents</h3>
+          <ul>
+<li><a class="reference internal" href="#">gma.backgroundMaker</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    </div>
+    <!-- GitHub Ribbon -->
+    <a href="http://github.com/Royce/GammaJS"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://assets1.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_gray_6d6d6d.png&path=" alt="Fork me on GitHub"></a>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      <p>
+            &copy; Copyright Stephen Moore, Royce Townsend and James Campbell.
+          GammaJS is released under the
+          <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>.
+      </p>
+      <p>
+            Last updated on Jan 02, 2011.
+            Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.3.
+      </p>
+    </div>
+  </body>
+</html>

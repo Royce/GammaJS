@@ -1,0 +1,207 @@
+
+
+.. api:: gma.character
+
+
+.. api:: character
+
+
+
+gma.character
+=============
+
+
+    Provides a character object
+
+
+
+    =================== ====================================================
+    Package             gma/entities/character
+    Inheritance chain   :api:`gma.shapes.rectangle` >> :api:`gma.moveable`
+    =================== ====================================================
+
+
+
+
+Tags
+----
+
+
+*shape*, *moveable*, *character*
+
+
+
+
+
+Properties
+----------
+
+
+.. admonition:: Inherited from :api:`gma.moveable`
+
+	:prop:`xState <gma.moveable.xState>`, :prop:`yState <gma.moveable.yState>`, :prop:`lastXState <gma.moveable.lastXState>`, :prop:`jumpVelocity <gma.moveable.jumpVelocity>`, :prop:`velocity <gma.moveable.velocity>`
+
+.. admonition:: Inherited from :api:`gma.shapes.rectangle`
+
+	:prop:`right <gma.shapes.rectangle.right>`, :prop:`centre <gma.shapes.rectangle.centre>`, :prop:`solid <gma.shapes.rectangle.solid>`, :prop:`top <gma.shapes.rectangle.top>`, :prop:`bottom <gma.shapes.rectangle.bottom>`, :prop:`edges <gma.shapes.rectangle.edges>`, :prop:`height <gma.shapes.rectangle.height>`, :prop:`width <gma.shapes.rectangle.width>`, :prop:`depth <gma.shapes.rectangle.depth>`, :prop:`points <gma.shapes.rectangle.points>`, :prop:`alive <gma.shapes.rectangle.alive>`, :prop:`yOffset <gma.shapes.rectangle.yOffset>`, :prop:`y <gma.shapes.rectangle.y>`, :prop:`x <gma.shapes.rectangle.x>`, :prop:`tags <gma.shapes.rectangle.tags>`, :prop:`z <gma.shapes.rectangle.z>`, :prop:`type <gma.shapes.rectangle.type>`, :prop:`xOffset <gma.shapes.rectangle.xOffset>`, :prop:`left <gma.shapes.rectangle.left>`
+
+
+
+
+
+.. _gma.character.score:
+
+
+.. prop:: gma.character.score
+
+
+**score**
+           
+    Holds a score counter
+        
+    +------+--------+
+    | Type | Number |
+    +------+--------+
+
+
+
+
+
+
+Methods
+-------
+
+
+.. admonition:: Inherited from :api:`gma.moveable`
+
+	:metho:`findGround <gma.moveable.findGround>`, :metho:`updatePositions <gma.moveable.updatePositions>`, :metho:`getMovement <gma.moveable.getMovement>`, :metho:`kill <gma.moveable.kill>`, :metho:`getRotation <gma.moveable.getRotation>`, :metho:`animate <gma.moveable.animate>`
+
+.. admonition:: Inherited from :api:`gma.shapes.rectangle`
+
+	:metho:`setBottomLeft <gma.shapes.rectangle.setBottomLeft>`, :metho:`collided__deathtouch <gma.shapes.rectangle.collided__deathtouch>`, :metho:`setCentre <gma.shapes.rectangle.setCentre>`, :metho:`yOf <gma.shapes.rectangle.yOf>`, :metho:`setPointsAndEdges <gma.shapes.rectangle.setPointsAndEdges>`, :metho:`xOf <gma.shapes.rectangle.xOf>`, :metho:`toString <gma.shapes.rectangle.toString>`
+
+
+
+
+.. index:: pair: character; jump()
+
+.. _gma.character.jump:
+
+
+.. metho:: gma.character.jump
+
+
+**jump** (e)
+    | Makes character ready for jumping
+    | It will only set character to jumping if it's in the STILL state
+    | It will also set self.targetY to it's current y plus it's jumpHeigt
+    
+
+    
+
+
+
+    +----------------------------------------------------------------------------------+
+    | Parameters                                                                       |
+    +=======+================+=========================================================+
+    | e     | Event          | Keyboard event object                                   |
+    +-------+----------------+---------------------------------------------------------+
+
+
+
+
+
+.. index:: pair: character; move()
+
+.. _gma.character.move:
+
+
+.. metho:: gma.character.move
+
+
+**move** (direction, e)
+    Changes character's horizontal state
+    
+
+    
+
+
+
+    +------------------------------------------------------------------------------------------------------+
+    | Parameters                                                                                           |
+    +===========+=====================+====================================================================+
+    | direction | :api:`gma.constant` | gma.constant representing whether character is going left or right |
+    +-----------+---------------------+--------------------------------------------------------------------+
+    | e         | Event               | Keyboard event object                                              |
+    +-----------+---------------------+--------------------------------------------------------------------+
+
+
+
+
+
+.. index:: pair: character; collided()
+
+.. _gma.character.collided:
+
+
+.. metho:: gma.character.collided
+
+
+**collided** (where, focus, focusSide, focusVector)
+    | Collided function for character
+    | Determines if we hit a collectable and what to do with it
+    
+
+    **Overrides** :metho:`gma.shapes.rectangle.collided <gma.shapes.rectangle.collided>`
+    
+
+
+
+    +-------------------------------------------------------------------------------------+
+    | Parameters                                                                          |
+    +=============+=====================+=================================================+
+    | where       | :api:`gma.constant` | Side of this object that was collided with      |
+    +-------------+---------------------+-------------------------------------------------+
+    | focus       | object              | Thing we collided with                          |
+    +-------------+---------------------+-------------------------------------------------+
+    | focusSide   | :api:`gma.constant` | Side of the focus object that was collided with |
+    +-------------+---------------------+-------------------------------------------------+
+    | focusVector | [x,y]               | Amount focus is trying to move                  |
+    +-------------+---------------------+-------------------------------------------------+
+
+
+
+
+
+.. index:: pair: character; collided__pickupCollectable()
+
+.. _gma.character.collided__pickupCollectable:
+
+
+.. metho:: gma.character.collided__pickupCollectable
+
+
+**collided__pickupCollectable** (where, focus, focusSide, focusVector)
+    Collision function for hitting a collectable
+    
+
+    
+
+
+
+    +-------------------------------------------------------------------------------------+
+    | Parameters                                                                          |
+    +=============+=====================+=================================================+
+    | where       | :api:`gma.constant` | Side of this object that was collided with      |
+    +-------------+---------------------+-------------------------------------------------+
+    | focus       | object              | Thing we collided with                          |
+    +-------------+---------------------+-------------------------------------------------+
+    | focusSide   | :api:`gma.constant` | Side of the focus object that was collided with |
+    +-------------+---------------------+-------------------------------------------------+
+    | focusVector | [x,y]               | Amount focus is trying to move                  |
+    +-------------+---------------------+-------------------------------------------------+
+
+
+
+
+

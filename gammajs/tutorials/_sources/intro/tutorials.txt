@@ -1,0 +1,22 @@
+.. _tutorials:
+
+Making your first game
+======================
+
+The following tutorials will show you how to make a game step-by-step.
+
+.. toctree::
+   :maxdepth: 1
+   
+   /tutorials/gettingStarted
+   /tutorials/platforms
+   /tutorials/character
+   /tutorials/moving
+   /tutorials/enemies
+   /tutorials/camera
+   /tutorials/lights
+   /tutorials/textures
+   /tutorials/collada
+   /tutorials/extraLevels
+   /tutorials/hud
+   /tutorials/polish
