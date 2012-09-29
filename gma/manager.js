@@ -564,7 +564,7 @@ require.def('gma/manager',
      * @param cemetry {List} List to add dead entities to if they have the reincarnate tag
     */
     self.removeDead = self.removeDead || function(entities, cemetry) {
-        index = 0
+        var index = 0
         var entity;
         while (index < entities.length) {
             entity = entities[index];
