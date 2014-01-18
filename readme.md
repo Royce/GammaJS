@@ -2,9 +2,9 @@
 
 GammaJS is a new JavaScript library which can be used to create 2.5D platform games for a web browser using the power of HTML, JavaScript, CSS and WebGL
 
-- [Setup/Download notes](http://gammajs.org/intro/install.html)
-- [A tutorial to get started](http://gammajs.org/intro/tutorials.html)
-- [Extensive Documentation](http://gammajs.org/topics/index.html) + [API](http://gammajs.org/api/docs/gma.html)
+- [Setup/Download notes](http://gamma.delfick.com/intro/install.html)
+- [A tutorial to get started](http://gamma.delfick.com/intro/tutorials.html)
+- [Extensive Documentation](http://gamma.delfick.com/topics/index.html) + [API](http://gamma.delfick.com/api/docs/gma.html)
 
 ## Credits, Copyright and Licence
 
