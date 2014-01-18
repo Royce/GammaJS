@@ -65,7 +65,7 @@ def moreContext(app, pagename, templatename, context, doctree):
             pagename.startswith("topics/")
             or pagename.startswith("advanced/"))
         , ('API', p('/api/docs/gma.html'), pagename.startswith("api/docs/gma"))
-        , ('Examples/Tests', 'http://example.gammajs.org', pagename == '~')
+        , ('Examples/Tests', 'http://example.gamma.delfick.com', pagename == '~')
         , ('Download', p('/intro/install.html'), pagename == 'intro/install')
     ]
 
